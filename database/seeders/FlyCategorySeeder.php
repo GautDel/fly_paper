@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class FlyCategorySeeder extends Seeder
 {
@@ -20,53 +21,43 @@ class FlyCategorySeeder extends Seeder
 
             ],
             [
-                'category' => 'Dry Flies',
+                'category' => 'Wet Flies',
                 'created_at' => date("Y-m-d H:i:s"),
                 'updated_at' => date("Y-m-d H:i:s")
 
             ],
             [
-                'category' => 'Dry Flies',
+                'category' => 'Nymphs',
                 'created_at' => date("Y-m-d H:i:s"),
                 'updated_at' => date("Y-m-d H:i:s")
 
             ],
             [
-                'category' => 'Dry Flies',
+                'category' => 'Streamers',
                 'created_at' => date("Y-m-d H:i:s"),
                 'updated_at' => date("Y-m-d H:i:s")
 
             ],
             [
-                'category' => 'Dry Flies',
+                'category' => 'Scuds',
                 'created_at' => date("Y-m-d H:i:s"),
                 'updated_at' => date("Y-m-d H:i:s")
 
             ],
             [
-                'category' => 'Dry Flies',
+                'category' => 'Eggs',
                 'created_at' => date("Y-m-d H:i:s"),
                 'updated_at' => date("Y-m-d H:i:s")
 
             ],
             [
-                'category' => 'Dry Flies',
-                'created_at' => date("Y-m-d H:i:s"),
-                'updated_at' => date("Y-m-d H:i:s")
-
-            ],
-            [
-                'category' => 'Dry Flies',
-                'created_at' => date("Y-m-d H:i:s"),
-                'updated_at' => date("Y-m-d H:i:s")
-
-            ],
-            [
-                'category' => 'Dry Flies',
+                'category' => 'Saltwater Flies',
                 'created_at' => date("Y-m-d H:i:s"),
                 'updated_at' => date("Y-m-d H:i:s")
 
             ],
         ];
+
+        DB::table('fly_categories')->insert($data);
     }
 }

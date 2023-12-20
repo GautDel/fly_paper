@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FlyController;
+use App\Http\Controllers\WikiController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,5 +18,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('home');
 });
+
+Route::get('/discussions', [WikiController::class, 'render']);
+Route::get('/wiki', [WikiController::class, 'render']);
+Route::get('/market', [WikiController::class, 'render']);
+Route::get('/account', [WikiController::class, 'render']);
 
 Route::get('/fly/{id}', [FlyController::class, 'render']);
