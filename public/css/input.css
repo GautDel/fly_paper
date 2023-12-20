@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: "Fira Code", monospace;
+    font-weight: 300;
+    color: #464646;
+  }
+}
+
+.bg-newspaper {
+    background-color: #F5F1F0;
+}
+
+.text-newspaper {
+    color: #F5F1F0;
+}
+
+.hover-text {
+    transition: all 0.7s;
+}
+
+.hover-text:hover {
+    color: #1e3a8a;
+    border-color: #1e3a8a;
+}
+
+.hover-bg {
+    transition: background-color 0.7s;
+}
+
+.hover-bg:hover {
+    background-color: #1e3a8a;
+}
+
+.hover-border {
+    transition: border-color  0.7s;
+}
+
+.hover-border:hover {
+    border-color: #1e3a8a;
+}
+
+.hover-color {
+    transition: filter 0.7s;
+}
+
+.hover-color:hover {
+    filter: grayscale(0);
+}
+
+.caps {
+    text-transform: capitalize;
+}

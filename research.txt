@@ -1,0 +1,13 @@
+Every time you show a joke, store it in your database as "shown".
+Store a value in your database for the last day you selected a joke.
+Write a function that pulls that date from the database and stores it in memory.
+Whenever you render the page, check if the current date is different from
+the saved "last time I selected a joke" date. If so, pull a new joke from the
+database which isn't saved as "shown", update its metadata to indicate that it's
+been shown, and present that joke. Update your cache with today's date and the
+joke you want to show there are lots of ways to do it. You could write a script
+to update the metadata for each joke in your database with a "display date" that
+goes up by 1 for each joke, then just pass the current date into your request for
+the joke to look it up by date. that would be another way
+
+-----------------------------------
