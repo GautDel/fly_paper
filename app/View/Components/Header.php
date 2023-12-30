@@ -2,15 +2,15 @@
 
 namespace App\View\Components;
 
+use App\Models\User;
 use Closure;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\Component;
 
 class Header extends Component
 {
-    /**
-     * Create a new component instance.
-     */
+
     public function __construct()
     {
         //
@@ -21,6 +21,12 @@ class Header extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.header');
+        if (Auth::check()) {
+
+            $user = Auth::user();
+            return view('components.header',['username' => $user->name]);
+        }
+
+            return view('components.header');
     }
 }

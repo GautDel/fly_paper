@@ -8,29 +8,29 @@
                          border-r-2 p-3 grow border-neutral-700
                        ">NEWS</li>
         </a>
-        <a href="discussions" class="w-full">
-            <li class="{{Request::path() == 'discussions' ?
+        <a href="/discussions" class="w-full">
+            <li class="{{str_contains(Request::path(), 'discussions') ?
                         'bg-neutral-700 text-newspaper hover-bg' :
                         'hover-text'}}
                          border-r-2 p-3 grow border-neutral-700
                        ">DISCUSSIONS</li>
         </a>
         <a href="/wiki" class="w-full">
-            <li class="{{Request::path() == 'wiki' ?
+            <li class="{{str_contains(Request::path(), 'wiki') ?
                         'bg-neutral-700 text-newspaper hover-bg' :
                         'hover-text'}}
                          border-r-2 p-3 grow border-neutral-700
                        ">WIKI</li>
         </a>
         <a href="/market" class="w-full">
-            <li class="{{Request::path() == 'market' ?
+            <li class="{{str_contains(Request::path(), 'market') ?
                         'bg-neutral-700 text-newspaper hover-bg' :
                         'hover-text'}}
                          border-r-2 p-3 grow border-neutral-700
                        ">MARKET</li>
         </a>
         <a href="/account" class="w-full">
-            <li class="{{Request::path() == 'account' ?
+            <li class="{{str_contains(Request::path(), 'account') ?
                         'bg-neutral-700 text-newspaper hover-bg' :
                         'hover-text'}}
                        grow p-3

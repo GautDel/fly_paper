@@ -14,10 +14,13 @@ class DatabaseSeeder extends Seeder
     {
 
         $this->call([
+            UserSeeder::class,
             OneLinerSeeder::class,
             JokeSeeder::class,
             FlySeeder::class,
             FlyCategorySeeder::class,
+            FlyFlyCategorySeeder::class,
+            FlyCommentsSeeder::class,
         ]);
     }
 }

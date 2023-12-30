@@ -15,43 +15,43 @@ class FlyCategorySeeder extends Seeder
     {
         $data = [
             [
-                'category' => 'Dry Flies',
+                'name' => 'Dry Flies',
                 'created_at' => date("Y-m-d H:i:s"),
                 'updated_at' => date("Y-m-d H:i:s")
 
             ],
             [
-                'category' => 'Wet Flies',
+                'name' => 'Wet Flies',
                 'created_at' => date("Y-m-d H:i:s"),
                 'updated_at' => date("Y-m-d H:i:s")
 
             ],
             [
-                'category' => 'Nymphs',
+                'name' => 'Nymphs',
                 'created_at' => date("Y-m-d H:i:s"),
                 'updated_at' => date("Y-m-d H:i:s")
 
             ],
             [
-                'category' => 'Streamers',
+                'name' => 'Streamers',
                 'created_at' => date("Y-m-d H:i:s"),
                 'updated_at' => date("Y-m-d H:i:s")
 
             ],
             [
-                'category' => 'Scuds',
+                'name' => 'Scuds',
                 'created_at' => date("Y-m-d H:i:s"),
                 'updated_at' => date("Y-m-d H:i:s")
 
             ],
             [
-                'category' => 'Eggs',
+                'name' => 'Eggs',
                 'created_at' => date("Y-m-d H:i:s"),
                 'updated_at' => date("Y-m-d H:i:s")
 
             ],
             [
-                'category' => 'Saltwater Flies',
+                'name' => 'Saltwater Flies',
                 'created_at' => date("Y-m-d H:i:s"),
                 'updated_at' => date("Y-m-d H:i:s")
 

@@ -5,12 +5,11 @@
 ])
 
 <header class="flex border-b-2 border-neutral-700">
-    <div class="hidden border-r-2 border-neutral-700 px-3 py-1 font-bold
-                text-blue-900 justify-center items-center min-w-fit
-                md:flex">
-    <h1 class="md:text-lg">{{$brand}}</h1>
-    </div>
-
+    <a href="/" class="hidden border-r-2 border-neutral-700 px-3 py-1 font-bold
+                    text-blue-900 justify-center items-center min-w-fit
+                    md:flex">
+            <h1 class="md:text-lg">{{$brand}}</h1>
+    </a>
     <div class="text-center py-2 px-3 border-r-2 border-neutral-700
                 md:px-10 grow">
         <p class="text-xs font-normal
@@ -25,6 +24,7 @@
 
     <div class="flex flex-col items-center grow justify-center
                 md:flex-row md:grow-0 md:w-3/12">
+
         @guest
             <a href="{{route('register')}}" class="w-full h-full">
                 <button class="w-full h-full hover-bg bg-neutral-700 text-newspaper
@@ -35,11 +35,23 @@
                                font-semibold md:box-content md:px-1">LOGIN</button>
             </a>
         @endguest
+
         @auth
-            <form method="POST" action="{{route('logout')}}">
-                @csrf
-                <button>LOGOUT</button>
-            </form>
+            <div class="flex flex-col w-full text-center">
+
+                <h1 class="px-2 text-blue-900 font-semibold text-sm">{{$username}}</h1>
+
+                <form method="POST" action="{{route('logout')}}">
+                    @csrf
+                    <button class="font-normal text-sm">LOGOUT</button>
+                </form>
+            </div>
+
+                <a href="{{route('login')}}" class="w-full h-full">
+                    <button class="w-full h-full hover-bg text-newspaper
+                                   bg-neutral-700 font-semibold py-2
+                                   md:box-content md:px-1 md:py-0">JOURNAL</button>
+                </a>
         @endauth
 
     </div>

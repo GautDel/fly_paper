@@ -10,9 +10,10 @@
     <x-home.discuss-card />
     <x-home.discuss-card />
 
-        <button class="bg-neutral-700 text-newspaper w-full font-semibold
-                       py-3 hover-bg mt-10 text-xl
-                       md:py-4 md:w-1/4">SEE ALL</button>
+        <a href="/discussions">
+            <button class="bg-neutral-700 text-newspaper w-full font-semibold
+                           py-3 hover-bg mt-10 text-xl
+                           md:py-4 md:w-1/4">SEE ALL</button>
         </a>
 </section>
 

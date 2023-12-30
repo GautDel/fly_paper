@@ -68,6 +68,11 @@
                           border-neutral-700 p-1 hover-text">REGISTER</a>
             </p>
 
+            <p>
+                <a href="{{route('password.request')}}" class="cursor-pointer
+                          font-normal hover-text">
+               <p class="mt-4">Forgot your password?</p></a>
+            </p>
         </div>
 
     </body>

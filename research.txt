@@ -11,3 +11,18 @@ goes up by 1 for each joke, then just pass the current date into your request fo
 the joke to look it up by date. that would be another way
 
 -----------------------------------
+
+ONE TO MANY - FLY -> COMMENTS
+
+- comment:
+    - user_id
+    - comment id
+    - comment
+    - time of comment
+
+-----------------------------------
+
+TO DO 31/12
+- Break up fly page into components
+
+- Start work on discussions tab - get DB relations modeled out

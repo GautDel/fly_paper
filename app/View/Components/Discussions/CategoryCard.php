@@ -1,26 +1,26 @@
 <?php
 
-namespace App\View\Components\Home;
+namespace App\View\Components\Discussions;
 
-use App\Models\Fly;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class FlyCard extends Component
+class CategoryCard extends Component
 {
     /**
      * Create a new component instance.
      */
-    private $fly;
-
     public function __construct()
     {
-        $this->fly = Fly::findOne(4);
+        //
     }
 
+    /**
+     * Get the view / contents that represent the component.
+     */
     public function render(): View|Closure|string
     {
-        return view('components.home.fly-card',['fly' => $this->fly]);
+        return view('components.discussions.category-card');
     }
 }

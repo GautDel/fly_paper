@@ -2,22 +2,29 @@
 
     <div class="flex items-center justify-between mx-4 mt-4
                 md:w-8/12 md:mx-auto">
+
         <p class="text-sm ">
-            <a>
+
+            <a href="/wiki/flies">
                 <span class="cursor-pointer hover-text">Flies</span>
             </a>
+
             <span> > </span>
-            <a>
-                <span class="cursor-pointer hover-text">Dry Flies</span>
+
+            <a href="/wiki/flies/{{$fly->categories[0]->id}}">
+                <span class="cursor-pointer hover-text">{{$fly->categories[0]->name}}</span>
             </a>
         </p>
-        <a>
+
+        <a href="/wiki">
             <p class="text-sm border border-neutral-700 border-dashed
                       cursor-pointer px-1 hover-text">WIKI</p>
         </a>
     </div>
+
     <div class="mt-6 mb-10
                 md:w-8/12 md:mx-auto md:border-2 md:border-neutral-700">
+
         <h1 class="bg-neutral-700 text-newspaper font-semibold text-center
                    py-2 text-2xl mb-10">
             {{Str::upper($fly->name)}}
@@ -31,22 +38,30 @@
         </div>
 
         <div class=" flex w-full px-4 mb-8 md:mt-10 ">
+
             <p class="font-semibold text-sm mr-2">DESCRIPTION:</p>
+
             <span class="text-sm">{{$fly->description}}</span>
         </div>
 
         <div class=" flex w-full px-4 mb-8">
+
             <p class="font-semibold whitespace-nowrap text-sm mr-2">FISH SPECIES:</p>
+
             <span class="text-sm">{{$fly->fish_species}}</span>
         </div>
 
         <div class=" flex w-full px-4 mb-8">
+
             <p class="font-semibold text-sm mr-2">TYING:</p>
+
             <span class="text-sm">{{$fly->tying}}</span>
         </div>
 
         <div class=" flex w-full px-4 mb-8">
+
             <p class="font-semibold text-sm mr-2">TACTICS:</p>
+
             <span class="text-sm">{{$fly->tactics}}</span>
         </div>
 
@@ -56,36 +71,116 @@
 
             <p class="font-semibold text-xl py-4">COMMENTS</p>
 
-            <div class="flex flex-col mb-8
-                        md:px-4">
-                <span class="self-end text-xs pb-1">12 hours ago</span>
+
+            @forelse($comments as $comment)
+            <div x-data="{ open: false }" class="flex flex-col mb-8 md:px-4">
+
+
+                <span class="self-end text-xs pb-1">{{$comment->updated_at}}</span>
+
                 <div class="flex mb-4">
+
                     <p class="font-semibold text-blue-900 mr-2
-                              text-sm">gramps64:</p>
-                    <p class="text-sm">In enim tortor, vestibulum at dui a, congue lobortis nunc. Vestibulum a laoreet velit. Nullam aliquam ante neque, in eleifend risus consectetur sed. Ut at tincidunt nisi, vitae sollicitudin quam. Suspendisse ac dolor vel metus pulvinar gravida.</p>
+                              text-sm">{{$comment->user->name}}:</p>
+
+                    <p x-show="!open" class="text-sm"> {{$comment->comment}}</p>
+
+                @auth
+                @if(Auth::user()->id === $comment->user_id)
+                    <form x-show="open" method="POST" action="/flycomment/update"
+                        class="flex flex-col w-full items-end">
+                            @csrf
+                            @method('PUT')
+
+                            <input type="hidden" value="{{$fly->id}}" name="fly_id"/>
+                            <input type="hidden" value="{{$comment->id}}" name="id"/>
+
+                            <textarea rows="2" name="comment"
+                                    class="w-full bg-newspaper text-blue-900
+                                        border-dashed border border-neutral-700
+                                        text-sm p-1 focus:border-solid
+                                        outline-none">{{$comment->comment}}</textarea>
+                            <button x-show="open"
+                                    class="text-xs font-semibold p-1 mt-1
+                                        hover-bg bg-neutral-700 text-newspaper">EDIT</button>
+                        </form>
+
+                @endif
+                @endauth
+
                 </div>
+
+                @auth
+                @if(Auth::user()->id === $comment->user_id)
+                    <div  class="flex justify-end">
+
+                            <button x-show="!open" x-on:click="open = ! open" class="text-xs font-semibold p-1 mr-2
+                                        border-dashed border hover-text
+                                        border-neutral-700">EDIT</button>
+
+                        <form x-show="!open" method="POST" action="/flycomment/delete">
+                            @csrf
+                            @method('DELETE')
+
+                            <input type="hidden" value="{{$fly->id}}" name="fly_id"/>
+                            <input type="hidden" value="{{$comment->id}}" name="id"/>
+
+                            <button class="bg-red-900 text-newspaper border
+                                        text-xs font-semibold p-1
+                                        border-red-900">DELETE</button>
+                        </form>
+
+                    </div>
+                @endif
+                @endauth
+
             </div>
 
-            <div class="flex flex-col mb-8
-                        md:px-4">
-                <span class="self-end text-xs pb-1">12 hours ago</span>
-                <div class="flex mb-4">
-                    <p class="font-semibold text-blue-900 mr-2
-                              text-sm">gramps64:</p>
-                    <p class="text-sm">In enim tortor, vestibulum at dui a, congue lobortis nunc. Vestibulum a laoreet velit. Nullam aliquam ante neque, in eleifend risus consectetur sed. Ut at tincidunt nisi, vitae sollicitudin quam. Suspendisse ac dolor vel metus pulvinar gravida.</p>
-                </div>
-            </div>
+            @empty
+                <p>Looks like no one has commented on this fly yet... why don't you?</p>
+            @endforelse
 
-            <form class="w-full flex flex-col
-                         md:px-4">
-                <textarea class="w-full border border-neutral-700 border-dashed
-                                 bg-newspaper px-4 py-2 text-sm"
-                          rows="4"
-                          placeholder="Do to others as you would have others do to you..."></textarea>
+            @auth
+            <form method="POST" action="/flycomment/create"
+                  class="w-full flex flex-col md:px-4">
+
+                @csrf
+
+                <input type="hidden" value="{{$fly->id}}" name="fly_id"/>
+
+                <input type="hidden" value="{{Auth::id()}}" name="user_id"/>
+
+                <div x-data="{ count: 0 }"
+                    x-init="count = $refs.countme.value.length"
+                    class="flex flex-col py-2">
+
+                    <textarea rows="4" name="comment" maxlength="250"
+                            id="text"
+                            x-ref="countme"
+                            x-on:keyup="count = $refs.countme.value.length"
+                            placeholder="Do to others as you would have others do to you..."
+                            class="border-dashed border bg-newspaper
+                                border-neutral-700 text-sm p-2
+                                text-blue-900
+                                focus:outline-none
+                                focus:border-neutral-900
+                                focus:border-solid"></textarea>
+
+                    <div class="text-sm mt-1">
+
+                        <span x-html="count"></span> / <span x-html="$refs.countme.maxLength"></span>
+                    </div>
+                </div>
+
                 <button type="submit"
                         class="bg-neutral-700 text-newspaper self-end px-2 py-1
                                font-semibold mt-3 mb-4 hover-bg">COMMENT</button>
+
+                @error('comment')
+                    <span class="text-red-800 font-normal mt-1 text-sm">{{$message}}</span>
+                @enderror
             </form>
+            @endauth
         </div>
     </div>
 </x-layout>

@@ -96,7 +96,7 @@
             </form>
 
             <p>Already have an account?
-                <a href="signin" class="cursor-pointer border border-dashed
+                <a href="{{route('login')}}" class="cursor-pointer border border-dashed
                           border-neutral-700 p-1 hover-text">LOGIN</a>
             </p>
 

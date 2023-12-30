@@ -35,14 +35,14 @@
         <div class="flex flex-row justify-evenly font-semibold mx-4 mb-10
                     md:mx-10">
 
-            <a href="fly/{{$fly->id}}" class="w-full mr-4">
+            <a href="/wiki/fly/{{$fly->id}}" class="w-full mr-4">
 
                 <button class="border border-dashed border-neutral-700 w-full
                            py-3 hover-text
                            md:py-4">READ MORE</button>
             </a>
 
-            <a class="w-full">
+            <a href="/market/fly/{{$fly->id}}" class="w-full">
 
                 <button class="border w-full bg-neutral-700 text-newspaper
                                py-3 hover-bg
