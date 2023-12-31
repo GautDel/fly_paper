@@ -50,4 +50,8 @@ class User extends Authenticatable
     public function flyComments(): HasMany {
         return $this->hasMany(FlyComment::class);
     }
+
+    public function forumPosts(): HasMany {
+        return $this->hasMany(ForumPost::class);
+    }
 }

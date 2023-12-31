@@ -183,7 +183,8 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        // 'Example' => App\Facades\Example::class,
+
+        'TimeAgo' => App\Http\Controllers\TimeAgo::class,
     ])->toArray(),
 
 ];

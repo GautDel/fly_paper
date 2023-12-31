@@ -1,5 +1,13 @@
 <x-layout>
-    <x-discussions.category-card/>
-    <x-discussions.category-card/>
-    <x-discussions.category-card/>
+
+    @foreach($sections as $section)
+
+        <x-discussions.category-card
+            :section="$section->section"
+            :slug="$section->slug"
+            :id="$section->id"
+            :posts="$section->posts"
+            />
+    @endforeach
+
 </x-layout>

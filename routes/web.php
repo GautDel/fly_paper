@@ -24,8 +24,8 @@ Route::get('/', function () {
 
 // DISCUSSION ROUTES
 Route::get('/discussions', [DiscussionsController::class, 'render']);
-Route::get('/discussions/{category}', [DiscussionsController::class, 'render']);
-Route::get('/discussions/{category}/{id}', [DiscussionsController::class, 'render']);
+Route::get('/discussions/{slug}', [DiscussionsController::class, 'getBySlug']);
+Route::get('/discussions/{section}/{slug}', [DiscussionsController::class, 'getPost']);
 
 // WIKI ROUTES
 Route::get('/wiki', [WikiController::class, 'render']);

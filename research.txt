@@ -1,4 +1,4 @@
-Every time you show a joke, store it in your database as "shown".
+very time you show a joke, store it in your database as "shown".
 Store a value in your database for the last day you selected a joke.
 Write a function that pulls that date from the database and stores it in memory.
 Whenever you render the page, check if the current date is different from
@@ -16,7 +16,8 @@ ONE TO MANY - FLY -> COMMENTS
 
 - comment:
     - user_id
-    - comment id
+    - fly_id
+    - comment_id
     - comment
     - time of comment
 
@@ -24,5 +25,34 @@ ONE TO MANY - FLY -> COMMENTS
 
 TO DO 31/12
 - Break up fly page into components
-
+- How to implement TinyMCE https://www.tiny.cloud/
 - Start work on discussions tab - get DB relations modeled out
+- Implement main discussion tab
+- Implement all forum categories
+- Implement individual posts
+
+----------------------------------
+
+FORUM RELATIONS
+
+- Forum category
+    - id
+    - name
+
+- Forum post
+    - id
+    - title
+    - body
+    - vote
+    - user_id (foreign key)
+    - category_id (foreign key)
+
+
+- Forum post comments
+    - id
+    - comment
+    - vote
+    - user_id (foreign key)
+    - post_id (foreign key)
+
+---------------------------------

@@ -21,6 +21,8 @@ class DatabaseSeeder extends Seeder
             FlyCategorySeeder::class,
             FlyFlyCategorySeeder::class,
             FlyCommentsSeeder::class,
+            ForumSectionSeeder::class,
+            ForumPostSeeder::class,
         ]);
     }
 }
