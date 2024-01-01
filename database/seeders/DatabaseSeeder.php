@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             FlyCommentsSeeder::class,
             ForumSectionSeeder::class,
             ForumPostSeeder::class,
+            ForumPostCommentSeeder::class,
         ]);
     }
 }

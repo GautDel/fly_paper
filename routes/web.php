@@ -24,8 +24,18 @@ Route::get('/', function () {
 
 // DISCUSSION ROUTES
 Route::get('/discussions', [DiscussionsController::class, 'render']);
+
+// DISCUSSION POST ROUTES
+Route::get('/discussions/create', [DiscussionsController::class, 'getCreatePostView'])->middleware('auth');
+Route::post('/discussions/create', [DiscussionsController::class, 'storePost'])->middleware('auth');
+
 Route::get('/discussions/{slug}', [DiscussionsController::class, 'getBySlug']);
 Route::get('/discussions/{section}/{slug}', [DiscussionsController::class, 'getPost']);
+
+// DISCUSSION COMMENT ROUTES
+Route::post('/discussions/postcomment/create', [DiscussionsController::class, 'storeComment'])->middleware('auth');
+Route::put('/discussions/postcomment/update', [DiscussionsController::class, 'updateComment'])->middleware('auth');
+Route::delete('/discussions/postcomment/delete', [DiscussionsController::class, 'destroyComment'])->middleware('auth');
 
 // WIKI ROUTES
 Route::get('/wiki', [WikiController::class, 'render']);

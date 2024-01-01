@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('forum_posts', function (Blueprint $table) {
+        Schema::create('forum_post_comments', function (Blueprint $table) {
             $table->id();
-            $table->string('title', 255);
-            $table->string('body', 1000);
-            $table->string('slug', 255);
+            $table->string('comment', 255);
             $table->integer('votes')->default(0);
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('forum_section_id')->constrained()->onDelete('cascade');
+            $table->foreignId('forum_post_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('forum_posts');
+        Schema::dropIfExists('forum_post_comments');
     }
 };

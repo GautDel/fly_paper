@@ -19,13 +19,14 @@ class FlyComment extends Model
         'user_id'
     ];
 
-    public function fly() {
+    public function fly()
+    {
 
         return $this->belongsTo(Fly::class);
     }
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
-
 }

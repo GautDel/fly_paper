@@ -21,7 +21,7 @@
         </p>
 
         @auth
-        <a href="/discussions/{{$slug}}/create">
+        <a href="/discussions/create">
             <p class="bg-neutral-700 text-newspaper font-semibold
                       cursor-pointer px-2 py-1 hover-bg">CREATE</p>
         </a>
@@ -31,8 +31,7 @@
 
 
         <div class="flex justify-between bg-neutral-700 text-newspaper px-4
-                    py-2 text-2xl font-semibold cursor-pointer hover-bg
-                    ">
+                    py-2 text-2xl font-semibold cursor-pointer hover-bg">
 
             <h2>{{Str::upper($section)}}</h2>
             <p> > </p>

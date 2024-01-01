@@ -24,12 +24,12 @@ ONE TO MANY - FLY -> COMMENTS
 -----------------------------------
 
 TO DO 31/12
-- Break up fly page into components
-- How to implement TinyMCE https://www.tiny.cloud/
-- Start work on discussions tab - get DB relations modeled out
-- Implement main discussion tab
-- Implement all forum categories
-- Implement individual posts
+- Implement post comments
+- Implement POST/PUT/DELETE section of discussions
+- Link front page "discussions" section to DB discussions
+- Link account page "discussions" section to DB discussions/comments
+- Do a tidy up of code
+- Add date of creation for post
 
 ----------------------------------
 
