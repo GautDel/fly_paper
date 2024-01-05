@@ -20,20 +20,118 @@
                 <h1 class="font-semibold text-2xl my-6">{{$post->title}}</h1>
 
                 <p class="text-sm pr-10">{{$post->body}}</p>
+                @auth
+                    @if(Auth::user()->id === $post->user_id)
+                        <div  class="flex justify-end">
+                            <form method="POST" action="/discussions/update">
+                                @csrf
+                                <input type="hidden" name="id" value="{{$post->id}}" />
+                                <button class="text-xs font-semibold p-1 mr-2
+                                            border-dashed border hover-text
+                                            border-neutral-700">EDIT</button>
+                            </form>
+
+                            <div x-data="{open: false}">
+                            <button @click="open = true" x-show="!open"
+                                class="bg-red-900 text-newspaper border
+                                    text-xs font-semibold p-1
+                                    border-red-900">DELETE</button>
+
+                            <form method="POST" action="/discussions/delete"
+                                x-show="open">
+                                @csrf
+                                @method('DELETE')
+
+                                <input type="hidden" value="{{$post->forumSection->slug}}" name="category" />
+                                <input type="hidden" value="{{$post->id}}" name="id"/>
+
+                                <button class="bg-red-900 text-newspaper border
+                                            text-xs font-semibold p-1
+                                            border-red-900">ARE YOU SURE?</button>
+                            </form>
+                            </div>
+                        </div>
+                    @endif
+                @endauth
             </div>
 
+            @auth
+            <div class="flex flex-col justify-start items-end">
+                @if(isset($post->likedByUser[0]))
+                    @if($post->likedByUser[0]->upvote == true)
+                    <button type="submit" class="text-blue-900 rotate-90 font-bold text-lg hover-text"> < </button>
+                    @else
+                    <form method="POST" action="/discussions/upvote">
+                        @csrf
+                        @method('PUT')
+                        <input type="hidden" name="slug" value="{{$post->slug}}" />
+                        <input type="hidden" name="category" value="{{$post->forumSection->slug}}" />
+                        <input type="hidden" name="user_id" value="{{Auth::user()->id}}" />
+                        <input type="hidden" name="upvote" value="true" />
+                        <input type="hidden" name="forum_post_id" value="{{$post->id}}" />
+                        <button type="submit" class="rotate-90 font-bold text-lg hover-text"> < </button>
+                    </form>
+                    @endif
+                @else
+                    <form method="POST" action="/discussions/upvote">
+                        @csrf
+                        @method('PUT')
+                        <input type="hidden" name="slug" value="{{$post->slug}}" />
+                        <input type="hidden" name="category" value="{{$post->forumSection->slug}}" />
+                        <input type="hidden" name="user_id" value="{{Auth::user()->id}}" />
+                        <input type="hidden" name="upvote" value="true" />
+                        <input type="hidden" name="forum_post_id" value="{{$post->id}}" />
+                        <button type="submit" class="rotate-90 font-bold text-lg hover-text"> < </button>
+                    </form>
+                @endif
+                <p class="font-semibold text-blue-900">{{$post->countVotes($post->id)}}</p>
+
+                @if(isset($post->likedByUser[0]))
+                    @if($post->likedByUser[0]->upvote == false)
+                    <button type="submit" class="text-blue-900 rotate-90 font-bold text-lg hover-text"> > </button>
+                    @else
+                    <form method="POST" action="/discussions/upvote">
+                        @csrf
+                        @method('PUT')
+                        <input type="hidden" name="slug" value="{{$post->slug}}" />
+                        <input type="hidden" name="category" value="{{$post->forumSection->slug}}" />
+                        <input type="hidden" name="user_id" value="{{Auth::user()->id}}" />
+                        <input type="hidden" name="upvote" value="false" />
+                        <input type="hidden" name="forum_post_id" value="{{$post->id}}" />
+                        <button type="submit" class="rotate-90 font-bold text-lg hover-text"> > </button>
+                    </form>
+                    @endif
+
+                    @else
+                    <form method="POST" action="/discussions/upvote">
+                        @csrf
+                        @method('PUT')
+                        <input type="hidden" name="slug" value="{{$post->slug}}" />
+                        <input type="hidden" name="category" value="{{$post->forumSection->slug}}" />
+                        <input type="hidden" name="user_id" value="{{Auth::user()->id}}" />
+                        <input type="hidden" name="upvote" value="false" />
+                        <input type="hidden" name="forum_post_id" value="{{$post->id}}" />
+                        <button type="submit" class="rotate-90 font-bold text-lg hover-text"> > </button>
+                    </form>
+                @endif
+            </div>
+            @endauth
+
+            @guest
             <div class="flex flex-col justify-start">
+                <a href="/login">
+                    <button type="submit" class="rotate-90 font-bold text-lg hover-text"> < </button>
+                </a>
 
-                <button class="rotate-90 font-bold text-lg hover-text">
-                    < </button>
+                    <p class="font-semibold text-blue-900">{{$post->countVotes($post->id)}}</p>
 
-                        <p class="font-semibold text-blue-900">{{$post->votes}}</p>
-
-                        <button class="rotate-90 font-bold text-lg hover-text"> > </button>
+                <a href="/login">
+                    <button type="submit" class="rotate-90 font-bold text-lg hover-text"> > </button>
+                </a>
             </div>
+            @endguest
 
         </div>
-
     </div>
 
     <div class="flex flex-col w-full mx-auto md:max-w-5xl pb-12">
@@ -55,7 +153,7 @@
 
         <input type="hidden" value="{{Auth::id()}}" name="user_id" />
         <input type="hidden" value="{{$post->slug}}" name="slug" />
-        <input type="hidden" value="{{$post->forumSection->section}}" name="category" />
+        <input type="hidden" value="{{$post->forumSection->slug}}" name="category" />
 
         <div x-data="{ count: 0 }" x-init="count = $refs.countme.value.length" class="flex flex-col py-2">
 

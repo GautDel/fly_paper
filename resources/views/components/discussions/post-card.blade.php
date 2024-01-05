@@ -12,7 +12,7 @@
                 -
                 <span>{{TimeAgo::getTime(strtotime($post->updated_at))}}</span>
                 -
-                <span>32 comments</span>
+                <span>{{count($post->forumPostComments)}} comments</span>
             </p>
 
         </div>
@@ -20,7 +20,7 @@
 
             <button class="rotate-90 font-bold text-lg hover-text"> < </button>
 
-                    <p class="font-semibold text-blue-900">{{$post->votes}}</p>
+                    <p class="font-semibold text-blue-900">{{$post->countVotes($post->id)}}</p>
 
             <button class="rotate-90 font-bold text-lg hover-text"> > </button>
         </div>

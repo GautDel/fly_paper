@@ -15,7 +15,6 @@ class ForumPostCommentSeeder extends Seeder
            $data = [
             [
                 'comment' => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ac quam a purus vulputate hendrerit. Suspendisse enim diam, viverra nec magna at, tempus hendrerit ipsum. Integer mollis, purus sed vulputate vehicula, mi velit lacinia risus, a pharetra.",
-                'votes' => 2,
                 'user_id' => 1,
                 'forum_post_id' => 1,
                 'created_at' => date("Y-m-d H:i:s"),
@@ -23,7 +22,6 @@ class ForumPostCommentSeeder extends Seeder
             ],
              [
                 'comment' => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ac quam a purus vulputate hendrerit. Suspendisse enim diam, viverra nec magna at, tempus hendrerit ipsum. Integer mollis, purus sed vulputate vehicula, mi velit lacinia risus, a pharetra.",
-                'votes' => 33,
                 'user_id' => 2,
                 'forum_post_id' => 1,
                 'created_at' => date("Y-m-d H:i:s"),
@@ -31,7 +29,6 @@ class ForumPostCommentSeeder extends Seeder
             ],
             [
                 'comment' => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ac quam a purus vulputate hendrerit. Suspendisse enim diam, viverra nec magna at, tempus hendrerit ipsum. Integer mollis, purus sed vulputate vehicula, mi velit lacinia risus, a pharetra.",
-                'votes' => 248,
                 'user_id' => 1,
                 'forum_post_id' => 1,
                 'created_at' => date("Y-m-d H:i:s"),
@@ -39,7 +36,6 @@ class ForumPostCommentSeeder extends Seeder
             ],
             [
                 'comment' => "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ac quam a purus vulputate hendrerit. Suspendisse enim diam, viverra nec magna at, tempus hendrerit ipsum. Integer mollis, purus sed vulputate vehicula, mi velit lacinia risus, a pharetra.",
-                'votes' => -1,
                 'user_id' => 1,
                 'forum_post_id' => 1,
                 'created_at' => date("Y-m-d H:i:s"),

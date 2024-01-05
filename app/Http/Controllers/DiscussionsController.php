@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Validator;
 use App\Models\ForumPost;
 use App\Models\ForumPostComment;
+use App\Models\ForumPostCommentVote;
+use App\Models\ForumPostVote;
 use App\Models\ForumSection;
 use Illuminate\Http\Request;
 
@@ -14,7 +16,14 @@ class DiscussionsController extends Controller
     public static function render() {
         $sections = ForumSection::findAll();
 
-        return view('discussions', ['sections' => $sections]);
+        if($sections === null) {
+
+            return view('errors.404');
+        }
+
+        return view('discussions', [
+            'sections' => $sections,
+        ]);
     }
 
     public static function getCreatePostView() {
@@ -23,10 +32,25 @@ class DiscussionsController extends Controller
         return view('createDiscussionPost', ['sections' => $sections]);
     }
 
+    public static function getUpdatePostView(Request $request) {
+
+        $post = ForumPost::find($request->id);
+        $sections = ForumSection::findAll();
+
+        return view('updateDiscussionPost',[
+            'post' => $post,
+            'sections' => $sections,
+        ]);
+    }
 
     public static function getBySlug(Request $request) {
 
         $section = ForumSection::findBySlug($request->segment(count($request->segments())));
+
+        if($section === null) {
+
+            return view('errors.404');
+        }
 
         return view('discussionSection', [
             'section' => $section->section,
@@ -39,15 +63,19 @@ class DiscussionsController extends Controller
 
         $post = ForumPost::findBySlug($request->segment(count($request->segments())));
 
+        if($post === null) {
+
+            return view('errors.404');
+        }
+
         return view('discussionPost', ['post' => $post]);
     }
 
-     public function storePost(Request $request) {
+    public function storePost(Request $request) {
 
         $validator = Validator::make($request->all(), [
             'title' => 'required|min:5|max:255',
             'body' => 'required|min:5|max:1000',
-            'slug' => 'required|min:5|max:255',
             'user_id' => 'required',
             'forum_section_id' => 'required'
         ]);
@@ -58,16 +86,59 @@ class DiscussionsController extends Controller
                         ->withInput();
         }
 
+
         ForumPost::create([
             'title' => $request->title,
             'body' => $request->body,
-            'slug' => $request->slug,
+            'slug' => Slug::create($request->title),
             'user_id' => $request->user_id,
             'forum_section_id' => $request->forum_section_id,
         ]);
 
-        return redirect("/discussions/create");
+        $category = ForumSection::find($request->forum_section_id);
+        $slug = Slug::create($request->title);
+
+        return redirect("/discussions/$category->slug/$slug");
     }
+
+    public static function destroyPost(Request $request) {
+
+        ForumPost::destroy($request->id);
+        return redirect("/discussions/$request->category")
+                ->with('success', 'Post was successfully deleted');
+    }
+
+    public static function updatePost(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|min:5|max:255',
+            'body' => 'required|min:5|max:1000',
+            'user_id' => 'required',
+            'forum_section_id' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect("/discussions/update")
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+        $post = ForumPost::find($request->id);
+
+        $post->update([
+            'title' => $request->title,
+            'body' => $request->body,
+            'slug' => Slug::create($request->title),
+            'user_id' => $request->user_id,
+            'forum_section_id' => $request->forum_section_id,
+        ]);
+
+        $category = ForumSection::find($request->forum_section_id);
+        $slug = Slug::create($request->title);
+
+        return redirect("/discussions/$category->slug/$slug");
+    }
+
+
 
 
     public function storeComment(Request $request) {
@@ -83,6 +154,7 @@ class DiscussionsController extends Controller
                         ->withInput();
         }
 
+        $post = ForumPost::find($request->id);
         ForumPostComment::create([
             'comment' => $request->comment,
             'forum_post_id' => $request->forum_post_id,
@@ -118,4 +190,33 @@ class DiscussionsController extends Controller
         return redirect("/discussions/$request->category/$request->slug#text");
     }
 
+    public static function upvotePost(Request $request) {
+
+        ForumPostVote::updateOrInsert([
+            'forum_post_id' => $request->forum_post_id,
+            'user_id' => $request->user_id
+        ],
+        [
+            'upvote' => filter_var($request->upvote, FILTER_VALIDATE_BOOLEAN),
+            'forum_post_id' => $request->forum_post_id,
+            'user_id' => $request->user_id
+        ]);
+
+        return redirect("/discussions/$request->category/$request->slug");
+    }
+
+    public static function upvoteComment(Request $request) {
+
+        ForumPostCommentVote::updateOrInsert([
+            'forum_post_comment_id' => $request->forum_post_comment_id,
+            'user_id' => $request->user_id
+        ],
+        [
+            'upvote' => filter_var($request->upvote, FILTER_VALIDATE_BOOLEAN),
+            'forum_post_comment_id' => $request->forum_post_comment_id,
+            'user_id' => $request->user_id
+        ]);
+
+        return redirect("/discussions/$request->category/$request->slug");
+    }
 }

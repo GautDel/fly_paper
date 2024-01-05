@@ -26,5 +26,9 @@ class ForumSection extends Model
     public function posts(): HasMany {
         return $this->hasMany(ForumPost::class);
     }
+
+    public function limitPosts(): HasMany {
+        return $this->hasMany(ForumPost::class)->limit(5);
+    }
 }
 

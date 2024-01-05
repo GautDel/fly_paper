@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
             ForumSectionSeeder::class,
             ForumPostSeeder::class,
             ForumPostCommentSeeder::class,
+            ForumPostVoteSeeder::class,
+            ForumCommentVoteSeeder::class,
         ]);
     }
 }

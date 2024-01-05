@@ -12,24 +12,13 @@ the joke to look it up by date. that would be another way
 
 -----------------------------------
 
-ONE TO MANY - FLY -> COMMENTS
-
-- comment:
-    - user_id
-    - fly_id
-    - comment_id
-    - comment
-    - time of comment
-
------------------------------------
-
-TO DO 31/12
-- Implement post comments
-- Implement POST/PUT/DELETE section of discussions
-- Link front page "discussions" section to DB discussions
-- Link account page "discussions" section to DB discussions/comments
-- Do a tidy up of code
-- Add date of creation for post
+TO DO
+------- Finish website by 21 January
+1 Restructure VOTES
+2 Do a tidy up of code
+2b Add char counter to text fields & make textarea component
+2b Make VOTES component
+3 Fix bug with update form error handling... sending back a 404...
 
 ----------------------------------
 
@@ -47,6 +36,10 @@ FORUM RELATIONS
     - user_id (foreign key)
     - category_id (foreign key)
 
+- Forum Post Votes
+    - id
+    - user_id
+    _ post_id
 
 - Forum post comments
     - id
@@ -55,4 +48,21 @@ FORUM RELATIONS
     - user_id (foreign key)
     - post_id (foreign key)
 
+- Forum post vote
+    - id
+    - forum_post_id
+    - user_id
+
 ---------------------------------
+
+ONE TO MANY - FLY -> COMMENTS
+
+- comment:
+    - user_id
+    - fly_id
+    - comment_id
+    - comment
+    - time of comment
+
+-----------------------------------
+

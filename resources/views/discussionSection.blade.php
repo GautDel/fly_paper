@@ -1,5 +1,13 @@
 <x-layout>
 
+@if(session()->has('success'))
+    <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 3000)"
+        class="absolute top-0 left-1/2 -translate-x-1/2 z-50 bg-green-900
+            text-newspaper font-semibold px-10 py-3">
+        <p>{{session('success')}}</p>
+    </div>
+@endif
+
 <div class="w-full border-b-2 border-neutral-700 pt-8 mb-10
             md:px-8
             xl:px-20">

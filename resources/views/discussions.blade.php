@@ -6,7 +6,7 @@
             :section="$section->section"
             :slug="$section->slug"
             :id="$section->id"
-            :posts="$section->posts"
+            :posts="$section->limitPosts"
             />
     @endforeach
 
