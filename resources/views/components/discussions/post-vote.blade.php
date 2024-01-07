@@ -1,3 +1,4 @@
+@auth
 <script>
     const token = document.head.querySelector('meta[name="csrf-token"]').content;
 
@@ -59,7 +60,6 @@
 </script>
 
 
-@auth
 <div class="flex flex-col justify-start items-end"
     x-data="{
         vote: vote(),
@@ -83,7 +83,7 @@
         <input type="hidden" x-init="vote.downFormData.slug = '{{$post->slug}}'"/>
         <input type="hidden" x-init="vote.downFormData.category = '{{$post->forumSection->slug}}'" />
         <input type="hidden" x-init="vote.downFormData.user_id = '{{Auth::user()->id}}'" />
-        <input type="hidden" x-init="vote.downFormData.upvote = 'testing'" />
+        <input type="hidden" x-init="vote.downFormData.upvote = {{false}}" />
         <input type="hidden" x-init="vote.downFormData.forum_post_id = '{{$post->id}}'" />
         <button type="submit" :class="downvoted == 1 ? 'text-blue-900' : 'text-neutral-700'" class="rotate-90 font-bold text-lg hover-text" @click="[upvoted = 0, downvoted = 1]"> > </button>
     </form>

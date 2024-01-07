@@ -203,9 +203,9 @@ class DiscussionsController extends Controller
         ]);
 
         $post = ForumPost::find($vote->first()->forum_post_id);
+
         return response()->json([
             'votes' => $post->countVotes($post->id),
-            'liked' => $post->likedByUser[0]->upvote,
         ], 200);
     }
 
