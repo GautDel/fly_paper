@@ -55,84 +55,10 @@
                 @endauth
             </div>
 
-            @auth
-            <div class="flex flex-col justify-start items-end">
-                @if(isset($post->likedByUser[0]))
-                    @if($post->likedByUser[0]->upvote == true)
-                    <button type="submit" class="text-blue-900 rotate-90 font-bold text-lg hover-text"> < </button>
-                    @else
-                    <form method="POST" action="/discussions/upvote">
-                        @csrf
-                        @method('PUT')
-                        <input type="hidden" name="slug" value="{{$post->slug}}" />
-                        <input type="hidden" name="category" value="{{$post->forumSection->slug}}" />
-                        <input type="hidden" name="user_id" value="{{Auth::user()->id}}" />
-                        <input type="hidden" name="upvote" value="true" />
-                        <input type="hidden" name="forum_post_id" value="{{$post->id}}" />
-                        <button type="submit" class="rotate-90 font-bold text-lg hover-text"> < </button>
-                    </form>
-                    @endif
-                @else
-                    <form method="POST" action="/discussions/upvote">
-                        @csrf
-                        @method('PUT')
-                        <input type="hidden" name="slug" value="{{$post->slug}}" />
-                        <input type="hidden" name="category" value="{{$post->forumSection->slug}}" />
-                        <input type="hidden" name="user_id" value="{{Auth::user()->id}}" />
-                        <input type="hidden" name="upvote" value="true" />
-                        <input type="hidden" name="forum_post_id" value="{{$post->id}}" />
-                        <button type="submit" class="rotate-90 font-bold text-lg hover-text"> < </button>
-                    </form>
-                @endif
-                <p class="font-semibold text-blue-900">{{$post->countVotes($post->id)}}</p>
+            <x-discussions.post-vote :post="$post"/>
 
-                @if(isset($post->likedByUser[0]))
-                    @if($post->likedByUser[0]->upvote == false)
-                    <button type="submit" class="text-blue-900 rotate-90 font-bold text-lg hover-text"> > </button>
-                    @else
-                    <form method="POST" action="/discussions/upvote">
-                        @csrf
-                        @method('PUT')
-                        <input type="hidden" name="slug" value="{{$post->slug}}" />
-                        <input type="hidden" name="category" value="{{$post->forumSection->slug}}" />
-                        <input type="hidden" name="user_id" value="{{Auth::user()->id}}" />
-                        <input type="hidden" name="upvote" value="false" />
-                        <input type="hidden" name="forum_post_id" value="{{$post->id}}" />
-                        <button type="submit" class="rotate-90 font-bold text-lg hover-text"> > </button>
-                    </form>
-                    @endif
-
-                    @else
-                    <form method="POST" action="/discussions/upvote">
-                        @csrf
-                        @method('PUT')
-                        <input type="hidden" name="slug" value="{{$post->slug}}" />
-                        <input type="hidden" name="category" value="{{$post->forumSection->slug}}" />
-                        <input type="hidden" name="user_id" value="{{Auth::user()->id}}" />
-                        <input type="hidden" name="upvote" value="false" />
-                        <input type="hidden" name="forum_post_id" value="{{$post->id}}" />
-                        <button type="submit" class="rotate-90 font-bold text-lg hover-text"> > </button>
-                    </form>
-                @endif
             </div>
-            @endauth
-
-            @guest
-            <div class="flex flex-col justify-start">
-                <a href="/login">
-                    <button type="submit" class="rotate-90 font-bold text-lg hover-text"> < </button>
-                </a>
-
-                    <p class="font-semibold text-blue-900">{{$post->countVotes($post->id)}}</p>
-
-                <a href="/login">
-                    <button type="submit" class="rotate-90 font-bold text-lg hover-text"> > </button>
-                </a>
-            </div>
-            @endguest
-
         </div>
-    </div>
 
     <div class="flex flex-col w-full mx-auto md:max-w-5xl pb-12">
         @forelse($post->forumPostComments as $comment)

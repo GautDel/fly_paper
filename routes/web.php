@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MarketController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\WikiController;
+use App\View\Components\Discussions\PostVote;
 use Illuminate\Support\Facades\Route;
 
 /*

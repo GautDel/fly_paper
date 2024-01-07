@@ -192,7 +192,7 @@ class DiscussionsController extends Controller
 
     public static function upvotePost(Request $request) {
 
-        ForumPostVote::updateOrInsert([
+        $vote = ForumPostVote::updateOrInsert([
             'forum_post_id' => $request->forum_post_id,
             'user_id' => $request->user_id
         ],
@@ -202,7 +202,11 @@ class DiscussionsController extends Controller
             'user_id' => $request->user_id
         ]);
 
-        return redirect("/discussions/$request->category/$request->slug");
+        $post = ForumPost::find($vote->first()->forum_post_id);
+        return response()->json([
+            'votes' => $post->countVotes($post->id),
+            'liked' => $post->likedByUser[0]->upvote,
+        ], 200);
     }
 
     public static function upvoteComment(Request $request) {

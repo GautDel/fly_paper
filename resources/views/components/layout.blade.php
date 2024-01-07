@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>The Daily Flyer</title>
 
@@ -14,10 +15,8 @@
         <!-- Styles/Tailwind -->
         <link rel="stylesheet" href="{{ asset('css/output.css') }}">
 
-        <!-- AlpineJS / TinyMCE -->
+        <!-- VITE -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-
     </head>
     <body class="antialiased h-screen w-screen pb-9 px-1 pt-2 bg-newspaper">
 
@@ -37,5 +36,7 @@
         </div>
 
         <x-footer date={{$date}}/>
+
+
     </body>
 </html>
