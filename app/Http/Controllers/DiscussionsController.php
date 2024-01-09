@@ -27,6 +27,7 @@ class DiscussionsController extends Controller
     }
 
     public static function getCreatePostView() {
+
         $sections = ForumSection::findAll();
 
         return view('createDiscussionPost', ['sections' => $sections]);
@@ -211,7 +212,7 @@ class DiscussionsController extends Controller
 
     public static function upvoteComment(Request $request) {
 
-        ForumPostCommentVote::updateOrInsert([
+        $vote = ForumPostCommentVote::updateOrInsert([
             'forum_post_comment_id' => $request->forum_post_comment_id,
             'user_id' => $request->user_id
         ],
@@ -221,6 +222,10 @@ class DiscussionsController extends Controller
             'user_id' => $request->user_id
         ]);
 
-        return redirect("/discussions/$request->category/$request->slug");
+        $comment = ForumPostComment::find($vote->first()->forum_post_comment_id);
+
+        return response()->json([
+            'votes' => $comment->countVotes($comment->id)
+        ], 200);
     }
 }

@@ -21,18 +21,19 @@
                 <h1 class="font-semibold text-2xl my-6">{{$post->title}}</h1>
 
                 <p class="text-sm pr-10">{{$post->body}}</p>
-                    <x-discussions.post-edit :post="$post" />
+
+                <x-discussions.post-edit :post="$post" />
             </div>
 
                 <x-discussions.post-vote :post="$post"/>
 
-            </div>
         </div>
+    </div>
 
     <div class="flex flex-col w-full mx-auto md:max-w-5xl pb-12">
 
-        @forelse($post->forumPostComments as $comment)
-            <x-discussions.post-comment :comment="$comment" />
+        @forelse($post->forumPostComments as $order=>$comment)
+            <x-discussions.post-comment :comment="$comment" :order="$order"  />
         @empty
             <p class="text-center font-normal text-sm my-10">Be the first to share your thoughts!</p>
         @endforelse

@@ -16,7 +16,10 @@
         <link rel="stylesheet" href="{{ asset('css/output.css') }}">
 
         <!-- VITE -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @vite([
+            'resources/css/app.css',
+            'resources/js/app.js',
+        ])
     </head>
     <body class="antialiased h-screen w-screen pb-9 px-1 pt-2 bg-newspaper">
 

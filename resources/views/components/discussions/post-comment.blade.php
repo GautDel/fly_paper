@@ -4,7 +4,7 @@
 
     <div class="self-end pb-1">
         <span class="text-xs">{{TimeAgo::getTime(strtotime($comment->updated_at))}}</span>
-        <span class="text-xs font-semibold">#1</span>
+        <span class="text-xs font-semibold">#{{$order + 1}}</span>
     </div>
 
     <div class="flex mb-4">
@@ -42,69 +42,7 @@
 
             @auth
             <div class="flex flex-row justify-start items-center w-fit px-2">
-                @if(isset($comment->likedByUser[0]))
-                    @if($comment->likedByUser[0]->upvote == true)
-                    <form>
-
-                        <button class="text-blue-900 rotate-90 font-bold text-sm cursor-pointer"> < </button>
-                    </form>
-                    @else
-                    <form method="POST" action="/discussions/postcomment/upvote">
-                        @csrf
-                        @method('PUT')
-                        <input type="hidden" name="slug" value="{{$comment->forumPost->slug}}" />
-                        <input type="hidden" name="category" value="{{$comment->forumPost->forumSection->slug}}" />
-                        <input type="hidden" name="user_id" value="{{Auth::user()->id}}" />
-                        <input type="hidden" name="upvote" value="true" />
-                        <input type="hidden" name="forum_post_comment_id" value="{{$comment->id}}" />
-                        <button type="submit" class="rotate-90 font-bold text-sm hover-text"> < </button>
-                    </form>
-                    @endif
-                @else
-                    <form method="POST" action="/discussions/postcomment/upvote">
-                        @csrf
-                        @method('PUT')
-                        <input type="hidden" name="slug" value="{{$comment->forumPost->slug}}" />
-                        <input type="hidden" name="category" value="{{$comment->forumPost->forumSection->slug}}" />
-                        <input type="hidden" name="user_id" value="{{Auth::user()->id}}" />
-                        <input type="hidden" name="upvote" value="true" />
-                        <input type="hidden" name="forum_post_comment_id" value="{{$comment->id}}" />
-                        <button type="submit" class="rotate-90 font-bold text-sm hover-text"> < </button>
-                    </form>
-                @endif
-                <p class="font-semibold text-blue-900 mx-2 text-xs">{{$comment->countVotes($comment->id)}}</p>
-
-                @if(isset($comment->likedByUser[0]))
-                    @if($comment->likedByUser[0]->upvote == false)
-                    <form>
-
-                        <button class="text-blue-900 rotate-90 font-bold text-sm cursor-pointer"> > </button>
-                    </form>
-                    @else
-                    <form method="POST" action="/discussions/postcomment/upvote">
-                        @csrf
-                        @method('PUT')
-                        <input type="hidden" name="slug" value="{{$comment->forumPost->slug}}" />
-                        <input type="hidden" name="category" value="{{$comment->forumPost->forumSection->slug}}" />
-                        <input type="hidden" name="user_id" value="{{Auth::user()->id}}" />
-                        <input type="hidden" name="upvote" value="false" />
-                        <input type="hidden" name="forum_post_comment_id" value="{{$comment->id}}" />
-                        <button type="submit" class="rotate-90 font-bold text-sm hover-text"> > </button>
-                    </form>
-                    @endif
-
-                    @else
-                    <form method="POST" action="/discussions/postcomment/upvote">
-                        @csrf
-                        @method('PUT')
-                        <input type="hidden" name="slug" value="{{$comment->forumPost->slug}}" />
-                        <input type="hidden" name="category" value="{{$comment->forumPost->forumSection->slug}}" />
-                        <input type="hidden" name="user_id" value="{{Auth::user()->id}}" />
-                        <input type="hidden" name="upvote" value="false" />
-                        <input type="hidden" name="forum_post_comment_id" value="{{$comment->id}}" />
-                        <button type="submit" class="rotate-90 font-bold text-sm hover-text"> > </button>
-                    </form>
-                @endif
+                <x-discussions.comment-vote :comment="$comment" />
             </div>
             @endauth
 
