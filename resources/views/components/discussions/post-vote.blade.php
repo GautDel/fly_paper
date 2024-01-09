@@ -21,6 +21,7 @@
 
     <p class="font-semibold text-blue-900" x-text="postVote.data"></p>
 
+
     <form @submit="postVote.down($event)">
         <input type="hidden" x-init="postVote.downFormData.slug = '{{$post->slug}}'"/>
         <input type="hidden" x-init="postVote.downFormData.category = '{{$post->forumSection->slug}}'" />
