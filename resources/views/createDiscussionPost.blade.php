@@ -1,7 +1,7 @@
 <x-layout>
-        <div class="mt-24 m-auto relative flex flex-col justify-center items-center
-                    2xl:w-9/12
-                    3xl:w-9/12">
+    <div class="mt-24 m-auto relative flex flex-col justify-center items-center
+            2xl:w-9/12
+            3xl:w-9/12">
 
             <h1 class="text-blue-900 font-bold text-3xl
                        mb-4">NEW DISCUSSION</h1>
@@ -15,13 +15,20 @@
 
                 <div class="flex flex-col mb-6">
                     <label class="font-semibold text-sm mb-1">TITLE</label>
-                    <input class="bg-newspaper border border-dashed p-1
+                <x-global.char-counter >
+                    <input type="text"
+                        class="bg-newspaper border border-dashed p-1
                             font-semibold
-                            border-neutral-500 outline-none text-blue-900
+                            border-neutral-700 outline-none text-blue-900
                             focus:border-solid"
-                           type="text"
+                        x-ref="countme"
+                        x-on:keyup="count = $refs.countme.value.length"
+                        maxlength="250"
                            name="title"
                            value="{{old('title')}}"/>
+
+                </x-global.char-counter>
+
 
                     @error('title')
                         <span class="text-red-800 font-normal mt-1">
@@ -54,13 +61,18 @@
 
                     <label class="font-semibold text-sm mb-1">BODY</label>
 
+                <x-global.char-counter >
                     <textarea class="bg-newspaper border border-dashed p-1
                                 border-neutral-500 outline-none text-sm
                                 text-blue-900
                                 focus:border-solid"
-                           rows="5"
-                           name="body"
+                        x-ref="countme"
+                        x-on:keyup="count = $refs.countme.value.length"
+                        rows="5"
+                        maxlength="1000"
+                        name="body"
                            ">{{old('body')}}</textarea>
+                </x-global.char-counter >
 
                     @error('body')
                         <span class="text-red-800 font-normal mt-1">

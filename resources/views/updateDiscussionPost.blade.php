@@ -17,13 +17,18 @@
 
                 <div class="flex flex-col mb-6">
                     <label class="font-semibold text-sm mb-1">TITLE</label>
-                    <input class="bg-newspaper border border-dashed p-1
+                    <x-global.char-counter>
+                        <input class="bg-newspaper border border-dashed p-1
                             font-semibold
                             border-neutral-500 outline-none text-blue-900
                             focus:border-solid"
-                           type="text"
-                           name="title"
-                           value="{{$post->title}}"/>
+                            maxlength="250"
+                            type="text"
+                            x-ref="countme"
+                            x-on:keyup="count = $refs.countme.value.length"
+                            name="title"
+                            value="{{$post->title}}"/>
+                    </x-global.char-counter>
 
                     @error('title')
                         <span class="text-red-800 font-normal mt-1">
@@ -56,13 +61,18 @@
 
                     <label class="font-semibold text-sm mb-1">BODY</label>
 
-                    <textarea class="bg-newspaper border border-dashed p-1
+                    <x-global.char-counter>
+                        <textarea maxlength="1000"
+                            class="bg-newspaper border border-dashed p-1
                                 border-neutral-500 outline-none text-sm
                                 text-blue-900
                                 focus:border-solid"
-                           rows="5"
-                           name="body">{{$post->body}}</textarea>
+                            rows="5"
+                            x-ref="countme"
+                            x-on:keyup="count = $refs.countme.value.length"
+                            name="body">{{$post->body}}</textarea>
 
+                    </x-global.char-counter>
                     @error('body')
                         <span class="text-red-800 font-normal mt-1">
                             {{$message}}

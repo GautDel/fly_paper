@@ -19,12 +19,16 @@
 
                     <input type="hidden" value="{{$fly->id}}" name="fly_id"/>
                     <input type="hidden" value="{{$comment->id}}" name="id"/>
-
-                    <textarea rows="2" name="comment"
+                    <x-global.char-counter>
+                        <textarea rows="2" name="comment"
+                            maxlength="250"
+                            x-ref="countme"
+                            x-on:keyup="count = $refs.countme.value.length"
                             class="w-full bg-newspaper text-blue-900
                                 border-dashed border border-neutral-700
                                 text-sm p-1 focus:border-solid
                                 outline-none">{{$comment->comment}}</textarea>
+                    </x-global.char-counter>
                     <button x-show="edit"
                         class="text-xs font-semibold px-2 py-1 mt-1
                                         hover-bg bg-neutral-700 text-newspaper">SAVE</button>

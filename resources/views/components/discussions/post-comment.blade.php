@@ -24,13 +24,17 @@
                 <input type="hidden" value="{{$comment->forumPost->forumSection->slug}}" name="category" />
                 <input type="hidden" value="{{$comment->id}}" name="id"/>
 
+                <x-global.char-counter >
+                    <textarea rows="2" name="comment" maxlength="250"
+                        x-ref="countme"
+                        x-on:keyup="count = $refs.countme.value.length"
+                        class="w-full bg-newspaper text-blue-900
+                            border-dashed border border-neutral-700
+                            text-sm p-1 focus:border-solid
+                            outline-none">{{$comment->comment}}</textarea>
 
-                <textarea rows="2" name="comment"
-                    class="w-full bg-newspaper text-blue-900
-                        border-dashed border border-neutral-700
-                        text-sm p-1 focus:border-solid
-                        outline-none">{{$comment->comment}}</textarea>
 
+                </x-global.char-counter>
                     <button x-show="edit"
                         class="text-xs font-semibold px-2 py-1 mt-1
                         hover-bg bg-neutral-700 text-newspaper">SAVE</button>
@@ -40,26 +44,9 @@
         @endauth
     </div>
 
-            @auth
             <div class="flex flex-row justify-start items-center w-fit px-2">
                 <x-discussions.comment-vote :comment="$comment" />
             </div>
-            @endauth
-
-            @guest
-            <div class="flex justify-start items-center">
-                <a href="/login">
-                    <button type="submit" class="rotate-90 font-bold text-sm hover-text"> < </button>
-                </a>
-
-                    <p class="font-semibold text-xs text-blue-900 mx-2">{{$comment->countVotes($comment->id)}}</p>
-
-                <a href="/login">
-                    <button type="submit" class="rotate-90 font-bold text-sm hover-text"> > </button>
-                </a>
-            </div>
-            @endguest
-
 
     @auth
         @if(Auth::user()->id === $comment->user_id)

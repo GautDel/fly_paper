@@ -14,12 +14,11 @@ the joke to look it up by date. that would be another way
 
 TO DO
 ------- Finish website by 21 January
-1 Restructure VOTES
-1 ADD FLY VOTES
 2 Do a tidy up of code
-2b Add char counter to text fields & make textarea component
-2b Make VOTES component
 3 Fix bug with update form error handling... sending back a 404...
+4 AJAX FOR WIKI SECTION
+5 Work on Journal section
+6 Add ability to upvote discussion from homepage
 
 ----------------------------------
 
