@@ -4,6 +4,7 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\DiscussionsController;
 use App\Http\Controllers\FlyController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\JournalController;
 use App\Http\Controllers\MarketController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\WikiController;
@@ -64,6 +65,9 @@ Route::get('/account', [AccountController::class, 'render'])->middleware('auth')
 Route::delete('/account/fly_comment/delete', [AccountController::class, 'destroyFlyComment'])->middleware('auth');
 Route::delete('/account/post_comment/delete', [AccountController::class, 'destroyPostComment'])->middleware('auth');
 
+
+// JORUNAL ROUTES
+Route::get('/journal', [JournalController::class, 'render'])->middleware('auth');
 
 // TEST ROUTE
 Route::get('/test', [TestController::class, 'render']);

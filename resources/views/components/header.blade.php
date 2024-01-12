@@ -47,7 +47,7 @@
                 </form>
             </div>
 
-                <a href="{{route('login')}}" class="w-full h-full">
+                <a href="/journal" class="w-full h-full">
                     <button class="w-full h-full hover-bg text-newspaper
                                    bg-neutral-700 font-semibold py-2
                                    md:box-content md:px-1 md:py-0">JOURNAL</button>

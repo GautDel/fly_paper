@@ -18,11 +18,7 @@
         </div>
         <div class="flex flex-col mr-4 justify-center">
 
-            <button class="rotate-90 font-bold text-lg hover-text"> < </button>
-
-                    <p class="font-semibold text-blue-900">{{$post->countVotes($post->id)}}</p>
-
-            <button class="rotate-90 font-bold text-lg hover-text"> > </button>
+                <x-discussions.post-vote :post="$post"/>
         </div>
     </div>
 </a>

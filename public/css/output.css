@@ -893,11 +893,6 @@ html {
   border-color: rgb(127 29 29 / var(--tw-border-opacity));
 }
 
-.border-s-neutral-700 {
-  --tw-border-opacity: 1;
-  border-inline-start-color: rgb(64 64 64 / var(--tw-border-opacity));
-}
-
 .bg-gray-700 {
   --tw-bg-opacity: 1;
   background-color: rgb(55 65 81 / var(--tw-bg-opacity));

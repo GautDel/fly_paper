@@ -18,7 +18,6 @@ TO DO
 3 Fix bug with update form error handling... sending back a 404...
 4 AJAX FOR WIKI SECTION
 5 Work on Journal section
-6 Add ability to upvote discussion from homepage
 
 ----------------------------------
 
