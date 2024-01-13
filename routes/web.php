@@ -66,8 +66,9 @@ Route::delete('/account/fly_comment/delete', [AccountController::class, 'destroy
 Route::delete('/account/post_comment/delete', [AccountController::class, 'destroyPostComment'])->middleware('auth');
 
 
-// JORUNAL ROUTES
+// JOURNAL ROUTES
 Route::get('/journal', [JournalController::class, 'render'])->middleware('auth');
+Route::post('/journal/notes', [JournalController::class, 'storeNote'])->middleware('auth');
 
 // TEST ROUTE
 Route::get('/test', [TestController::class, 'render']);

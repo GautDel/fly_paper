@@ -18,6 +18,42 @@ TO DO
 3 Fix bug with update form error handling... sending back a 404...
 4 AJAX FOR WIKI SECTION
 5 Work on Journal section
+5a Add Notes Migration/Seeder/Model
+5c Journal is all AJAX
+Add flash message when note is created
+Add note without refresh
+
+When clicked on Notes, show notes section
+when clicked on fish log, show log section
+Use Auth::user()->id instead of passing in via form
+
+
+----------------------------------
+JOURNAL RELATIONS
+
+- Note
+    - id
+    - title
+    - body
+    - date
+    - user_id (foreign key)
+
+- Fish log
+    - id
+    - fish
+    - weight
+    - length
+    - rod
+    - reel
+    - fly
+    - line
+    - tippet
+    - hook size
+    - location
+    - weather
+    - water_clarity
+    - time
+    - note
 
 ----------------------------------
 
