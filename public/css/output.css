@@ -582,6 +582,18 @@ html {
   top: 50%;
 }
 
+.bottom-8 {
+  bottom: 2rem;
+}
+
+.bottom-0 {
+  bottom: 0px;
+}
+
+.bottom-4 {
+  bottom: 1rem;
+}
+
 .z-50 {
   z-index: 50;
 }
@@ -789,6 +801,10 @@ html {
   height: 1.25rem;
 }
 
+.min-h-screen {
+  min-height: 100vh;
+}
+
 .w-1\/2 {
   width: 50%;
 }
@@ -931,12 +947,20 @@ html {
   justify-items: center;
 }
 
+.place-self-end {
+  place-self: end;
+}
+
 .self-end {
   align-self: flex-end;
 }
 
 .self-center {
   align-self: center;
+}
+
+.justify-self-end {
+  justify-self: end;
 }
 
 .overflow-x-hidden {
@@ -1184,6 +1208,14 @@ html {
   padding-bottom: 2.5rem;
 }
 
+.pb-16 {
+  padding-bottom: 4rem;
+}
+
+.pb-24 {
+  padding-bottom: 6rem;
+}
+
 .text-center {
   text-align: center;
 }
@@ -1238,6 +1270,11 @@ html {
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
+}
+
+.text-5xl {
+  font-size: 3rem;
+  line-height: 1;
 }
 
 .font-bold {
@@ -1754,6 +1791,10 @@ html {
 
   .lg\:w-3\/4 {
     width: 75%;
+  }
+
+  .lg\:w-7\/12 {
+    width: 58.333333%;
   }
 
   .lg\:border-2 {

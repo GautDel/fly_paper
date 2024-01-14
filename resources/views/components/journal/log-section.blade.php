@@ -1,3 +1,3 @@
-<div>
-    <!-- Simplicity is the ultimate sophistication. - Leonardo da Vinci -->
+<div x-show="log">
+hey from log section
 </div>

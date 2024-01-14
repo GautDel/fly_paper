@@ -26,7 +26,7 @@ Add note without refresh
 When clicked on Notes, show notes section
 when clicked on fish log, show log section
 Use Auth::user()->id instead of passing in via form
-
+Make global flash message component
 
 ----------------------------------
 JOURNAL RELATIONS

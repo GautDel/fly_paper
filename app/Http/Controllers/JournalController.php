@@ -34,6 +34,19 @@ class JournalController extends Controller
 
         $notes = Note::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->take(8)->get();
 
-        return response()->json(['notes' => $notes], 200);
+        return response()->json(200);
+    }
+
+    public static function destroyNote(Request $request) {
+        $note = Note::destroy($request->id);
+
+        return response()->json(200);
+    }
+
+    public static function getNotes(Request $request) {
+
+        $notes = Note::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->take(8)->get();
+
+        return response()->json(["notes" => $notes], 200);
     }
 }

@@ -1,4 +1,4 @@
-<div class="flex fixed top-1/2 -translate-y-1/2">
+<div class="flex fixed top-1/2 -translate-y-1/2 z-50">
 <nav x-show="open" @click.outside="open = false"
     class="border-r-2 border-t-2 border-b-2 border-neutral-700 flex flex-col bg-newspaper">
         <div @click="notes = true; logs = false; add = false" class="border-b-2 border-neutral-700 flex justify-center items-center grow cursor-pointer hover-text ">

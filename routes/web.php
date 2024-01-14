@@ -68,7 +68,11 @@ Route::delete('/account/post_comment/delete', [AccountController::class, 'destro
 
 // JOURNAL ROUTES
 Route::get('/journal', [JournalController::class, 'render'])->middleware('auth');
+
+// NOTE ROUTES
+Route::get('/journal/notes', [JournalController::class, 'getNotes'])->middleware('auth');
 Route::post('/journal/notes', [JournalController::class, 'storeNote'])->middleware('auth');
+Route::delete('/journal/notes', [JournalController::class, 'destroyNote'])->middleware('auth');
 
 // TEST ROUTE
 Route::get('/test', [TestController::class, 'render']);
