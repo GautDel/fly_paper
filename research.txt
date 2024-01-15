@@ -39,21 +39,31 @@ JOURNAL RELATIONS
     - user_id (foreign key)
 
 - Fish log
-    - id
-    - fish
-    - weight
-    - length
-    - rod
-    - reel
-    - fly
-    - line
-    - tippet
-    - hook size
-    - location
-    - weather
-    - water_clarity
-    - time
-    - note
+    - id +
+    - fish + 100
+    - weight + 10
+    - mass + only the ones from the select are valid - implement
+    - length + 10
+    - unit + only the ones from the select are valid - implement
+    - rod + 50
+    - rod_length + only the ones from the select are valid - implement
+    - rod_weight + only the ones from the select are valid - implement
+    - reel + 50
+    - reel_weight + only the ones from the select are valid - implement
+    - line + 75
+    - line_type + only the ones from the select are valid - implement
+    - line_weight + only the ones from the select are valid - implement
+    - tippet + 50
+    - tippet_weight + only the ones from the select are valid - implement
+    - fly +  50
+    - fly_type +  only the ones from the select are valid - implement
+    - hook size + only the ones from the select are valid - implement
+    - location + 255
+    - weather + only the ones from the select are valid - implement
+    - time_of_day + only the ones from the select are valid - implement
+    - precise_time + Can be nullable
+    - water_clarity +
+    - note + 500
 
 ----------------------------------
 

@@ -1,5 +1,5 @@
 <x-layout>
-    <div x-data="{notes: true, log: false, add: false, open: false}">
+    <div x-data="{notes: false, logs: true, open: false}">
 
         <x-journal.nav />
 
