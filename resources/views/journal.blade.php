@@ -6,10 +6,7 @@
         <div class="mx-3 md:w-10/12 md:mx-auto lg:w-7/12">
 
             <x-journal.note-section :notes="$notes"/>
-
-            <x-journal.log-section />
-
-            <x-journal.add-section />
+            <x-journal.log-section :options="$options" :flyCategories="$flyCategories"/>
         </div>
     </div>
 </x-layout>

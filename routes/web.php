@@ -74,6 +74,10 @@ Route::get('/journal/notes', [JournalController::class, 'getNotes'])->middleware
 Route::post('/journal/notes', [JournalController::class, 'storeNote'])->middleware('auth');
 Route::delete('/journal/notes', [JournalController::class, 'destroyNote'])->middleware('auth');
 
+// LOG ROUTES
+Route::post('/journal/logs', [JournalController::class, 'storeLog'])->middleware('auth');
+Route::get('/journal/{id}', [JournalController::class, 'getLog'])->middleware('auth');
+
 // TEST ROUTE
 Route::get('/test', [TestController::class, 'render']);
 Route::get('/test2', [TestController::class, 'render2']);

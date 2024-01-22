@@ -16,57 +16,9 @@
                 <span x-show="open">-</span>
             </button>
         </div>
-
-        <x-journal.create-log />
+        <x-journal.create-log :options="$options" :flyCategories="$flyCategories"/>
 
     </div>
-    <template x-if="postLog.notes.length > 0 ">
-
-        <template  x-for="note in postLog.notes" :key="note.id">
-            <div class="w-full my-8" x-data="{deleteNote: deleteNote(), deleted: false}" x-show="!deleted">
-                <div class="flex justify-between">
-                    <h2 class="text-sm font-semibold w-1/2" x-text="note.title"></h2>
-
-                    <p class="text-xs self-end"
-                        x-text="new Date(note.created_at)
-                            .toLocaleDateString('en-gb', {
-                                weekday: 'short',
-                                year: 'numeric',
-                                month: 'long',
-                                day: 'numeric'
-                        })"></p>
-                </div>
-                <div class="flex" x-data="{del: false}">
-
-                    <p class="border border-dashed border-neutral-700 text-sm p-2 break-all
-                            w-full" x-text="note.body"></p>
-
-                    <button x-show="!del" @click="del = true" class="bg-neutral-700 text-newspaper text-2xl font-semibold px-2 h-fit">
-                        <p class="rotate-45">+</p>
-                    </button>
-
-                    <form @submit.prevent="deleteNote.submit()" x-show="del">
-
-                        <input type="hidden" x-init="deleteNote.formData.id = note.id"/>
-
-                        <button @click="deleted = true" @click.outside="del = false" class="bg-red-900 text-newspaper text-2xl font-semibold px-2">
-                            <p class="rotate-45">+</p>
-                        </button>
-                    </form>
-
-                </div>
-            </div>
-        </template>
-    </template>
-
-
-        <template x-if="postLog.notes.length === 0">
-            <x-journal.log />
-        </template>
-        <template x-if="postLog.notes.length === 0 ">
-            <p class="text-center font-normal text-sm my-10">There aren't any logs, get out on the river and catch some fish!</p>
-        </template>
-
     <div class="absolute left-1/2 bottom-8 -translate-x-1/2">
     </div>
 </div>
