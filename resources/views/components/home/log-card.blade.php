@@ -13,38 +13,38 @@
             src="https://images.pexels.com/photos/6831250/pexels-photo-6831250.jpeg"></img>
         </div>
 
-        <div class="my-6 max-w-lg
-                    ">
-                <p class="">
+        <div class="my-6 max-w-lg">
+            <p class="">
+                <span class="font-semibold">ANGLER:</span>
+                <span class="text-blue-900 font-normal">{{$log->user->name}}</span>
+            </p>
+            <p class="">
                 <span class="font-semibold">SPECIES:</span>
-                <span>Salmon</span>
+                <span class="text-blue-900 font-normal">{{$log->fish}}</span>
             </p>
             <p>
                 <span class="font-semibold">WEIGHT:</span>
-                <span>2.2 kg</span>
+                <span class="text-blue-900 font-normal">{{$log->weight}}</span>
+                <span>{{$log->mass_unit}}</span>
             </p>
             <p>
                 <span class="font-semibold">LENGTH:</span>
-                <span>12 cm</span>
+                <span class="text-blue-900 font-normal">{{$log->fish_length}}</span>
+                <span>{{$log->length_unit}}</span>
             </p>
             <p>
                 <span class="font-semibold">LOCATION:</span>
-                <span>Salmon Creek</span>
+                <span class="text-blue-900 font-normal">{{$log->location}}</span>
             </p>
-
-
             <p>
                 <span class="font-semibold">DATE:</span>
-                <span>13/12/23</span>
+                <span>{{date("D, d F Y",strtotime($log->created_at))}}</span>
             </p>
-            <p>
-                <span class="font-semibold">TIME:</span>
-                <span>Late morning</span>
-            </p>
-
             <p>
                 <span class="font-semibold">FLY:</span>
-                <span>Black Ant #2</span>
+                <span class="text-blue-900 font-normal">{{$log->fly}} </span>
+                <span>#{{$log->hook_size}}</span>
+
             </p>
         </div>
         <div class="flex flex-row justify-evenly font-semibold">
@@ -54,7 +54,7 @@
                             md:py-4">VIEW LOG</button>
             </a>
 
-            <a class="w-full">
+            <a class="w-full" href="/journal">
                 <button class="border w-full bg-neutral-700 text-newspaper
                             py-3 hover-bg
                             md:py-4">JOURNAL</button>

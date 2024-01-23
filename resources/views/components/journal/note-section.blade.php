@@ -66,7 +66,7 @@
         </template>
     @empty
         <template x-if="postNote.notes.length === 0 ">
-            <p class="text-center font-normal text-sm my-10">Nothing here...Press the button in the top left to add a note!</p>
+            <p class="text-center font-normal text-sm my-10">Nothing here...Press the button in the top right to add a note!</p>
         </template>
     @endforelse
 

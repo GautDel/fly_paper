@@ -148,7 +148,7 @@
                             font-semibold w-full text-sm
                             border-neutral-700 outline-none text-blue-900
                             focus:border-solid"
-                        maxlength="10"
+                        maxlength="50"
                         placeholder="Hydra"
                         x-model="postLog.formData.reel"
                         name="reel"/>
@@ -265,7 +265,7 @@
                         font-semibold w-full text-sm
                         border-neutral-700 outline-none text-blue-900
                         focus:border-solid"
-                    maxlength="10"
+                    maxlength="50"
                     placeholder="Black Ant"
                     x-model="postLog.formData.fly"
                     name="fly"/>
@@ -311,7 +311,7 @@
                         font-semibold w-full text-sm
                         border-neutral-700 outline-none text-blue-900
                         focus:border-solid"
-                    maxlength="10"
+                    maxlength="100"
                     placeholder="Le Lez, Montpellier, France"
                     x-model="postLog.formData.location"
                     name="location"/>

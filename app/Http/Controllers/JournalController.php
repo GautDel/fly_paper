@@ -16,8 +16,13 @@ class JournalController extends Controller
 {
     public function render(Request $request) {
 
-        $notes = Note::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->paginate(8);
-        $logs = FishLog::where('user_id', Auth::user()->id)->get();
+        $notes = Note::where('user_id', Auth::user()->id)
+                       ->orderBy('created_at', 'desc')
+                       ->paginate(8);
+
+        $logs = FishLog::where('user_id', Auth::user()->id)
+                         ->orderBy('created_at', 'desc')
+                         ->paginate(10);
 
         $options = config('logFormOptions');
 
@@ -92,7 +97,7 @@ class JournalController extends Controller
             'fly' => 'required|min:2|max:50',
             'fly_category' => ['required', Rule::in($fly_categories)],
             'hook_size' => ['required', Rule::in($options['hook_sizes'])],
-            'location' => 'required|min:2|max:255',
+            'location' => 'required|min:2|max:100',
             'weather' => ['required', Rule::in($options['weathers'])],
             'day_time' => ['required', Rule::in($options['day_times'])],
             'water_clarity' => 'required|min:2|max:50',

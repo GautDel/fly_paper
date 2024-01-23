@@ -62,4 +62,9 @@ class User extends Authenticatable
     public function notes(): HasMany {
         return $this->hasMany(Note::class);
     }
+
+    public function fishLogs(): HasMany {
+        return $this->hasMany(FishLog::class);
+    }
+
 }

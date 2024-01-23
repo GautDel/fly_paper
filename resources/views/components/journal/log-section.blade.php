@@ -3,7 +3,7 @@
     <h2 class="text-4xl font-bold text-center my-8">FISHING LOGS</h2>
 
 
-    <div x-data="{open: true}"
+    <div x-data="{open: false}"
         class="mt-10 mb-8 w-full flex flex-col items-end">
 
         <div class="flex justify-between w-full">
@@ -19,6 +19,11 @@
         <x-journal.create-log :options="$options" :flyCategories="$flyCategories"/>
 
     </div>
+
+            @foreach($logs as $log)
+                <x-journal.log :log="$log"/>
+            @endforeach
+
     <div class="absolute left-1/2 bottom-8 -translate-x-1/2">
     </div>
 </div>

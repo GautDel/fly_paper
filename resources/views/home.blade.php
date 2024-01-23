@@ -2,8 +2,8 @@
     <div class="flex flex-col
                 md:flex-row md:border-b-2 md:border-neutral-700 ">
 
-        <x-home.catch-card />
 
+        <x-home.log-card :log="$log"/>
         <x-home.fly-card />
 
         <div class="flex flex-col
