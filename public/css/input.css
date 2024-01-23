@@ -39,6 +39,13 @@
     transition: border-color  0.7s;
 }
 
+.hover-border-solid {
+    transition: border-color  0.7s;
+}
+
+.hover-border-solid:hover {
+    border:1px solid #1e3a8a;
+}
 .hover-border:hover {
     border-color: #1e3a8a;
 }

@@ -145,17 +145,12 @@ class JournalController extends Controller
 
     public static function getLog(Request $request) {
 
-        $log = FishLog::where('user_id', Auth::user()->id)
-                     ->where('id', $request->id)
-                     ->first();
+        $log = FishLog::where('id', $request->id)->first();
 
         if($log === null) {
-
             return view('errors.404');
         }
 
         return view('log', ['log' => $log]);
     }
-
-
 }

@@ -1,3 +1,4 @@
+<a href="/journal/{{$log->id}}">
 <div class="w-full my-8" x-data="{deleteNote: deleteNote(), deleted: false}" x-show="!deleted" >
     <div class="flex justify-between ">
         <h2 class="font-semibold w-1/2 break-all text-blue-900">{{Str::upper($log->fish)}}</h2>
@@ -5,7 +6,7 @@
     </div>
 
     <div class="border border-dashed border-neutral-700 text-sm p-2 break-all
-            w-full" >
+            w-full hover-border-solid" >
         <div class="flex mb-2">
             <p class="font-semibold mr-2">WEIGHT: </p>
             <p class="pr-1 text-blue-900 font-normal ">{{$log->weight}}</p>
@@ -53,3 +54,4 @@
 
     </div>
 </div>
+</a>
