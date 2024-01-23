@@ -38,7 +38,7 @@
             <a href="/wiki/fly/{{$fly->id}}" class="w-full mr-4">
 
                 <button class="border border-dashed border-neutral-700 w-full
-                           py-3 hover-text
+                           py-3 hover-border-solid
                            md:py-4">READ MORE</button>
             </a>
 

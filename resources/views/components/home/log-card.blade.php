@@ -49,7 +49,7 @@
         <div class="flex flex-row justify-evenly font-semibold">
             <a class="w-full mr-4" href="/journal/{{$log->id}}">
                 <button class="border border-dashed border-neutral-700 w-full
-                            py-3 hover-text
+                            py-3 hover-border-solid
                             md:py-4">VIEW LOG</button>
             </a>
 
