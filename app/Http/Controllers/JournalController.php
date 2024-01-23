@@ -131,6 +131,7 @@ class JournalController extends Controller
             'location' => $request->location,
             'weather' => $request->weather,
             'day_time' => $request->day_time,
+            'precise_time' => $request->precise_time,
             'water_clarity' => $request->water_clarity,
             'water_movement' => $request->water_movement,
             'note' => $request->note,
