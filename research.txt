@@ -20,7 +20,11 @@ TO DO
 5 Work on Journal section
 
 Use Auth::user()->id instead of passing in via form
-Make global flash message component
+Finish individual log page
+Issue with 404 page layout section displaying as id user is logged out
+Add Delete/Edit of Log functionality
+Finish Log section
+Add blue text wherever there is user input
 
 ----------------------------------
 JOURNAL RELATIONS
