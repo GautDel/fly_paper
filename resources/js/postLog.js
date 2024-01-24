@@ -58,7 +58,7 @@ export function postLog() {
     }
 }
 
-export function deleteNote() {
+export function deleteLog() {
     return {
         formData: {
             id: ''
@@ -67,7 +67,7 @@ export function deleteNote() {
         message: '',
 
         async submit() {
-            const res = await fetch('/journal/notes', {
+            const res = await fetch('/journal/logs', {
                 method: 'DELETE',
                 headers: {
                     "Content-Type": "application/json",

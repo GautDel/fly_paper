@@ -20,10 +20,11 @@
 
     </div>
 
-            @foreach($logs as $log)
-                <x-journal.log :log="$log"/>
-            @endforeach
+    @foreach($logs as $log)
+        <x-journal.log :log="$log"/>
+    @endforeach
 
     <div class="absolute left-1/2 bottom-8 -translate-x-1/2">
+        {{$logs->links()}}
     </div>
 </div>

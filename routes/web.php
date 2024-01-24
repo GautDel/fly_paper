@@ -76,6 +76,9 @@ Route::delete('/journal/notes', [JournalController::class, 'destroyNote'])->midd
 
 // LOG ROUTES
 Route::post('/journal/logs', [JournalController::class, 'storeLog'])->middleware('auth');
+Route::delete('/journal/logs', [JournalController::class, 'destroyLog'])->middleware('auth');
+Route::post('/journal/logs/update', [JournalController::class, 'getUpdateLogView'])->middleware('auth');
+Route::put('/journal/logs', [JournalController::class, 'updateLog'])->middleware('auth');
 Route::get('/journal/{id}', [JournalController::class, 'getLog']);
 
 // TEST ROUTE

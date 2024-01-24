@@ -730,6 +730,14 @@ html {
   -webkit-line-clamp: 2;
 }
 
+.block {
+  display: block;
+}
+
+.inline {
+  display: inline;
+}
+
 .flex {
   display: flex;
 }
@@ -804,6 +812,14 @@ html {
   width: 100vw;
 }
 
+.w-10\/12 {
+  width: 83.333333%;
+}
+
+.w-11\/12 {
+  width: 91.666667%;
+}
+
 .min-w-fit {
   min-width: -moz-fit-content;
   min-width: fit-content;
@@ -821,8 +837,24 @@ html {
   max-width: 28rem;
 }
 
+.max-w-xl {
+  max-width: 36rem;
+}
+
+.max-w-2xl {
+  max-width: 42rem;
+}
+
+.max-w-3xl {
+  max-width: 48rem;
+}
+
 .flex-1 {
   flex: 1 1 0%;
+}
+
+.shrink {
+  flex-shrink: 1;
 }
 
 .grow {
@@ -975,6 +1007,10 @@ html {
 
 .border-t-2 {
   border-top-width: 2px;
+}
+
+.border-l-0 {
+  border-left-width: 0px;
 }
 
 .border-dashed {
@@ -1764,5 +1800,9 @@ html {
 @media (min-width: 1536px) {
   .\32xl\:w-9\/12 {
     width: 75%;
+  }
+
+  .\32xl\:w-11\/12 {
+    width: 91.666667%;
   }
 }
