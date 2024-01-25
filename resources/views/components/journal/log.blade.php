@@ -55,7 +55,7 @@
     </div>
 </a>
         <div class="flex flex-col">
-            <form method="POST" action="/journal/logs/update">
+            <form method="GET" action="/journal/logs/update">
                 @csrf
                 <input type="hidden" name="id" value="{{$log->id}}" />
                 <button class="bg-newspaper text-neutral-700 border-dashed border

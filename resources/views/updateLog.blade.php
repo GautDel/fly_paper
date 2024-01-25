@@ -10,6 +10,8 @@
             @csrf
             @method('PUT')
 
+            <input type="hidden" name="id" value="{{$log->id}}"/>
+
             <div class="flex flex-col mb-4">
 
                 <label class="font-semibold text-sm mb-1">FISH TYPE</label>
@@ -72,7 +74,7 @@
                         <input type="text" class="bg-newspaper border border-dashed p-1
                             font-semibold w-full text-sm
                             border-neutral-700 outline-none text-blue-900
-                            focus:border-solid" maxlength="10" name="length" value="{{$log->fish_length}}" />
+                            focus:border-solid" maxlength="10" name="fish_length" value="{{$log->fish_length}}" />
 
                         <select class="text-newspaper bg-neutral-700 px-2 font-semibold text-xs md:text-sm" name="length_unit">
                             @foreach($options['length_units'] as $unit)
@@ -422,8 +424,6 @@
                 </div>
             </div>
 
-
-
             <div class="flex flex-col mb-4 ">
 
                 <label class="font-semibold text-sm mb-1">NOTE</label>
@@ -446,5 +446,4 @@
             </div>
         </form>
     </div>
-
 </x-layout>

@@ -20,9 +20,6 @@ TO DO
 5 Work on Journal section
 
 Use Auth::user()->id instead of passing in via form
-Issue with 404 page layout section displaying as id user is logged out
-Add Delete/Edit of Log functionality
-Finish Log section
 Add blue text wherever there is user input
 Check for unused code in journal controller
 

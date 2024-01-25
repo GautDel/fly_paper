@@ -156,13 +156,14 @@ class JournalController extends Controller
 
         return response()->json(['redirect' => $log->id],200);
     }
+
     public static function updateLog(Request $request) {
 
         $options = config('logFormOptions');
 
         $fly_categories = DB::table('fly_categories')->pluck('name');
 
-        $validator = Validator::make($request->all(), [
+        $validator = $request->validate([
             'fish' => 'required|min:5|max:100',
             'weight' => 'required|numeric',
             'mass_unit' => ['required', Rule::in($options['mass_units'])],
@@ -181,7 +182,7 @@ class JournalController extends Controller
             'fly' => 'required|min:2|max:50',
             'fly_category' => ['required', Rule::in($fly_categories)],
             'hook_size' => ['required', Rule::in($options['hook_sizes'])],
-            'location' => 'required|min:2|max:100',
+            'location' => 'max:100',
             'weather' => ['required', Rule::in($options['weathers'])],
             'day_time' => ['required', Rule::in($options['day_times'])],
             'water_clarity' => 'required|min:2|max:50',
@@ -189,11 +190,9 @@ class JournalController extends Controller
             'note' => 'required|min:5|max:500',
         ]);
 
-        if ($validator->fails()) {
-            return response()->json(['errors'=>$validator->errors()], 422);
-        }
-
-        $log = FishLog::create([
+        $log = FishLog::where('user_id', Auth::user()->id)
+                ->where('id', $request->id)
+                ->update([
             'fish' => $request->fish,
             'weight' => $request->weight,
             'mass_unit' => $request->mass_unit,
@@ -222,12 +221,12 @@ class JournalController extends Controller
             'user_id' => Auth::user()->id
         ]);
 
+        if($log === null) {
+            return view('errors.404');
+        }
 
-
-        return response()->json(['redirect' => $log->id],200);
+        return redirect("/journal/$request->id");
     }
-
-
 
     public static function destroyLog(Request $request) {
 
