@@ -1,4 +1,4 @@
-<div class="flex"
+<div class="flex h-fit"
     x-data="{
         open: true,
         flies: true,
@@ -254,7 +254,7 @@
 
     <p x-show="!open" @click="open = true"
         class="bg-neutral-700 text-newspaper font-semibold px-3 py-2
-            hover-bg cursor-pointer">MENU</p>
+            hover-bg h-fit cursor-pointer">MENU</p>
 
     <p x-show="open" @click="open = false"
         class="bg-neutral-700 text-newspaper font-semibold px-3 py-2
