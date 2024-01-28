@@ -1,3 +1,3 @@
 <x-layout>
-    hey from market
+    <x-market.side-nav :flyCategories="$fly_categories"/>
 </x-layout>

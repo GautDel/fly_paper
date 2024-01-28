@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FlyCategories;
 use Illuminate\Http\Request;
 
 class MarketController extends Controller
 {
     public static function render() {
-        return view('market');
+        $fly_categories = FlyCategories::pluck('name');
+        return view('market', ['fly_categories' => $fly_categories]);
     }
 }
