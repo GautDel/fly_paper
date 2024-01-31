@@ -1,3 +1,5 @@
+
+<a href="/product">
 <div class="max-w-xs border-2 border-neutral-700 m-4 h-fit cursor-pointer">
 
     <div class="w-fit grayscale hover-color hover-border border border-dashed p-2
@@ -21,7 +23,7 @@
 
         <p class="text-newspaper text-lg">€20.30</p>
 
-            <p class="text-neutral-400">Orvis</p>
-
+        <p class="text-neutral-400">Orvis</p>
     </div>
+
 </div>

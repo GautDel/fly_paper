@@ -19,7 +19,7 @@
                 px-4 py-2 text-xl text-center">CATEGORIES</p>
 
             <div class="mx-4 my-2">
-                <div  @click="flies = !flies"
+                <div @click="flies = !flies"
                     class="font-semibold hover-text flex relative">
 
                     <span class="cursor-pointer absolute top-0 left-0" x-show="!flies">-></span>

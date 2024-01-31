@@ -17,6 +17,13 @@
 .text-newspaper {
     color: #F5F1F0;
 }
+.hover-light {
+    transition: all 0.7s;
+}
+
+.hover-light:hover {
+    color: #F5F1F0;
+}
 
 .hover-text {
     transition: all 0.7s;
@@ -137,11 +144,10 @@ input[type="checkbox"]::after {
     display: flex;
     justify-content: center;
     align-items: center;
-  transform: scale(0);
-  color: #F5F1F0;
-
-  border: 1px solid #404040;
-  background-color: #404040;
+    transform: scale(0);
+    color: #F5F1F0;
+    border: 1px solid #404040;
+    background-color: #404040;
 }
 
 input[type="checkbox"]:checked::after {
@@ -151,3 +157,10 @@ input[type="checkbox"]:checked::after {
 input[type="checkbox"]:checked {
   border: 1px solid #404040;
 }
+
+input[type="number"] {
+  -webkit-appearance: textfield;
+     -moz-appearance: textfield;
+          appearance: textfield;
+}
+
