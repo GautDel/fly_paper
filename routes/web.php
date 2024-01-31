@@ -59,7 +59,7 @@ Route::put('/flycomment/update', [FlyController::class, 'update'])->middleware('
 
 // MARKET ROUTES
 Route::get('/market', [MarketController::class, 'render']);
-Route::get('/product', [MarketController::class, 'getProduct']);
+Route::get('/market/product', [MarketController::class, 'getProduct']);
 
 // ACCOUNT ROUTES
 Route::get('/account', [AccountController::class, 'render'])->middleware('auth');

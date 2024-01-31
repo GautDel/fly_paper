@@ -27,6 +27,10 @@ class DatabaseSeeder extends Seeder
             ForumPostVoteSeeder::class,
             ForumCommentVoteSeeder::class,
             NotesSeeder::class,
+            ProductCategoriesSeeder::class,
+            ProductsSeeder::class,
+            ProductVariationsSeeder::class,
+            VariationOptionsSeeder::class
         ]);
     }
 }

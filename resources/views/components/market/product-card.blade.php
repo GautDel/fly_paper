@@ -1,5 +1,5 @@
 
-<a href="/product">
+<a href="/market/product">
 <div class="max-w-xs border-2 border-neutral-700 m-4 h-fit cursor-pointer">
 
     <div class="w-fit grayscale hover-color hover-border border border-dashed p-2

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 
 class TestController extends Controller
@@ -9,12 +10,8 @@ class TestController extends Controller
 
     public function render()
     {
-        return view('test');
-    }
+        $categories = ProductCategory::get();
 
-    public function render2()
-    {
-        $data = "This is some data";
-        return response()->json(['data' => $data], 200);
+        return view('test', ['categories' => $categories]);
     }
 }

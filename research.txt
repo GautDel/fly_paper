@@ -19,9 +19,50 @@ TO DO
 4 AJAX FOR WIKI SECTION
 5 Work on Journal section
 
+Fix issue with latest log on home page (If none exist, breaks)
 Use Auth::user()->id instead of passing in via form
 Add blue text wherever there is user input
 Check for unused code in journal controller
+
+----------------------------------
+PRODUCT RELATIONS
+
+- PRODUCT --+
+    - id
+    - name
+    - description
+    - img
+    - price
+    - category_id FK (fly, rod, reel, line, tippet, etc)
+
+- PRODUCT ITEM
+    - id
+    - product_id FK
+    - SKU
+    - qty_in_stock
+    - product_image
+    - price
+    - brand
+
+
+- PRODUCT CONFIGURATION (MANY TO MANY)
+    - product_item_id FK
+    - variation_option_id FK
+
+- PRODUCT CATEGORY --+
+    - id
+    - name
+    - parent_category_id FK (FK to id - self join)
+
+- PRODUCT VARIATION --+
+    - id
+    - category_id FK
+    - name
+
+- VARIATION OPTION
+    - id
+    - variation_id FK
+    - value
 
 ----------------------------------
 JOURNAL RELATIONS
