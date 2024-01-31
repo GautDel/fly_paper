@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             ForumPostVoteSeeder::class,
             ForumCommentVoteSeeder::class,
             NotesSeeder::class,
+            FishLogSeeder::class,
             ProductCategoriesSeeder::class,
             ProductsSeeder::class,
             ProductVariationsSeeder::class,
