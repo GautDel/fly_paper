@@ -59,6 +59,7 @@ Route::put('/flycomment/update', [FlyController::class, 'update'])->middleware('
 
 // MARKET ROUTES
 Route::get('/market', [MarketController::class, 'render']);
+Route::post('/market/category', [MarketController::class, 'getProductsByCategory']);
 Route::get('/market/product', [MarketController::class, 'getProduct']);
 
 // ACCOUNT ROUTES

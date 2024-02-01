@@ -5,7 +5,8 @@
         size: false,
         chosen: '',
         openCat: '1',
-        range: range()
+        range: range(),
+        getProductsByCategory: getProductsByCategory()
     }">
 
     <div x-show="open" class="border-r-2 border-b-2 border-neutral-700
@@ -31,7 +32,16 @@
 
                     @foreach($categories as $subCategory)
                         @if($subCategory->parent_category_id === $category->id)
-                            <p @click="$dispatch('category', {category: '{{$subCategory->name}}'})"id="{{$loop->index}}" @click="chosen = $event.target.getAttribute('id')" :class="chosen == $el.id ? 'text-blue-900' : ''" class="my-1 cursor-pointer hover-text"><span class="font-normal">-></span> {{$subCategory->name}}</p>
+                        <div >
+
+                            <p @click="$dispatch('data', {
+                                                            category: '{{$subCategory->name}}',
+                                                            products: await getProductsByCategory.submit('{{$subCategory->id}}')
+                                                         },
+
+                                                )"
+                                id="{{$loop->index}}" @click="chosen = $event.target.getAttribute('id')" :class="chosen == $el.id ? 'text-blue-900' : ''" class="my-1 cursor-pointer hover-text"><span class="font-normal">-></span> {{$subCategory->name}}</p>
+                        </div>
                         @endif
                     @endforeach
                 </div>

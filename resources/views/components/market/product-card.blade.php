@@ -11,7 +11,7 @@
 
     <div class="bg-neutral-700 text-newspaper font-semibold px-3 py-2">
 
-        <p class="text-xl text-center whitespace-nowrap">HARE'S EAR</p>
+        <p class="text-xl text-center whitespace-nowrap">{{$product->name}}</p>
 
         <div class="flex mt-3 items-center">
             <div class="mr-1 rounded-full w-4 h-4 bg-newspaper">&nbsp;</div>
@@ -21,9 +21,9 @@
             <p class="text-neutral-400">(23)</p>
         </div>
 
-        <p class="text-newspaper text-lg">€20.30</p>
+        <p class="text-newspaper text-lg">€{{$product->price}}</p>
 
-        <p class="text-neutral-400">Orvis</p>
+        <p class="text-neutral-400">{{$product->brand}}</p>
     </div>
-
 </div>
+</a>
