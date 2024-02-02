@@ -59,7 +59,12 @@ Route::put('/flycomment/update', [FlyController::class, 'update'])->middleware('
 
 // MARKET ROUTES
 Route::get('/market', [MarketController::class, 'render']);
+Route::post('/market', [MarketController::class, 'getProducts']);
 Route::post('/market/category', [MarketController::class, 'getProductsByCategory']);
+Route::post('/market/availability', [MarketController::class, 'getProductsByAvailability']);
+Route::post('/market/price', [MarketController::class, 'getProductsByPrice']);
+Route::post('/market/count', [MarketController::class, 'countProducts']);
+Route::post('/market/search', [MarketController::class, 'getProductsBySearch']);
 Route::get('/market/product', [MarketController::class, 'getProduct']);
 
 // ACCOUNT ROUTES

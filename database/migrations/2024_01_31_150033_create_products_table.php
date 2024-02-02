@@ -17,6 +17,10 @@ return new class extends Migration
             $table->string('description', 1000);
             $table->string('img', 255);
             $table->float('price', 6, 2);
+            $table->boolean('in_stock')->default(false);
+            $table->boolean('new')->default(true);
+            $table->boolean('sale')->default(false);
+            $table->tinyInteger('sale_percent')->default(0);
             $table->string('brand', 100);
             $table->foreignId('product_category_id')
                   ->constrained()

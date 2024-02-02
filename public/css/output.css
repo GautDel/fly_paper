@@ -618,6 +618,10 @@ html {
   z-index: 50;
 }
 
+.z-40 {
+  z-index: 40;
+}
+
 .m-4 {
   margin: 1rem;
 }

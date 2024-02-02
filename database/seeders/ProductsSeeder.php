@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -16,17 +15,50 @@ class ProductsSeeder extends Seeder
         $data = [
             [
                 'name' => 'Black Ant',
-                'description' => 'The Best fly for trout',
+                'description' => 'The Best trout reel',
                 'img' => '/black_ant.png',
-                'price' => '1.99',
+                'price' => '1.25',
+                'in_stock' => true,
+                'new' => false,
+                'sale' => false,
+                'sale_percent' => 0,
                 'brand' => 'Orvis',
                 'product_category_id' => 5,
             ],
+            [
+                'name' => 'Hydros Reel',
+                'description' => 'The Best fly for trout',
+                'img' => '/black_ant.png',
+                'price' => '40.50',
+                'in_stock' => true,
+                'new' => true,
+                'sale' => false,
+                'sale_percent' => 0,
+                'brand' => 'Orvis',
+                'product_category_id' => 10,
+            ],
+            [
+                'name' => 'Black Ant',
+                'description' => 'The Best fly for trout',
+                'img' => '/black_ant.png',
+                'price' => '1.99',
+                'in_stock' => false,
+                'new' => true,
+                'sale' => false,
+                'sale_percent' => 0,
+                'brand' => 'Orvis',
+                'product_category_id' => 5,
+            ],
+
             [
                 'name' => 'Emerger',
                 'description' => 'The Second best fly for trout',
                 'img' => '/black_ant.png',
                 'price' => '1.50',
+                'in_stock' => false,
+                'new' => false,
+                'sale' => false,
+                'sale_percent' => 0,
                 'brand' => 'Shakespeare',
                 'product_category_id' => 5,
             ],
@@ -36,6 +68,10 @@ class ProductsSeeder extends Seeder
                 'description' => 'Illis spinner, the best spinner around!',
                 'img' => 'www.meatspin.com',
                 'price' => '2.30',
+                'in_stock' => true,
+                'new' => true,
+                'sale' => true,
+                'sale_percent' => 20,
                 'brand' => 'Orvis',
                 'product_category_id' => 7,
             ],
