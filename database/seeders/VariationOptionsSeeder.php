@@ -26,7 +26,22 @@ class VariationOptionsSeeder extends Seeder
                 'value' => 'olive',
                 'product_variation_id' => 1
             ],
-
+            [
+                'value' => '01',
+                'product_variation_id' => 4
+            ],
+            [
+                'value' => '02',
+                'product_variation_id' => 4
+            ],
+            [
+                'value' => '03',
+                'product_variation_id' => 4
+            ],
+            [
+                'value' => '04',
+                'product_variation_id' => 4
+            ],
         ];
 
         DB::table('variation_options')->insert($data);

@@ -6,36 +6,36 @@
         chosen: '4',
         openCat: '1',
         categoryId: '5',
-        search: '',
         categoryName: 'DRY FLIES',
         range: range(),
-        countProducts: countProducts(),
         getProductsByCategory: getProductsByCategory(),
         getByFilter: getByFilter(),
-        getProductsBySearch: getProductsBySearch(),
         getProducts: getProducts()
     }">
 
     <div x-show="open" class="border-r-2 border-b-2 border-neutral-700
                         flex flex-col">
-
         <div>
             <p class="w-full bg-neutral-700 text-newspaper font-semibold
                     px-4 py-2 text-xl text-center">SEARCH</p>
 
             <form class="mx-4 my-8 flex flex-col items-center" @submit.prevent.stop="[
                                    reset($refs.inStockCheckbox, $refs.newCheckbox, $refs.saleCheckbox),
+                                   getByFilter.formData.in_stock = false,
+                                   getByFilter.formData.new = false,
+                                   getByFilter.formData.sale = false,
+                                   getByFilter.formData.minPrice = 0,
+                                   getByFilter.formData.maxPrice = 100,
+                                   categoryName = `SEARCH - ${$refs.search.value}`,
                                    range.reset(),
-                                   categoryId = 'search',
-                                   search = $refs.search.value,
                                    $dispatch('data', {category: categoryName,
-                                                      data: await getProductsBySearch.submit()})]" x-ref="searchForm">
+                                                      data: await getByFilter.submit()})]">
 
                 <div class="flex">
-                    <input type="text" name="search" class="bg-newspaper border border-dashed px-2
+                    <input type="text" name="search" x-ref="search" class="bg-newspaper border border-dashed px-2
                                 border-neutral-700 outline-none text-blue-900
-                                focus:border-solid" x-ref="search" x-model="getProductsBySearch.formData.search" placeholder="Search for a product" />
-                    <button class="bg-neutral-700 text-newspaper font-semibold px-2 py-1 hover-bg" type="submit">GO</button>
+                                focus:border-solid" x-model="getByFilter.formData.search" placeholder="Search for a product" />
+                    <button @click="categoryId = 'search'" class="bg-neutral-700 text-newspaper font-semibold px-2 py-1 hover-bg" type="submit">GO</button>
                 </div>
             </form>
         </div>
@@ -143,7 +143,6 @@
                         <input type="hidden" x-model="getByFilter.formData.category = categoryId" />
                         <input type="hidden" x-model="getByFilter.formData.minPrice = range.minprice" />
                         <input type="hidden" x-model="getByFilter.formData.maxPrice = range.maxprice" />
-                        <input type="hidden" x-model="getByFilter.formData.search = search" />
 
                         <div class="flex items-center">
                             <input x-ref="inStockCheckbox" class="mr-3 checkbox" type="checkbox" x-model="getByFilter.formData.in_stock">
@@ -169,57 +168,64 @@
                     </div>
                 </div>
 
-                <div class="mx-4 my-2">
-                    <div @click="size = !size" class="font-semibold hover-text flex relative">
+                <div class="mx-4">
 
-                        <span x-show="!size" class="cursor-pointer absolute top-0 left-0">-></span>
+                        <template x-if="variations !== ''">
 
-                        <span x-show="size" class="inline-block rotate-90 cursor-pointer  absolute top-0 left-0">></span>
+                            <template x-for="variation in variations">
+                        <div class="flex flex-col my-2" x-data="{show: false}">
+                        <div @click="show = !show" class="font-semibold hover-text flex relative">
 
-                        <span class="cursor-pointer ml-7 ">SIZE</span>
-                    </div>
+                            <span x-show="!show" class="cursor-pointer absolute top-0 left-0">-></span>
 
-                    <div x-show="size" class="ml-7">
-                        <form class="flex flex-col" action="/action_page.php">
-                            <div class="flex items-center">
-                                <input class="mr-3 checkbox" type="checkbox" name="stock" value="stock">
-                                <label class="mr-2" for="stock"> 1 </label>
-                                <p class="text-blue-900 text-sm font-normal">(219)</p>
-                            </div>
-                            <div class="flex items-center">
-                                <input class="mr-3 checkbox" type="checkbox" name="stock" value="stock">
-                                <label class="mr-2" for="stock"> 2 </label>
-                                <p class="text-blue-900 text-sm font-normal">(12)</p>
-                            </div>
-                            <div class="flex items-center">
-                                <input class="mr-3 checkbox" type="checkbox" name="stock" value="stock">
-                                <label class="mr-2" for="stock"> 3 </label>
-                                <p class="text-neutral-500 text-sm font-normal">None</p>
-                            </div>
-                            <div class="flex items-center">
-                                <input class="mr-3 checkbox" type="checkbox" name="stock" value="stock">
-                                <label class="mr-2" for="stock"> 4 </label>
-                                <p class="text-blue-900 text-sm font-normal">(1)</p>
-                            </div>
-                            <div class="flex items-center">
-                                <input class="mr-3 checkbox" type="checkbox" name="stock" value="stock">
-                                <label class="mr-2" for="stock"> 1/0 </label>
-                                <p class="text-blue-900 text-sm font-normal">(14)</p>
-                            </div>
-                            <div class="flex items-center">
-                                <input class="mr-3 checkbox" type="checkbox" name="stock" value="stock">
-                                <label class="mr-2" for="stock"> 2/0 </label>
-                                <p class="text-blue-900 text-sm font-normal">(12)</p>
-                            </div>
-                            <div class="flex items-center">
-                                <input class="mr-3 checkbox" type="checkbox" name="stock" value="stock">
-                                <label class="mr-2" for="stock"> 3/0 </label>
-                                <p class="text-blue-900 text-sm font-normal">(2)</p>
-                            </div>
+                            <span x-show="show" class="inline-block rotate-90 cursor-pointer  absolute top-0 left-0">></span>
 
-                        </form>
+                            <span class="cursor-pointer ml-7" x-text="variation.name.toUpperCase()"></span>
+                        </div>
 
-                    </div>
+                            <div x-show="show" class="ml-7">
+                                <template x-for="option in options">
+                                    <template x-if="option.product_variation_id === variation.id">
+                                        <div class="flex items-center">
+                                            <input class="mr-3 checkbox" type="checkbox"/>
+                                            <label class="mr-2" for="stock" x-text="option.value"></label>
+                                            <p class="text-blue-900 text-sm font-normal"></p>
+                                        </div>
+                                    </template>
+                                </template>
+                            </div>
+                        </div>
+
+
+                            </template>
+                        </template>
+
+                    @foreach($categories[4]->variations as $variation)
+
+                        <template x-if="variations === ''">
+                        <div class="flex flex-col my-2" x-data="{show: false}">
+                        <div @click="show = !show" class="font-semibold hover-text flex relative">
+
+                            <span x-show="!show" class="cursor-pointer absolute top-0 left-0">-></span>
+
+                            <span x-show="show" class="inline-block rotate-90 cursor-pointer  absolute top-0 left-0">></span>
+
+                            <span class="cursor-pointer ml-7 ">{{Str::upper($variation->name)}}</span>
+                        </div>
+
+                            <div x-show="show" class="ml-7">
+                                @foreach($variation->options as $option)
+                                    <div class="flex items-center">
+                                        <input class="mr-3 checkbox" type="checkbox" name="stock" value="stock">
+                                        <label class="mr-2" for="stock">{{$option->value}}</label>
+                                        <p class="text-blue-900 text-sm font-normal"></p>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+
+                        </template>
+                    @endforeach
 
             </form>
         </div>

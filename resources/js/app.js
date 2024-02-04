@@ -5,9 +5,7 @@ import { postNote, deleteNote } from './postNote'
 import { postLog, deleteLog } from './postLog'
 import {
     getProducts,
-    countProducts,
     getByFilter,
-    getProductsBySearch,
     getProductsByCategory
 } from './product'
 
@@ -24,7 +22,5 @@ window.deleteLog = deleteLog
 window.getProducts = getProducts
 window.getProductsByCategory = getProductsByCategory
 window.getByFilter = getByFilter
-window.countProducts = countProducts
-window.getProductsBySearch = getProductsBySearch
 
 Alpine.start();

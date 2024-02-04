@@ -16,19 +16,19 @@ class ProductVariationsSeeder extends Seeder
         $data = [
             [
                 'name' => 'color',
-                'product_category_id' => 1
+                'product_category_id' => 5
             ],
             [
                 'name' => 'size',
-                'product_category_id' => 1
+                'product_category_id' => 5
             ],
             [
                 'name' => 'length',
-                'product_category_id' => 2
+                'product_category_id' => 9
             ],
             [
                 'name' => 'weight',
-                'product_category_id' => 2
+                'product_category_id' => 9
             ],
         ];
 

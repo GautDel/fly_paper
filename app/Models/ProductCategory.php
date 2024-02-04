@@ -14,4 +14,8 @@ class ProductCategory extends Model
         return $this->hasMany(Product::class);
     }
 
+    public function variations(): HasMany {
+        return $this->hasMany(ProductVariation::class);
+    }
+
 }
