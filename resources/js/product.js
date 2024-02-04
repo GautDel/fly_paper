@@ -17,7 +17,7 @@ export function getProductsByCategory() {
 
             const resData = await res.json()
 
-            return resData.products
+            return resData
         },
     }
 }
@@ -34,11 +34,12 @@ export function getProducts() {
                     "X-CSRF-TOKEN": token
                 },
 
+                body: JSON.stringify({'id': 'all'})
             })
 
             const resData = await res.json()
 
-            return resData.products
+            return resData
         },
     }
 }
@@ -63,17 +64,19 @@ export function countProducts() {
     }
 }
 
-export function getByAvailability() {
+export function getByFilter() {
     return {
         formData: {
             in_stock: false,
             new: false,
             sale: false,
-            category: ''
+            category: '',
+            minPrice: '',
+            maxPrice: ''
         },
         async submit() {
 
-            const res = await fetch('/market/availability', {
+            const res = await fetch('/market/filter', {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
@@ -85,14 +88,15 @@ export function getByAvailability() {
 
             const resData = await res.json()
 
-            return resData.products
+            return resData
         },
     }
 }
 
-export function getProductsByPrice() {
+export function getByPrice() {
     return {
-        async submit(minPrice, maxPrice, category) {
+
+        async submit(category, minPrice, maxPrice) {
 
             const res = await fetch('/market/price', {
                 method: 'POST',
@@ -110,7 +114,7 @@ export function getProductsByPrice() {
 
             const resData = await res.json()
 
-            return resData.products
+            return resData
         }
     }
 }
@@ -137,36 +141,7 @@ export function getProductsBySearch() {
 
             const resData = await res.json()
 
-            return resData.products
-        }
-    }
-}
-
-export function deleteLog() {
-
-    return {
-        formData: {
-            id: ''
-        },
-
-        message: '',
-
-        async submit() {
-            const res = await fetch('/journal/logs', {
-                method: 'DELETE',
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-CSRF-TOKEN": token
-                },
-
-                body: JSON.stringify(this.formData)
-            });
-
-            const resData = await res.json()
-
-            if (resData.status === 200) {
-                this.message = resData.message
-            }
+            return resData
         }
     }
 }

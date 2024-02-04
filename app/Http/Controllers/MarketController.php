@@ -40,7 +40,7 @@ class MarketController extends Controller
                             ->selectRaw('count(sale or null) as sale')
                             ->first();
 
-            return response()->json(['totals' => $totals]);
+            return $totals;
         }
 
         $totals = DB::table('products')
@@ -50,74 +50,118 @@ class MarketController extends Controller
                             ->selectRaw('count(sale or null) as sale')
                             ->first();
 
-        return response()->json(['totals' => $totals]);
+        return $totals;
     }
 
     public static function getProduct() {
+
         return view('product');
     }
 
     public static function getProductsByCategory(Request $request) {
 
         $products = Product::where('product_category_id', $request->id)->get();
+        $totals = self::countProducts($request);
 
-        return response()->json(['products' => $products]);
+        return response()->json([
+            'products' => $products,
+            'totals' => $totals,
+        ]);
     }
 
-    public static function getProductsByAvailability(Request $request) {
-
-        $in_stock = $request->in_stock;
-        $new = $request->new;
-        $sale = $request->sale;
+    public static function getProductsByFilter(Request $request) {
 
         if($request->category === 'all') {
-            $products = Product::when($in_stock, function($query, $in_stock) {
-                return $query->where('in_stock', $in_stock);
-            })->when($new, function($query, $new) {
-                return $query->where('new', $new);
-            })->when($sale, function($query, $sale) {
-                return $query->where('sale', $sale);
+            $products = Product::when($request->in_stock, function($query) use ($request) {
+                return $query->where('in_stock', $request->in_stock)
+                             ->where('price', '>', $request->minPrice)
+                             ->where('price', '<', $request->maxPrice);
+
+            })->when($request->new, function($query) use ($request) {
+                return $query->where('new', $request->new)
+                             ->where('price', '>', $request->minPrice)
+                             ->where('price', '<', $request->maxPrice);
+
+            })->when($request->sale, function($query) use ($request) {
+                return $query->where('sale', $request->sale)
+                             ->where('price', '>', $request->minPrice)
+                             ->where('price', '<', $request->maxPrice);
+            })->when(!$request->in_stock, function($query) use ($request) {
+                return $query->where('price', '>', $request->minPrice)
+                             ->where('price', '<', $request->maxPrice);
+            })->when(!$request->new, function($query) use ($request) {
+                return $query->where('price', '>', $request->minPrice)
+                             ->where('price', '<', $request->maxPrice);
+
+            })->when(!$request->sale, function($query) use ($request) {
+                return $query->where('price', '>', $request->minPrice)
+                             ->where('price', '<', $request->maxPrice);
+
+
             })->get();
 
-            return response()->json(['products' => $products]);
+            $totals = [
+                'in_stock' => $products->where('in_stock', true)->count(),
+                'new' => $products->where('new', true)->count(),
+                'sale' => $products->where('sale', true)->count()
+            ];
+
+            return response()->json([
+                'products' => $products,
+                'totals' => $totals
+            ]);
         }
 
         $products = Product::where('product_category_id', $request->category)
-        ->when($in_stock, function($query, $in_stock) {
-            return $query->where('in_stock', $in_stock);
-        })->when($new, function($query, $new) {
-            return $query->where('new', $new);
-        })->when($sale, function($query, $sale) {
-            return $query->where('sale', $sale);
-        })->get();
+            ->when($request->in_stock, function($query) use ($request) {
+                return $query->where('in_stock', $request->in_stock)
+                             ->where('price', '>', $request->minPrice)
+                             ->where('price', '<', $request->maxPrice);
 
-        return response()->json(['products' => $products]);
+            })->when($request->new, function($query) use ($request) {
+                return $query->where('new', $request->new)
+                             ->where('price', '>', $request->minPrice)
+                             ->where('price', '<', $request->maxPrice);
+
+            })->when($request->sale, function($query) use ($request) {
+                return $query->where('sale', $request->sale)
+                             ->where('price', '>', $request->minPrice)
+                             ->where('price', '<', $request->maxPrice);
+            })->when(!$request->in_stock, function($query) use ($request) {
+                return $query->where('price', '>', $request->minPrice)
+                             ->where('price', '<', $request->maxPrice);
+            })->when(!$request->new, function($query) use ($request) {
+                return $query->where('price', '>', $request->minPrice)
+                             ->where('price', '<', $request->maxPrice);
+
+            })->when(!$request->sale, function($query) use ($request) {
+                return $query->where('price', '>', $request->minPrice)
+                             ->where('price', '<', $request->maxPrice);
+
+            })->get();
+
+        $totals = [
+            'in_stock' => $products->where('in_stock', true)->count(),
+            'new' => $products->where('new', true)->count(),
+            'sale' => $products->where('sale', true)->count()
+        ];
+
+        return response()->json([
+            'products' => $products,
+            'totals' => $totals
+        ]);
     }
 
     public static function getProducts(Request $request) {
 
         $products = Product::get();
 
-        return response()->json(['products' => $products]);
-    }
+        $totals = self::countProducts($request);
 
-    public static function getProductsByPrice(Request $request) {
-
-        if($request->category === 'all') {
-            $products = Product::where('price', '>', $request->minPrice)
-                                 ->where('price', '<', $request->maxPrice)
-                                 ->get();
-
-            return response()->json(['products' => $products]);
-        }
-
-        $products = Product::where('product_category_id',  $request->category)
-                             ->where('price', '>', $request->minPrice)
-                             ->where('price', '<', $request->maxPrice)
-                             ->get();
-
-        return response()->json(['products' => $products]);
-
+        return response()->json([
+            'products' => $products,
+            'totals' => $totals
+        ]);
     }
 
     public static function getProductsBySearch(Request $request) {

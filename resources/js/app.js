@@ -1,14 +1,16 @@
 import Alpine from 'alpinejs'
 import postVote from './postVote'
 import postCommentVote from './postCommentVote'
-import {postNote, deleteNote} from './postNote'
-import {postLog, deleteLog} from './postLog'
-import {getProducts,
-        countProducts,
-        getByAvailability,
-        getProductsByPrice,
-        getProductsBySearch,
-        getProductsByCategory} from './product'
+import { postNote, deleteNote } from './postNote'
+import { postLog, deleteLog } from './postLog'
+import {
+    getProducts,
+    countProducts,
+    getByFilter,
+    getByPrice,
+    getProductsBySearch,
+    getProductsByCategory
+} from './product'
 
 window.postVote = postVote
 
@@ -22,9 +24,9 @@ window.deleteLog = deleteLog
 
 window.getProducts = getProducts
 window.getProductsByCategory = getProductsByCategory
-window.getByAvailability = getByAvailability
+window.getByFilter = getByFilter
 window.countProducts = countProducts
-window.getProductsByPrice = getProductsByPrice
+window.getByPrice = getByPrice
 window.getProductsBySearch = getProductsBySearch
 
 Alpine.start();

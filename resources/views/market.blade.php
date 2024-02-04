@@ -3,12 +3,14 @@
         x-data="{
             category: 'Dry Flies',
             products: 'init',
+            totals: ''
         }" class="flex">
 
         <x-market.side-nav :categories="$categories" :totals="$totals"/>
-
         <div class="w-full"
-            @data.window="[category = $event.detail.category, products = $event.detail.products]">
+            @data.window="[category = $event.detail.category, products = $event.detail.data.products, totals = $event.detail.data.totals]">
+
+            <p x-text="console.log(totals)"></p>
             <h2 class="text-center my-8 font-semibold text-2xl"
                 x-text="category.toUpperCase()"></h2>
 
