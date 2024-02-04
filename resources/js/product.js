@@ -72,7 +72,8 @@ export function getByFilter() {
             sale: false,
             category: '',
             minPrice: '',
-            maxPrice: ''
+            maxPrice: '',
+            search: ''
         },
         async submit() {
 
@@ -93,38 +94,12 @@ export function getByFilter() {
     }
 }
 
-export function getByPrice() {
-    return {
-
-        async submit(category, minPrice, maxPrice) {
-
-            const res = await fetch('/market/price', {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-CSRF-TOKEN": token
-                },
-
-                body: JSON.stringify({
-                    'minPrice': minPrice,
-                    'maxPrice': maxPrice,
-                    'category': category,
-                })
-            })
-
-            const resData = await res.json()
-
-            return resData
-        }
-    }
-}
-
 export function getProductsBySearch() {
 
     return {
         formData: {
             search: '',
-            category: ''
+            id: 'search'
         },
 
         async submit() {

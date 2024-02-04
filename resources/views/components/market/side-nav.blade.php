@@ -1,20 +1,17 @@
 <div class="flex h-fit" x-data="{
         open: true,
-        minPrice: 0,
-        maxPrice: 100,
         price: true,
-        available: false,
+        available: true,
         size: false,
         chosen: '4',
         openCat: '1',
         categoryId: '5',
+        search: '',
         categoryName: 'DRY FLIES',
         range: range(),
-        count: '',
         countProducts: countProducts(),
         getProductsByCategory: getProductsByCategory(),
         getByFilter: getByFilter(),
-        getByPrice: getByPrice(),
         getProductsBySearch: getProductsBySearch(),
         getProducts: getProducts()
     }">
@@ -24,10 +21,30 @@
 
         <div>
             <p class="w-full bg-neutral-700 text-newspaper font-semibold
+                    px-4 py-2 text-xl text-center">SEARCH</p>
+
+            <form class="mx-4 my-8 flex flex-col items-center" @submit.prevent.stop="[
+                                   reset($refs.inStockCheckbox, $refs.newCheckbox, $refs.saleCheckbox),
+                                   range.reset(),
+                                   categoryId = 'search',
+                                   search = $refs.search.value,
+                                   $dispatch('data', {category: categoryName,
+                                                      data: await getProductsBySearch.submit()})]" x-ref="searchForm">
+
+                <div class="flex">
+                    <input type="text" name="search" class="bg-newspaper border border-dashed px-2
+                                border-neutral-700 outline-none text-blue-900
+                                focus:border-solid" x-ref="search" x-model="getProductsBySearch.formData.search" placeholder="Search for a product" />
+                    <button class="bg-neutral-700 text-newspaper font-semibold px-2 py-1 hover-bg" type="submit">GO</button>
+                </div>
+            </form>
+        </div>
+        <div>
+            <p class="w-full bg-neutral-700 text-newspaper font-semibold
                 px-4 py-2 text-xl text-center">CATEGORIES</p>
 
             @foreach($categories as $category)
-            @if($category->parent_category_id === null)
+                @if($category->parent_category_id === null)
             <div class="mx-4 my-2">
                 <div @click="openCat = $event.target.getAttribute('id')" id="{{$category->id}}" class="font-semibold hover-text flex relative cursor-pointer">
 
@@ -49,7 +66,6 @@
                                     reset($refs.inStockCheckbox, $refs.newCheckbox, $refs.saleCheckbox),
                                     range.reset(),
                                     chosen = $event.target.getAttribute('id'),
-                                    count = await countProducts.submit('{{$subCategory->id}}'),
                                     $dispatch('data', {category: '{{$subCategory->name}}',
                                                       data: await getProductsByCategory.submit('{{$subCategory->id}}')})]" id="{{$loop->index}}" :class="chosen === $el.id ? 'text-blue-900' : 'text-neutral-700'" class="my-1 cursor-pointer hover-text"><span class="font-normal">-></span> {{$subCategory->name}}</p>
                     </div>
@@ -61,8 +77,7 @@
             @endforeach
 
             <div class="mx-4 my-2">
-                <p @click="[count = await countProducts.submit('all'),
-                            categoryName = 'ALL PRODUCTS',
+                <p @click="[categoryName = 'ALL PRODUCTS',
                             categoryId = 'all',
                             reset($refs.inStockCheckbox, $refs.newCheckbox, $refs.saleCheckbox),
                             range.reset(),
@@ -90,8 +105,7 @@
 
                     <div x-show="price" class="ml-7">
 
-                        <div @change="[minPrice = range.minprice,
-                                   maxPrice = range.maxprice]" x-init="range.mintrigger(); range.maxtrigger()" class="relative w-full mt-6 mb-6">
+                        <div x-init="range.mintrigger(); range.maxtrigger()" class="relative w-full mt-6 mb-6">
 
                             <div>
                                 <input type="range" :min="range.min" :max="range.max" @input="range.mintrigger()" x-model="range.minprice" class="absolute pointer-events-none appearance-none z-20 h-2 w-full opacity-0 cursor-pointer">
@@ -127,8 +141,9 @@
                     <div x-show="available" class="ml-7">
 
                         <input type="hidden" x-model="getByFilter.formData.category = categoryId" />
-                        <input type="hidden" x-model="getByFilter.formData.minPrice = minPrice" />
-                        <input type="hidden" x-model="getByFilter.formData.maxPrice = maxPrice" />
+                        <input type="hidden" x-model="getByFilter.formData.minPrice = range.minprice" />
+                        <input type="hidden" x-model="getByFilter.formData.maxPrice = range.maxprice" />
+                        <input type="hidden" x-model="getByFilter.formData.search = search" />
 
                         <div class="flex items-center">
                             <input x-ref="inStockCheckbox" class="mr-3 checkbox" type="checkbox" x-model="getByFilter.formData.in_stock">
@@ -143,10 +158,11 @@
                         <div class="flex items-center">
                             <input class="mr-3 checkbox" type="checkbox" disabled />
                             <label class="mr-2"> Pre-Order </label>
-                            <p class="text-neutral-500 text-sm font-normal">None</p>
+                            <p class="text-blue-900 text-sm font-normal">0</p>
                         </div>
+
                         <div class="flex items-center">
-                            <input @change="$refs.availability.requestSubmit()" x-ref="saleCheckbox" class="mr-3 checkbox" type="checkbox" x-model="getByFilter.formData.sale">
+                            <input x-ref="saleCheckbox" class="mr-3 checkbox" type="checkbox" x-model="getByFilter.formData.sale">
                             <label class="mr-2"> On Sale </label>
                             <p class="text-blue-900 text-sm font-normal" x-text="totals !== '' ? totals.sale : $el.innerText">{{$totals->sale}}</p>
                         </div>
@@ -207,22 +223,7 @@
 
             </form>
         </div>
-        <div>
-            <p class="w-full bg-neutral-700 text-newspaper font-semibold
-                    px-4 py-2 text-xl text-center">SEARCH</p>
 
-            <form class="mx-4 my-8 flex flex-col items-center" @submit.prevent.stop="
-                                   $dispatch('data', {category: categoryName,
-                                                      products: await getProductsBySearch.submit()})" x-ref="searchForm">
-
-                <div class="flex">
-                    <input type="text" name="search" class="bg-newspaper border border-dashed px-2
-                                border-neutral-700 outline-none text-blue-900
-                                focus:border-solid" x-ref="search" x-model="getProductsBySearch.formData.search" placeholder="Search for a product" />
-                    <button class="bg-neutral-700 text-newspaper font-semibold px-2 py-1 hover-bg" type="submit">GO</button>
-                </div>
-            </form>
-        </div>
     </div>
 </div>
 

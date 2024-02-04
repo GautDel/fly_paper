@@ -71,6 +71,52 @@ class MarketController extends Controller
 
     public static function getProductsByFilter(Request $request) {
 
+        if($request->category === 'search') {
+            $products = Product::when($request->in_stock, function($query) use ($request) {
+                return $query->where('in_stock', $request->in_stock)
+                             ->where('price', '>', $request->minPrice)
+                             ->where('price', '<', $request->maxPrice)
+                             ->where('name','LIKE','%'.$request->search."%");
+
+            })->when($request->new, function($query) use ($request) {
+                return $query->where('new', $request->new)
+                             ->where('price', '>', $request->minPrice)
+                             ->where('price', '<', $request->maxPrice)
+                             ->where('name','LIKE','%'.$request->search."%");
+
+            })->when($request->sale, function($query) use ($request) {
+                return $query->where('sale', $request->sale)
+                             ->where('price', '>', $request->minPrice)
+                             ->where('price', '<', $request->maxPrice)
+                             ->where('name','LIKE','%'.$request->search."%");
+
+            })->when(!$request->in_stock, function($query) use ($request) {
+                return $query->where('price', '>', $request->minPrice)
+                             ->where('price', '<', $request->maxPrice)
+                             ->where('name','LIKE','%'.$request->search."%");
+
+            })->when(!$request->new, function($query) use ($request) {
+                return $query->where('price', '>', $request->minPrice)
+                             ->where('price', '<', $request->maxPrice)
+                             ->where('name','LIKE','%'.$request->search."%");
+
+            })->when(!$request->sale, function($query) use ($request) {
+                return $query->where('price', '>', $request->minPrice)
+                             ->where('price', '<', $request->maxPrice)
+                             ->where('name','LIKE','%'.$request->search."%");
+            })->get();
+
+            $totals = [
+                'in_stock' => $products->where('in_stock', true)->count(),
+                'new' => $products->where('new', true)->count(),
+                'sale' => $products->where('sale', true)->count()
+            ];
+
+            return response()->json([
+                'products' => $products,
+                'totals' => $totals
+            ]);
+        }
         if($request->category === 'all') {
             $products = Product::when($request->in_stock, function($query) use ($request) {
                 return $query->where('in_stock', $request->in_stock)
@@ -168,6 +214,15 @@ class MarketController extends Controller
 
         $products = Product::where('name','LIKE','%'.$request->search."%")->get();
 
-        return response()->json(['products' => $products]);
+        $totals = [
+            'in_stock' => $products->where('in_stock', true)->count(),
+            'new' => $products->where('new', true)->count(),
+            'sale' => $products->where('sale', true)->count()
+        ];
+
+        return response()->json([
+            'products' => $products,
+            'totals' => $totals,
+        ]);
     }
 }

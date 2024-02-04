@@ -7,7 +7,6 @@ import {
     getProducts,
     countProducts,
     getByFilter,
-    getByPrice,
     getProductsBySearch,
     getProductsByCategory
 } from './product'
@@ -26,7 +25,6 @@ window.getProducts = getProducts
 window.getProductsByCategory = getProductsByCategory
 window.getByFilter = getByFilter
 window.countProducts = countProducts
-window.getByPrice = getByPrice
 window.getProductsBySearch = getProductsBySearch
 
 Alpine.start();
