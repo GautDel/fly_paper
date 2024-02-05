@@ -149,11 +149,13 @@
                             <label class="mr-2"> In Stock </label>
                             <p class="text-blue-900 text-sm font-normal" x-text="totals !== '' ? totals.in_stock : $el.innerText">{{$totals->in_stock}}</p>
                         </div>
+
                         <div class="flex items-center">
                             <input x-ref="newCheckbox" class="mr-3 checkbox" type="checkbox" x-model="getByFilter.formData.new">
                             <label class="mr-2"> New </label>
                             <p class="text-blue-900 text-sm font-normal" x-text="totals !== '' ? totals.new : $el.innerText">{{$totals->new}}</p>
                         </div>
+
                         <div class="flex items-center">
                             <input class="mr-3 checkbox" type="checkbox" disabled />
                             <label class="mr-2"> Pre-Order </label>

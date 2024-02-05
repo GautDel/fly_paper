@@ -16,5 +16,15 @@ class Product extends Model
         return $this->belongsTo(ProductCategory::class);
     }
 
+    public function ratings(): HasMany
+    {
+        return $this->hasMany(ProductRating::class);
+    }
+
+
+    public function avgRating($productId) {
+        return $avgStars = ProductRating::where('product_id', $productId)->avg('rating');
+    }
 }
+
 

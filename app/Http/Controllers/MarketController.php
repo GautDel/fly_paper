@@ -95,7 +95,6 @@ class MarketController extends Controller
 
     public static function getProductsByFilter(Request $request)
     {
-
         if ($request->category === 'search') {
             $products = Product::when($request->in_stock, function ($query) use ($request) {
                 return $query->where('in_stock', $request->in_stock)

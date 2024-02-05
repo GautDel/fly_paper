@@ -31,6 +31,7 @@ class DatabaseSeeder extends Seeder
             ProductCategoriesSeeder::class,
             ProductsSeeder::class,
             ProductVariationsSeeder::class,
+            ProductRatingsSeeder::class,
             VariationOptionsSeeder::class
         ]);
     }
