@@ -2,7 +2,7 @@
         open: true,
         price: true,
         available: true,
-        rating: false,
+        rating: true,
         chosenRating: '',
         size: false,
         chosen: '4',

@@ -157,18 +157,26 @@ class MarketController extends Controller
 
             if($request->minRating !== null) {
 
-                $filtered = [];
+                $filtered = collect([]);
+
                 foreach($productData as $product) {
                     $avg = $product->ratings->avg('rating');
 
                     if($avg > $request->minRating && $avg < $request->maxRating) {
-                    array_push($filtered, $product);
+                        $filtered->push($product);
                     }
                 }
 
+                $filteredTotals = [
+                    'in_stock' => $filtered->where('in_stock', true)->count(),
+                    'new' => $filtered->where('new', true)->count(),
+                    'sale' => $filtered->where('sale', true)->count()
+                ];
+
+
                 return response()->json([
                     'products' => self::getProductData($filtered),
-                    'totals' => $totals
+                    'totals' => $filteredTotals
                 ]);
             }
 
@@ -211,18 +219,27 @@ class MarketController extends Controller
 
             if($request->minRating !== null) {
 
-                $filtered = [];
+
+                $filtered = collect([]);
+
                 foreach($productData as $product) {
                     $avg = $product->ratings->avg('rating');
 
                     if($avg > $request->minRating && $avg < $request->maxRating) {
-                    array_push($filtered, $product);
+                        $filtered->push($product);
                     }
                 }
 
+            $filteredTotals = [
+                'in_stock' => $filtered->where('in_stock', true)->count(),
+                'new' => $filtered->where('new', true)->count(),
+                'sale' => $filtered->where('sale', true)->count()
+            ];
+
+
                 return response()->json([
                     'products' => self::getProductData($filtered),
-                    'totals' => $totals
+                    'totals' => $filteredTotals
                 ]);
             }
 
@@ -266,20 +283,28 @@ class MarketController extends Controller
 
         if($request->minRating !== null) {
 
-            $filtered = [];
+            $filtered = collect([]);
+
             foreach($productData as $product) {
                 $avg = $product->ratings->avg('rating');
 
                 if($avg > $request->minRating && $avg < $request->maxRating) {
-                    array_push($filtered, $product);
+                    $filtered->push($product);
                 }
             }
+
+            $filteredTotals = [
+                'in_stock' => $filtered->where('in_stock', true)->count(),
+                'new' => $filtered->where('new', true)->count(),
+                'sale' => $filtered->where('sale', true)->count()
+            ];
+
 
             return response()->json([
                 'products' => self::getProductData($filtered),
                 'variations' => $variations,
                 'options' => self::getOptions($variations),
-                'totals' => $totals
+                'totals' => $filteredTotals
             ]);
         }
 

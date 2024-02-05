@@ -14,15 +14,14 @@ the joke to look it up by date. that would be another way
 
 TO DO
 ------- Finish website by 21 January
-2 Do a tidy up of code
 3 Fix bug with update form error handling... sending back a 404...
 4 AJAX FOR WIKI SECTION
 5 Work on Journal section
 
-Fix issue with latest log on home page (If none exist, breaks)
 Use Auth::user()->id instead of passing in via form
-Add blue text wherever there is user input
 Check for unused code in journal controller
+Tidy Code in side nav
+-> Dont need options or variations anymore
 
 ----------------------------------
 PRODUCT RELATIONS
