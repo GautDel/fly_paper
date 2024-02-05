@@ -2,6 +2,8 @@
         open: true,
         price: true,
         available: true,
+        rating: false,
+        chosenRating: '',
         size: false,
         chosen: '4',
         openCat: '1',
@@ -25,6 +27,9 @@
                                    getByFilter.formData.new = false,
                                    getByFilter.formData.sale = false,
                                    getByFilter.formData.minPrice = 0,
+                                   getByFilter.formData.minRating = '',
+                                   getByFilter.formData.maxRating = '',
+                                   chosenRating = '',
                                    getByFilter.formData.maxPrice = 100,
                                    categoryName = `SEARCH - ${$refs.search.value}`,
                                    range.reset(),
@@ -65,6 +70,9 @@
                                     categoryName = '{{$subCategory->name}}',
                                     reset($refs.inStockCheckbox, $refs.newCheckbox, $refs.saleCheckbox),
                                     range.reset(),
+                                    chosenRating = '',
+                                    getByFilter.formData.minRating = '',
+                                    getByFilter.formData.maxRating = '',
                                     chosen = $event.target.getAttribute('id'),
                                     $dispatch('data', {category: '{{$subCategory->name}}',
                                                       data: await getProductsByCategory.submit('{{$subCategory->id}}')})]" id="{{$loop->index}}" :class="chosen === $el.id ? 'text-blue-900' : 'text-neutral-700'" class="my-1 cursor-pointer hover-text"><span class="font-normal">-></span> {{$subCategory->name}}</p>
@@ -81,6 +89,9 @@
                             categoryId = 'all',
                             reset($refs.inStockCheckbox, $refs.newCheckbox, $refs.saleCheckbox),
                             range.reset(),
+                            chosenRating = '',
+                            getByFilter.formData.minRating = '',
+                            getByFilter.formData.maxRating = '',
                             $dispatch('data', {category: 'All Products',
                                               data: await getProducts.submit()})]" class="font-semibold cursor-pointer hover-text">ALL PRODUCTS</p>
             </div>
@@ -149,7 +160,6 @@
                             <label class="mr-2"> In Stock </label>
                             <p class="text-blue-900 text-sm font-normal" x-text="totals !== '' ? totals.in_stock : $el.innerText">{{$totals->in_stock}}</p>
                         </div>
-
                         <div class="flex items-center">
                             <input x-ref="newCheckbox" class="mr-3 checkbox" type="checkbox" x-model="getByFilter.formData.new">
                             <label class="mr-2"> New </label>
@@ -170,68 +180,66 @@
                     </div>
                 </div>
 
-                <div class="mx-4">
+                <div class="mx-4 my-2">
+                    <div @click="rating = !rating" class="font-semibold hover-text flex relative">
 
-                        <template x-if="variations !== ''">
+                        <span x-show="!rating" class="cursor-pointer absolute top-0 left-0">-></span>
 
-                            <template x-for="variation in variations">
-                        <div class="flex flex-col my-2" x-data="{show: false}">
-                        <div @click="show = !show" class="font-semibold hover-text flex relative">
+                        <span x-show="rating" class="inline-block rotate-90 cursor-pointer  absolute top-0 left-0">></span>
 
-                            <span x-show="!show" class="cursor-pointer absolute top-0 left-0">-></span>
+                        <span class="cursor-pointer ml-7 ">RATINGS</span>
+                    </div>
 
-                            <span x-show="show" class="inline-block rotate-90 cursor-pointer  absolute top-0 left-0">></span>
+                    <div x-show="rating" class="ml-7">
 
-                            <span class="cursor-pointer ml-7" x-text="variation.name.toUpperCase()"></span>
+                        <div id="5" @click="[getByFilter.formData.minRating = 5, getByFilter.formData.maxRating = 6, $refs.availability.requestSubmit(), chosenRating = 5]"
+                            :class="chosenRating == $el.id ? 'chosen-rating' : ''" class="flex items-center my-2 cursor-pointer">
+                            <div class="mr-1 rounded-full w-4 h-4 bg-neutral-700"></div>
+                            <div class="mr-1 rounded-full w-4 h-4 bg-neutral-700"></div>
+                            <div class="mr-1 rounded-full w-4 h-4 bg-neutral-700"></div>
+                            <div class="mr-1 rounded-full w-4 h-4 bg-neutral-700"></div>
+                            <div class="mr-1 rounded-full w-4 h-4 bg-neutral-700"></div>
+                        </div>
+                        <div id="4" @click="[getByFilter.formData.minRating = 4, getByFilter.formData.maxRating = 5, $refs.availability.requestSubmit(), chosenRating = 4]"
+                            :class="chosenRating == $el.id ? 'chosen-rating' : ''" class="flex items-center my-2 cursor-pointer">
+                            <div class="mr-1 rounded-full w-4 h-4 bg-neutral-700"></div>
+                            <div class="mr-1 rounded-full w-4 h-4 bg-neutral-700"></div>
+                            <div class="mr-1 rounded-full w-4 h-4 bg-neutral-700"></div>
+                            <div class="mr-1 rounded-full w-4 h-4 bg-neutral-700"></div>
+                            <p class="mr-1 rounded-full w-4 h-4 bg-newspaper border-2 border-neutral-700"></p>
+                        </div>
+                        <div id="3" @click="[getByFilter.formData.minRating = 3, getByFilter.formData.maxRating = 4, $refs.availability.requestSubmit(), chosenRating = 3]"
+                            :class="chosenRating == $el.id ? 'chosen-rating' : ''" class="flex items-center my-2 cursor-pointer">
+                            <div class="mr-1 rounded-full w-4 h-4 bg-neutral-700"></div>
+                            <div class="mr-1 rounded-full w-4 h-4 bg-neutral-700"></div>
+                            <div class="mr-1 rounded-full w-4 h-4 bg-neutral-700"></div>
+                            <p class="mr-1 rounded-full w-4 h-4 bg-newspaper border-2 border-neutral-700"></p>
+                            <p class="mr-1 rounded-full w-4 h-4 bg-newspaper border-2 border-neutral-700"></p>
+                        </div>
+                        <div id="2" @click="[getByFilter.formData.minRating = 2, getByFilter.formData.maxRating = 3, $refs.availability.requestSubmit(), chosenRating = 2]"
+                            :class="chosenRating == $el.id ? 'chosen-rating' : ''" class="flex items-center my-2 cursor-pointer">
+                            <div class="mr-1 rounded-full w-4 h-4 bg-neutral-700"></div>
+                            <div class="mr-1 rounded-full w-4 h-4 bg-neutral-700"></div>
+                            <p class="mr-1 rounded-full w-4 h-4 bg-newspaper border-2 border-neutral-700"></p>
+                            <p class="mr-1 rounded-full w-4 h-4 bg-newspaper border-2 border-neutral-700"></p>
+                            <p class="mr-1 rounded-full w-4 h-4 bg-newspaper border-2 border-neutral-700"></p>
+                        </div>
+                        <div id="1" @click="[getByFilter.formData.minRating = 1, getByFilter.formData.maxRating = 2, $refs.availability.requestSubmit(), chosenRating = 1]"
+                            :class="chosenRating == $el.id ? 'chosen-rating' : ''" class="flex items-center my-2 cursor-pointer">
+                            <div class="mr-1 rounded-full w-4 h-4 bg-neutral-700"></div>
+                            <p class="mr-1 rounded-full w-4 h-4 bg-newspaper border-2 border-neutral-700"></p>
+                            <p class="mr-1 rounded-full w-4 h-4 bg-newspaper border-2 border-neutral-700"></p>
+                            <p class="mr-1 rounded-full w-4 h-4 bg-newspaper border-2 border-neutral-700"></p>
+                            <p class="mr-1 rounded-full w-4 h-4 bg-newspaper border-2 border-neutral-700"></p>
                         </div>
 
-                            <div x-show="show" class="ml-7">
-                                <template x-for="option in options">
-                                    <template x-if="option.product_variation_id === variation.id">
-                                        <div class="flex items-center">
-                                            <input class="mr-3 checkbox" type="checkbox"/>
-                                            <label class="mr-2" for="stock" x-text="option.value"></label>
-                                            <p class="text-blue-900 text-sm font-normal"></p>
-                                        </div>
-                                    </template>
-                                </template>
-                            </div>
+                        <div @click="[getByFilter.formData.minRating = '', getByFilter.formData.maxRating = '',chosenRating = '', $refs.availability.requestSubmit()]"
+                            class="w-fit bg-neutral-700 flex items-center my-2 cursor-pointer text-newspaper hover-bg font-semibold px-2 py-1">
+                            <p>RESET</p>
                         </div>
-
-
-                            </template>
-                        </template>
-
-                    @foreach($categories[4]->variations as $variation)
-
-                        <template x-if="variations === ''">
-                        <div class="flex flex-col my-2" x-data="{show: false}">
-                        <div @click="show = !show" class="font-semibold hover-text flex relative">
-
-                            <span x-show="!show" class="cursor-pointer absolute top-0 left-0">-></span>
-
-                            <span x-show="show" class="inline-block rotate-90 cursor-pointer  absolute top-0 left-0">></span>
-
-                            <span class="cursor-pointer ml-7 ">{{Str::upper($variation->name)}}</span>
-                        </div>
-
-                            <div x-show="show" class="ml-7">
-                                @foreach($variation->options as $option)
-                                    <div class="flex items-center">
-                                        <input class="mr-3 checkbox" type="checkbox" name="stock" value="stock">
-                                        <label class="mr-2" for="stock">{{$option->value}}</label>
-                                        <p class="text-blue-900 text-sm font-normal"></p>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-
-                        </template>
-                    @endforeach
-
+                    </div>
+                </div>
             </form>
-        </div>
-
     </div>
 </div>
 
@@ -279,4 +287,4 @@
             }
         </script>
 
-        </div>
+</div>

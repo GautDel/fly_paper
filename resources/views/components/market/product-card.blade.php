@@ -27,10 +27,6 @@
                     @for($i = floor($product->avgRating($product->id)); $i < 4; $i++)
                         <div class="mr-1 rounded-full w-4 h-4 bg-neutral-700 border-2 text-newspaper">&nbsp;</div>
                     @endfor
-                @else
-                    @for($i = floor($product->avgRating($product->id)); $i < 4; $i++)
-                        <div class="mr-1 rounded-full w-4 h-4 bg-neutral-700 border-2 text-newspaper">&nbsp;</div>
-                    @endfor
                 @endif
                     <p class="text-neutral-400">({{$product->ratings->count()}})</p>
                 @else

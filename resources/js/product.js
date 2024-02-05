@@ -53,8 +53,11 @@ export function getByFilter() {
             category: '',
             minPrice: '',
             maxPrice: '',
+            minRating: '',
+            maxRating: '',
             search: ''
         },
+
         async submit() {
 
             const res = await fetch('/market/filter', {

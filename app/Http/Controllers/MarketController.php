@@ -76,19 +76,43 @@ class MarketController extends Controller
         return $options;
     }
 
+    public static function getRatings($products) {
+        $ratings = [];
+        foreach($products as $product) {
+            foreach($product->ratings as $rating) {
+                array_push($ratings, $rating);
+            }
+        }
+    }
+
+    public static function getProductData($productData) {
+        $products = [];
+
+        foreach($productData as $product) {
+                array_push($products, [
+                        'product' => $product,
+                        'avgRating' => $product->avgRating($product->id)
+                ]);
+        };
+
+        return $products;
+    }
+
     public static function getProductsByCategory(Request $request)
     {
 
+        $productData = Product::where('product_category_id', $request->id)
+                                ->with('ratings')
+                                ->get();
 
-        $products = Product::where('product_category_id', $request->id)->get();
+
         $variations = ProductVariation::where('product_category_id', $request->id)->get();
 
         $totals = self::countProducts($request);
 
         return response()->json([
-            'products' => $products,
+            'products' => self::getProductData($productData),
             'variations' => $variations,
-            'options' => self::getOptions($variations),
             'totals' => $totals,
         ]);
     }
@@ -96,7 +120,7 @@ class MarketController extends Controller
     public static function getProductsByFilter(Request $request)
     {
         if ($request->category === 'search') {
-            $products = Product::when($request->in_stock, function ($query) use ($request) {
+            $productData = Product::when($request->in_stock, function ($query) use ($request) {
                 return $query->where('in_stock', $request->in_stock)
                     ->where('price', '>', $request->minPrice)
                     ->where('price', '<', $request->maxPrice)
@@ -123,21 +147,40 @@ class MarketController extends Controller
                 return $query->where('price', '>', $request->minPrice)
                     ->where('price', '<', $request->maxPrice)
                     ->where('name', 'LIKE', '%' . $request->search . "%");
-            })->get();
+            })->with('ratings')->get();
 
             $totals = [
-                'in_stock' => $products->where('in_stock', true)->count(),
-                'new' => $products->where('new', true)->count(),
-                'sale' => $products->where('sale', true)->count()
+                'in_stock' => $productData->where('in_stock', true)->count(),
+                'new' => $productData->where('new', true)->count(),
+                'sale' => $productData->where('sale', true)->count()
             ];
 
+            if($request->minRating !== null) {
+
+                $filtered = [];
+                foreach($productData as $product) {
+                    $avg = $product->ratings->avg('rating');
+
+                    if($avg > $request->minRating && $avg < $request->maxRating) {
+                    array_push($filtered, $product);
+                    }
+                }
+
+                return response()->json([
+                    'products' => self::getProductData($filtered),
+                    'totals' => $totals
+                ]);
+            }
+
+
             return response()->json([
-                'products' => $products,
+                'products' => self::getProductData($productData),
                 'totals' => $totals
             ]);
         }
+
         if ($request->category === 'all') {
-            $products = Product::when($request->in_stock, function ($query) use ($request) {
+            $productData = Product::when($request->in_stock, function ($query) use ($request) {
                 return $query->where('in_stock', $request->in_stock)
                     ->where('price', '>', $request->minPrice)
                     ->where('price', '<', $request->maxPrice);
@@ -158,21 +201,38 @@ class MarketController extends Controller
             })->when(!$request->sale, function ($query) use ($request) {
                 return $query->where('price', '>', $request->minPrice)
                     ->where('price', '<', $request->maxPrice);
-            })->get();
+            })->with('ratings')->get();
 
             $totals = [
-                'in_stock' => $products->where('in_stock', true)->count(),
-                'new' => $products->where('new', true)->count(),
-                'sale' => $products->where('sale', true)->count()
+                'in_stock' => $productData->where('in_stock', true)->count(),
+                'new' => $productData->where('new', true)->count(),
+                'sale' => $productData->where('sale', true)->count()
             ];
 
+            if($request->minRating !== null) {
+
+                $filtered = [];
+                foreach($productData as $product) {
+                    $avg = $product->ratings->avg('rating');
+
+                    if($avg > $request->minRating && $avg < $request->maxRating) {
+                    array_push($filtered, $product);
+                    }
+                }
+
+                return response()->json([
+                    'products' => self::getProductData($filtered),
+                    'totals' => $totals
+                ]);
+            }
+
             return response()->json([
-                'products' => $products,
+                'products' => self::getProductData($productData),
                 'totals' => $totals
             ]);
         }
 
-        $products = Product::where('product_category_id', $request->category)
+        $productData = Product::where('product_category_id', $request->category)
             ->when($request->in_stock, function ($query) use ($request) {
                 return $query->where('in_stock', $request->in_stock)
                     ->where('price', '>', $request->minPrice)
@@ -194,18 +254,37 @@ class MarketController extends Controller
             })->when(!$request->sale, function ($query) use ($request) {
                 return $query->where('price', '>', $request->minPrice)
                     ->where('price', '<', $request->maxPrice);
-            })->get();
+            })->with('ratings')->get();
 
         $variations = ProductVariation::where('product_category_id', $request->category)->get();
 
         $totals = [
-            'in_stock' => $products->where('in_stock', true)->count(),
-            'new' => $products->where('new', true)->count(),
-            'sale' => $products->where('sale', true)->count()
+            'in_stock' => $productData->where('in_stock', true)->count(),
+            'new' => $productData->where('new', true)->count(),
+            'sale' => $productData->where('sale', true)->count()
         ];
 
+        if($request->minRating !== null) {
+
+            $filtered = [];
+            foreach($productData as $product) {
+                $avg = $product->ratings->avg('rating');
+
+                if($avg > $request->minRating && $avg < $request->maxRating) {
+                    array_push($filtered, $product);
+                }
+            }
+
+            return response()->json([
+                'products' => self::getProductData($filtered),
+                'variations' => $variations,
+                'options' => self::getOptions($variations),
+                'totals' => $totals
+            ]);
+        }
+
         return response()->json([
-            'products' => $products,
+            'products' => self::getProductData($productData),
             'variations' => $variations,
             'options' => self::getOptions($variations),
             'totals' => $totals
@@ -215,12 +294,12 @@ class MarketController extends Controller
     public static function getProducts(Request $request)
     {
 
-        $products = Product::get();
+        $productData = Product::with('ratings')->get();
 
         $totals = self::countProducts($request);
 
         return response()->json([
-            'products' => $products,
+            'products' => self::getProductData($productData),
             'totals' => $totals
         ]);
     }

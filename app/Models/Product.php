@@ -23,7 +23,7 @@ class Product extends Model
 
 
     public function avgRating($productId) {
-        return $avgStars = ProductRating::where('product_id', $productId)->avg('rating');
+        return ProductRating::where('product_id', $productId)->avg('rating');
     }
 }
 

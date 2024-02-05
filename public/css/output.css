@@ -618,10 +618,6 @@ html {
   z-index: 50;
 }
 
-.z-40 {
-  z-index: 40;
-}
-
 .m-4 {
   margin: 1rem;
 }
@@ -1115,6 +1111,11 @@ html {
   border-radius: 0.375rem;
 }
 
+.rounded-l-full {
+  border-top-left-radius: 9999px;
+  border-bottom-left-radius: 9999px;
+}
+
 .border {
   border-width: 1px;
 }
@@ -1561,6 +1562,10 @@ html {
 
 .caps {
   text-transform: capitalize;
+}
+
+.chosen-rating > div {
+  background-color: #1e3a8a;
 }
 
 .slider-box {

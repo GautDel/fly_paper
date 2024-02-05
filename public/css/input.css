@@ -69,6 +69,10 @@
     text-transform: capitalize;
 }
 
+.chosen-rating > div {
+    background-color: #1e3a8a;
+}
+
 .slider-box {
     background-color: #F5F1F0;
 }

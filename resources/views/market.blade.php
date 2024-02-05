@@ -1,8 +1,10 @@
 <x-layout>
+
     <div
         x-data="{
             category: 'Dry Flies',
             products: 'init',
+            rating: 'init',
             variations: '',
             options: '',
             totals: ''
@@ -31,7 +33,6 @@
                 <template x-if="products.length === 0">
                     <p class="text-center font-normal text-sm my-10">Couldn't find any products matching your search</p>
                 </template>
-
                 @foreach($products as $product)
                     <template x-if="products === 'init'">
                         <x-market.product-card :product="$product"/>
