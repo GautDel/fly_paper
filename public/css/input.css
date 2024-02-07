@@ -14,6 +14,10 @@
     background-color: #F5F1F0;
 }
 
+.bg-transparent {
+    background-color: rgb(245, 241, 240, 0.75);
+}
+
 .text-newspaper {
     color: #F5F1F0;
 }

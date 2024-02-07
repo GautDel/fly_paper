@@ -27,7 +27,24 @@ class VariationOptionsSeeder extends Seeder
                 'product_variation_id' => 1
             ],
             [
-                'value' => '01',
+                'value' => '16',
+                'product_variation_id' => 2
+            ],
+            [
+                'value' => '14',
+                'product_variation_id' => 2
+            ],
+            [
+                'value' => '12',
+                'product_variation_id' => 2
+            ],
+            [
+                'value' => '10',
+                'product_variation_id' => 2
+            ],
+
+            [
+                'value' => '8',
                 'product_variation_id' => 4
             ],
             [

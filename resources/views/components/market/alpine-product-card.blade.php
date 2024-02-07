@@ -1,4 +1,4 @@
-<a href="/market/product">
+<a :href="`/market/product/${product.product.id}`">
 
 <div class="max-w-xs border-2 border-neutral-700 m-4 h-fit cursor-pointer">
 

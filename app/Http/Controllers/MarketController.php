@@ -61,20 +61,13 @@ class MarketController extends Controller
     public static function getProduct(Request $request)
     {
         $product = Product::where('id', $request->id)->with('ratings')->first();
+        $variations = ProductVariation::where('product_category_id', $product->product_category_id)
+                                        ->with('options')->get();
 
-        return view('product', ['product' => $product]);
-    }
-
-    public static function getOptions($variations) {
-
-        $options = [];
-
-        foreach ($variations as $variation) {
-            foreach($variation->options as $option)
-                array_push($options, $option);
-        };
-
-        return $options;
+        return view('product', [
+            'product' => $product,
+            'variations' => $variations,
+        ]);
     }
 
     public static function getRatings($products) {
@@ -106,14 +99,10 @@ class MarketController extends Controller
                                 ->with('ratings')
                                 ->get();
 
-
-        $variations = ProductVariation::where('product_category_id', $request->id)->get();
-
         $totals = self::countProducts($request);
 
         return response()->json([
             'products' => self::getProductData($productData),
-            'variations' => $variations,
             'totals' => $totals,
         ]);
     }
@@ -274,8 +263,6 @@ class MarketController extends Controller
                     ->where('price', '<', $request->maxPrice);
             })->with('ratings')->get();
 
-        $variations = ProductVariation::where('product_category_id', $request->category)->get();
-
         $totals = [
             'in_stock' => $productData->where('in_stock', true)->count(),
             'new' => $productData->where('new', true)->count(),
@@ -303,16 +290,12 @@ class MarketController extends Controller
 
             return response()->json([
                 'products' => self::getProductData($filtered),
-                'variations' => $variations,
-                'options' => self::getOptions($variations),
                 'totals' => $filteredTotals
             ]);
         }
 
         return response()->json([
             'products' => self::getProductData($productData),
-            'variations' => $variations,
-            'options' => self::getOptions($variations),
             'totals' => $totals
         ]);
     }
