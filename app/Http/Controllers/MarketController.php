@@ -58,10 +58,11 @@ class MarketController extends Controller
         return $totals;
     }
 
-    public static function getProduct()
+    public static function getProduct(Request $request)
     {
+        $product = Product::where('id', $request->id)->with('ratings')->first();
 
-        return view('product');
+        return view('product', ['product' => $product]);
     }
 
     public static function getOptions($variations) {

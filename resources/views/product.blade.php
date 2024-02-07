@@ -14,7 +14,7 @@
 
                         <div class="bg-neutral-700 text-newspaper font-semibold px-3 py-2">
 
-                            <p class="text-center">HARE'S EAR</p>
+                            <p class="text-center">{{$product->name}}</p>
 
                             <div class="flex mt-1 items-center">
                                 <div class="mr-1 rounded-full w-2 h-2 bg-newspaper">&nbsp;</div>
@@ -26,7 +26,7 @@
 
                             <p class="text-newspaper text-sm">€20.30</p>
 
-                            <p class="text-neutral-400 text-xs">Orvis</p>
+                            <p class="text-neutral-400 text-xs">{{$product->brand}}</p>
                         </div>
                     </div>
 
@@ -111,23 +111,39 @@
 
     <div class="my-8 flex flex-col w-full lg:w-1/3 lg:my-0 max-w-lg">
 
-        <p class="bg-neutral-700 text-newspaper font-semibold px-2 py-1 text-center text-2xl">HARE'S EAR</p>
+        <p class="bg-neutral-700 text-newspaper font-semibold px-2 py-1 text-center text-2xl">{{Str::upper($product->name)}}</p>
 
         <div class="px-4 py-2 border border-dashed border-neutral-700 border-t-0">
 
-            <p class="font-semibold text-2xl mt-2">€ 2.24</p>
+            <p class="font-semibold text-2xl mt-2">€ {{$product->price}}</p>
 
             <p class="text-xs font-normal text-neutral-500">VAT included (where applicable), plus shipping</p>
 
-            <p class="text-sm font-normal my-4">Ginger Quill Shuttlecock Emerger. When fish look like they are rising but won't take dry flies, fishing this emerger behind your dry will fool even the trickiest fish. This emerger works great on grayling and trout.</p>
+            <p class="text-sm font-normal my-4">{{$product->description}}</p>
 
             <div class="flex my-3 items-center w-full cursor-pointer">
-                <div class="mr-1 rounded-full w-4 h-4 bg-neutral-700">&nbsp;</div>
-                <div class="mr-1 rounded-full w-4 h-4 bg-neutral-700">&nbsp;</div>
-                <div class="mr-1 rounded-full w-4 h-4 bg-neutral-700">&nbsp;</div>
-                <div class="mr-1 rounded-full w-4 h-4 bg-neutral-700">&nbsp;</div>
-                <div class="mr-1 rounded-full w-4 h-4 bg-newspaper border-2 border-neutral-700">&nbsp;</div>
-                <p class="text-neutral-400">(23)</p>
+            @if($product->ratings->count() !== 0)
+                @for($i = 0; $i < floor($product->avgRating($product->id)); $i++)
+                    <div class="mr-1 rounded-full w-4 h-4 bg-neutral-700"></div>
+                @endfor
+
+                @if($product->avgRating($product->id) - floor($product->avgRating($product->id)) >= 0.5)
+                    <div class="mr-1 rounded-full w-4 h-4 p-0 bg-newspaper border-2 border-neutral-700 relative">
+                        <div class="w-1/2 h-full rounded-l-full bg-neutral-700 absolute -left-[1px]"></div>
+                    </div>
+                    @for($i = floor($product->avgRating($product->id)); $i < 4; $i++)
+                        <div class="mr-1 rounded-full w-4 h-4 bg-newspaper  border-2 border-neutral-700 "></div>
+                    @endfor
+                @endif
+                    <p class="text-neutral-400">({{$product->ratings->count()}})</p>
+                @else
+                    <div class="mr-1 rounded-full w-4 h-4 bg-neutral-700 border-2 text-newspaper"></div>
+                    <div class="mr-1 rounded-full w-4 h-4 bg-neutral-700 border-2 text-newspaper"></div>
+                    <div class="mr-1 rounded-full w-4 h-4 bg-neutral-700 border-2 text-newspaper"></div>
+                    <div class="mr-1 rounded-full w-4 h-4 bg-neutral-700 border-2 text-newspaper"></div>
+                    <div class="mr-1 rounded-full w-4 h-4 bg-neutral-700 border-2 text-newspaper"></div>
+                    <p class="text-neutral-400">(0)</p>
+                @endif
             </div>
 
             <form x-data="{chosen: '', totalFlies: 0, price: 2.24}" class="">
@@ -214,85 +230,125 @@
         </div>
 
         <div x-show="show" class="px-4 py-2 border border-dashed border-neutral-700 mt-1">
-
+            @foreach($product->ratings as $rating)
             <div class="border-b border-neutral-700 pb-2 mb-10">
-                    <div class="flex mt-3 items-center cursor-pointer my-4">
-                        <div class="mr-1 rounded-full w-3 h-3 bg-neutral-700">&nbsp;</div>
-                        <div class="mr-1 rounded-full w-3 h-3 bg-neutral-700">&nbsp;</div>
-                        <div class="mr-1 rounded-full w-3 h-3 bg-neutral-700">&nbsp;</div>
-                        <div class="mr-1 rounded-full w-3 h-3 bg-neutral-700">&nbsp;</div>
-                        <div class="mr-1 rounded-full w-3 h-3 bg-neutral-700">&nbsp;</div>
+                    <div class="flex mt-3 items-center my-4">
 
-                        <span class="text-xs whitespace-nowrap"> <span class="ml-2 font-semibold text-blue-900">&#10003;</span> Recommends this item!</span>
+                        @for($i = 0; $i < $rating->rating; $i++)
+                            <div class="mr-1 rounded-full w-3 h-3 bg-neutral-700"></div>
+                        @endfor
+
+                        @for($i = $rating->rating; $i < 5; $i++)
+                            <div class="mr-1 rounded-full w-3 h-3 bg-newspaper border-2 border-neutral-700"></div>
+                        @endfor
+
+
+                        @if($rating->recommend )
+                            <span class="text-xs whitespace-nowrap"> <span class="ml-2 font-semibold text-blue-900">&#10003;</span> Recommends this item!</span>
+                        @endif
                     </div>
 
-
-
                 <p class="text-sm mb-3 text-blue-900">
-                    <span class="font-bold text-lg text-neutral-700">"</span>This fly is really good. I've fished it for a month non-stop and it hasn't lost a feather!<span class="font-bold text-lg text-neutral-700">"</span>
+                    <span class="font-bold text-lg text-neutral-700">"</span>{{$rating->comment}}<span class="font-bold text-lg text-neutral-700">"</span>
                 </p>
 
                 <div>
                     <div class="my-2">
                         <p class="text-xs font-semibold">Quality</p>
                         <div class="w-full h-2 border border-neutral-700">
-                            <div class="bg-neutral-700 w-full h-full"></div>
+                        @switch($rating->quality)
+                            @case(5)
+                                <div class="bg-neutral-700 w-full h-full"></div>
+                                @break
+
+                            @case(4)
+                                <div class="bg-neutral-700 w-4/5 h-full"></div>
+                                @break
+
+                            @case(3)
+                                <div class="bg-neutral-700 w-3/5 h-full"></div>
+                                @break
+
+                            @case(2)
+                                <div class="bg-neutral-700 w-2/5 h-full"></div>
+                                @break
+
+                            @case(1)
+                                <div class="bg-neutral-700 w-1/5 h-full"></div>
+                                @break
+
+                            @default
+                                <div class="bg-neutral-700 w-0 h-full"></div>
+                        @endswitch
+
                         </div>
                     </div>
                     <div class="my-2">
                         <p class="text-xs font-semibold">Shipping</p>
                         <div class="w-full h-2 border border-neutral-700">
-                            <div class="bg-neutral-700 w-4/5 h-full"></div>
+                         @switch($rating->shipping)
+                            @case(5)
+                                <div class="bg-neutral-700 w-full h-full"></div>
+                                @break
+
+                            @case(4)
+                                <div class="bg-neutral-700 w-4/5 h-full"></div>
+                                @break
+
+                            @case(3)
+                                <div class="bg-neutral-700 w-3/5 h-full"></div>
+                                @break
+
+                            @case(2)
+                                <div class="bg-neutral-700 w-2/5 h-full"></div>
+                                @break
+
+                            @case(1)
+                                <div class="bg-neutral-700 w-1/5 h-full"></div>
+                                @break
+
+                            @default
+                                <div class="bg-neutral-700 w-0 h-full"></div>
+                        @endswitch
                         </div>
                     </div>
                     <div class="my-2">
                         <p class="text-xs font-semibold">Customer Service</p>
                         <div class="w-full h-2 border border-neutral-700">
-                            <div class="bg-neutral-700 w-3/5 h-full"></div>
+                          @switch($rating->service)
+                            @case(5)
+                                <div class="bg-neutral-700 w-full h-full"></div>
+                                @break
+
+                            @case(4)
+                                <div class="bg-neutral-700 w-4/5 h-full"></div>
+                                @break
+
+                            @case(3)
+                                <div class="bg-neutral-700 w-3/5 h-full"></div>
+                                @break
+
+                            @case(2)
+                                <div class="bg-neutral-700 w-2/5 h-full"></div>
+                                @break
+
+                            @case(1)
+                                <div class="bg-neutral-700 w-1/5 h-full"></div>
+                                @break
+
+                            @case(0)
+                                <div class="bg-neutral-700 w-0 h-full"></div>
+                                @break
+                        @endswitch
                         </div>
                     </div>
                 </div>
 
-                <p class="text-xs mt-4 mb-2 font-semibold">ANGLER: <span class="text-blue-900 font-semibold">Aoife123</span> <span class="font-light">28/01/2024</span></p>
+                <p class="text-xs mt-4 mb-2 font-semibold">ANGLER: <span class="text-blue-900 font-semibold">{{$rating->user->name}}</span> <span class="font-light">28/01/2024</span></p>
             </div>
 
-            <div class="border-b border-neutral-700 pb-2 mb-4">
-                <div class="flex mt-3 items-center w-full cursor-pointer my-4">
-                    <div class="mr-1 rounded-full w-3 h-3 bg-neutral-700">&nbsp;</div>
-                    <div class="mr-1 rounded-full w-3 h-3 bg-neutral-700">&nbsp;</div>
-                    <div class="mr-1 rounded-full w-3 h-3 bg-neutral-700">&nbsp;</div>
-                    <div class="mr-1 rounded-full w-3 h-3 bg-neutral-700">&nbsp;</div>
-                    <div class="mr-1 rounded-full w-3 h-3 bg-neutral-700">&nbsp;</div>
-                </div>
-                <p class="text-sm mb-3 text-blue-900">
-                    <span class="font-bold text-lg text-neutral-700">"</span>This fly is really good. I've fished it for a month non-stop and it hasn't lost a feather!<span class="font-bold text-lg text-neutral-700">"</span>
-                </p>
-
-                <div>
-                    <div class="my-2">
-                        <p class="text-xs font-semibold">Quality</p>
-                        <div class="w-full h-2 border border-neutral-700">
-                            <div class="bg-neutral-700 w-full h-full"></div>
-                        </div>
-                    </div>
-                    <div class="my-2">
-                        <p class="text-xs font-semibold">Shipping</p>
-                        <div class="w-full h-2 border border-neutral-700">
-                            <div class="bg-neutral-700 w-4/5 h-full"></div>
-                        </div>
-                    </div>
-                    <div class="my-2">
-                        <p class="text-xs font-semibold">Customer Service</p>
-                        <div class="w-full h-2 border border-neutral-700">
-                            <div class="bg-neutral-700 w-3/5 h-full"></div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <p class="text-xs mt-4 mb-2 font-semibold">ANGLER: <span class="text-blue-900 font-semibold">Aoife123</span> <span class="font-light">28/01/2024</span></p>
-            </div>
-        </div>
+            @endforeach
+       </div>
     </div>
             <div class="flex flex-col border border-dashed border-neutral-700 mt-10 lg:mt-2 px-4 py-3 lg:w-full lg:hidden">
 

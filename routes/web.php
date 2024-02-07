@@ -62,7 +62,7 @@ Route::get('/market', [MarketController::class, 'render']);
 Route::post('/market', [MarketController::class, 'getProducts']);
 Route::post('/market/category', [MarketController::class, 'getProductsByCategory']);
 Route::post('/market/filter', [MarketController::class, 'getProductsByFilter']);
-Route::get('/market/product', [MarketController::class, 'getProduct']);
+Route::get('/market/product/{id}', [MarketController::class, 'getProduct']);
 
 // ACCOUNT ROUTES
 Route::get('/account', [AccountController::class, 'render'])->middleware('auth');

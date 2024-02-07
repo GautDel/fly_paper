@@ -67,4 +67,8 @@ class User extends Authenticatable
         return $this->hasMany(FishLog::class);
     }
 
+    public function productRatings(): HasMany {
+        return $this->hasMany(ProductRating::class);
+    }
+
 }
