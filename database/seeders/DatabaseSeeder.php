@@ -32,7 +32,9 @@ class DatabaseSeeder extends Seeder
             ProductsSeeder::class,
             ProductVariationsSeeder::class,
             ProductRatingsSeeder::class,
-            VariationOptionsSeeder::class
+            ProductEntriesSeeder::class,
+            VariationOptionsSeeder::class,
+            ShoppingCartsSeeder::class,
         ]);
     }
 }

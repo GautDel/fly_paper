@@ -1,6 +1,7 @@
 <x-layout>
     <div x-data="{chosenImg: 'https://images.pexels.com/photos/6478131/pexels-photo-6478131.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-                          lg: false}"class="flex flex-col lg:flex-row my-10 mx-4 justify-center items-center
+                  lg: false,
+                  cart: cart()}"class="flex flex-col lg:flex-row my-10 mx-4 justify-center items-center
                 lg:items-start">
 
         <div x-show="lg"
@@ -113,68 +114,65 @@
                     @endif
                 </div>
 
-                <form x-data="{ chosen: '',
+                <form method="post"
+                      action="/market/cart"
+                      x-data="{ chosen: '',
                                 totalFlies: 0,
+                                amount: 0,
                                 price: 2.24 }">
+                    @csrf
+
+                    <input type="hidden" name="product_id" value="{{$product->id}}" />
+
                     @foreach($variations as $variation)
-                        @if($variation->display === 'row' )
+                        <div x-data="{option: ''}">
+
+                            <input type="hidden" name="{{$variation->name}}" :value="option" />
                             <p class="font-semibold mb-1">{{Str::upper($variation->name)}}</p>
 
-                            <div class="flex">
+                            <div class="flex mb-8">
                                 @foreach($variation->options as $option)
-                                    <button @click="chosen = $event.target.getAttribute('id')"
-                                            id="{{$option->id}}"
-                                            :class="chosen === $el.id ? 'bg-blue-900' : 'bg-neutral-700'"
+                                    <button @click="option = $event.target.getAttribute('id')"
+                                            id="{{$option->value}}"
+                                            :class="option === $el.id ? 'bg-blue-900' : 'bg-neutral-700'"
                                             class="text-newspaper px-2 py-1 font-semibold hover-bg mr-2"
                                             type="button">{{Str::upper($option->value)}}</button>
                                 @endforeach
                             </div>
-                        @endif
+                        </div>
                     @endforeach
 
-                    @if($variation->display === 'col' )
-                        @foreach($variation->options as $option)
-                            <div x-data="{amount: 0,
-                                          chosen: '' }"
-                                 class="flex justify-between my-4">
+                    <p class="font-semibold mb-1">QUANTITY</p>
+                    <div class="flex">
+                        <button type="button"
+                                class="bg-neutral-700 px-2
+                                       text-newspaper font-semibold
+                                       text-lg hover-bg"
+                                @click="amount > 0 ? (amount--, totalFlies--) : amount = 0">-</button>
 
-                                <div class="flex items-center">
-                                    <p class="mr-2 font-normal">SIZE:</p>
-                                    <span class="font-semibold">{{$option->value}}</span>
-                                </div>
+                        <input x-model="amount"
+                               min="0"
+                               name="quantity"
+                               type="number"
+                               :value="amount"
+                               @change="amount = $el.value"
+                               class="w-10 bg-newspaper border text-center
+                                      border-dashed border-neutral-700 mx-0
+                                      outline-none font-semibold">
 
+                            <button type="button"
+                                    @click="amount++, totalFlies++"
+                                    class="bg-neutral-700 px-2 text-newspaper
+                                           font-semibold text-lg hover-bg">+</button>
+                    </div>
 
-                                <div class="flex">
-                                    <button type="button"
-                                            class="bg-neutral-700 px-2
-                                                   text-newspaper font-semibold
-                                                   text-lg hover-bg"
-                                            @click="amount > 0 ? (amount--, totalFlies--) : amount = 0">-</button>
-
-                                    <input x-model="amount"
-                                       min="0"
-                                       name="quantity"
-                                       type="number"
-                                       class="w-10 bg-newspaper border text-center
-                                              border-dashed border-neutral-700 mx-0
-                                              outline-none">
-
-                                    <button type="button"
-                                        @click="amount++, totalFlies++"
-                                        class="bg-neutral-700 px-2 text-newspaper
-                                               font-semibold text-lg hover-bg">+</button>
-                                </div>
-                            </div>
-                        @endforeach
-                    @endif
-
-                    <div class="flex justify-between font-semibold text-xl mt-10">
+                    <div class="flex justify-between font-semibold text-2xl mt-10">
 
                         <p>TOTAL:</p>
 
-                        <div x-show="totalFlies !== 0" class="flex self-end">
+                        <div x-show="totalFlies !== 0" class="flex self-end text-blue-900">
                             <span>€</span>
-                            <p x-text="parseFloat(price * totalFlies).toFixed(2)">
+                            <p x-text="parseFloat('{{$product->price}}' * amount).toFixed(2)">
                         </div>
 
                         <p x-show="totalFlies === 0">€0.00</p>

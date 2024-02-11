@@ -74,5 +74,33 @@ export function getByFilter() {
 
             return resData
         },
+
+    }
+}
+
+export function cart() {
+    return {
+        formData: {
+            product_id: '',
+            option_id: '',
+            qty: '',
+        },
+
+        async submit() {
+
+            const res = await fetch('/market/test', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": token
+                },
+
+                body: JSON.stringify(this.formData)
+            })
+
+            const resData = await res.json()
+            console.log(resData)
+            return resData
+        },
     }
 }

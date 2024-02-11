@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\DiscussionsController;
 use App\Http\Controllers\FlyController;
 use App\Http\Controllers\HomeController;
@@ -8,7 +9,6 @@ use App\Http\Controllers\JournalController;
 use App\Http\Controllers\MarketController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\WikiController;
-use App\View\Components\Discussions\PostVote;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -63,6 +63,10 @@ Route::post('/market', [MarketController::class, 'getProducts']);
 Route::post('/market/category', [MarketController::class, 'getProductsByCategory']);
 Route::post('/market/filter', [MarketController::class, 'getProductsByFilter']);
 Route::get('/market/product/{id}', [MarketController::class, 'getProduct']);
+Route::post('/market/cart', [CartController::class, 'cart']);
+
+// CART ROUTES
+Route::get('/cart', [CartController::class, 'render']);
 
 // ACCOUNT ROUTES
 Route::get('/account', [AccountController::class, 'render'])->middleware('auth');

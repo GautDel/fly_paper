@@ -23,6 +23,7 @@
     </head>
     <body class="antialiased h-screen w-screen pb-9 px-1 pt-2 bg-newspaper">
 
+
         <!-- Container div -->
         <div class="overflow-y-scroll overflow-x-hidden border-2
                     border-neutral-700 h-full mb-2 m-auto relative

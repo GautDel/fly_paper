@@ -1,5 +1,5 @@
 <div class="flex h-fit" x-data="{
-        open: true,
+        open: false,
         price: true,
         available: true,
         rating: true,

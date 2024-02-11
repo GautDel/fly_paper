@@ -6,6 +6,7 @@ import { postLog, deleteLog } from './postLog'
 import {
     getProducts,
     getByFilter,
+    cart,
     getProductsByCategory
 } from './product'
 
@@ -29,6 +30,7 @@ window.deleteLog = deleteLog
 window.getProducts = getProducts
 window.getProductsByCategory = getProductsByCategory
 window.getByFilter = getByFilter
+window.cart = cart
 
 // RANGE
 window.reset = reset
