@@ -72,7 +72,7 @@
             <div class="px-4 py-2 border border-dashed border-neutral-700
                         border-t-0">
 
-                <p class="font-semibold text-2xl mt-2">€ {{ $product->price }}</p>
+                <p class="font-semibold text-2xl mt-2" x-text="parseFloat('{{$product->price}}').toFixed(2)"></p>
 
                 <p class="text-xs font-normal text-neutral-500">VAT included (where applicable), plus shipping</p>
 

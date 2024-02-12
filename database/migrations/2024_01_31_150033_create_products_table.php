@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name', 100);
             $table->string('description', 1000);
             $table->string('img', 255);
-            $table->float('price', 6, 2);
+            $table->integer('price', 6, 2);
             $table->boolean('in_stock')->default(false);
             $table->boolean('new')->default(true);
             $table->boolean('sale')->default(false);

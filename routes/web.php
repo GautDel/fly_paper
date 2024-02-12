@@ -67,6 +67,8 @@ Route::post('/market/cart', [CartController::class, 'cart']);
 
 // CART ROUTES
 Route::get('/cart', [CartController::class, 'render']);
+Route::put('/cart/update', [CartController::class, 'updateCart']);
+Route::delete('/cart/delete', [CartController::class, 'destroyItem']);
 
 // ACCOUNT ROUTES
 Route::get('/account', [AccountController::class, 'render'])->middleware('auth');

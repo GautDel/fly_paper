@@ -48,13 +48,17 @@
             </div>
 
             <div class="flex w-full h-full items-center justify-center">
+
                 <a href="/cart" class="w-8/12 h-full relative">
                     <p class="hidden absolute top-0 right-0 px-[9px] py-[2px]
-                              text-xs font-bold text-newspaper bg-red-900
-                              md:block">2</p>
+                              text-xs font-bold text-red-900 bg-newspaper
+                              border-dashed border-l border-b border-neutral-700
+                              md:block">{{$cartItems}}</p>
 
-                    <button class="h-full w-full border-neutral-700 border-t-2 font-normal md:border-t-0 md:border-l-2 hover-text">CART</button>
+                    <button class="h-full w-full border-neutral-700 border-t-2
+                                   font-normal md:border-t-0 md:border-l-2 hover-text">CART</button>
                 </a>
+
                 <a href="/account" class="w-1/12 h-full grow">
                     <button class="h-full w-full bg-neutral-700 text-newspaper text-xl font-semibold hover-bg">&#9881;</button>
                 </a>

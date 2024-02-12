@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\CartItem;
-use App\Models\Product;
 use App\Models\ProductEntry;
 use App\Models\VariationOption;
 use Illuminate\Http\Request;
@@ -61,6 +60,19 @@ class CartController extends Controller
         }
 
         return $variants;
+    }
+
+    public static function destroyItem(Request $request) {
+        CartItem::destroy($request->id);
+
+        return redirect('/cart');
+    }
+
+    public static function updateCart(Request $request) {
+        CartItem::where('id', $request->id)
+                  ->update(['qty' => $request->qty]);
+
+        return redirect('/cart');
     }
 
     public static function cart(Request $request) {
