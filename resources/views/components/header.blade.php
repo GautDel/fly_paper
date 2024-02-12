@@ -47,11 +47,18 @@
                 </form>
             </div>
 
-                <a href="/journal" class="w-full h-full">
-                    <button class="w-full h-full hover-bg text-newspaper
-                                   bg-neutral-700 font-semibold py-2
-                                   md:box-content md:px-1 md:py-0">JOURNAL</button>
+            <div class="flex w-full h-full items-center justify-center">
+                <a href="/cart" class="w-8/12 h-full relative">
+                    <p class="hidden absolute top-0 right-0 px-[9px] py-[2px]
+                              text-xs font-bold text-newspaper bg-red-900
+                              md:block">2</p>
+
+                    <button class="h-full w-full border-neutral-700 border-t-2 font-normal md:border-t-0 md:border-l-2 hover-text">CART</button>
                 </a>
+                <a href="/account" class="w-1/12 h-full grow">
+                    <button class="h-full w-full bg-neutral-700 text-newspaper text-xl font-semibold hover-bg">&#9881;</button>
+                </a>
+            </div>
         @endauth
 
     </div>

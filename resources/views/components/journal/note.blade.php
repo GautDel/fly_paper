@@ -1,4 +1,4 @@
-<div class="w-full my-8" x-data="{deleteNote: deleteNote(), deleted: false}" x-show="!deleted" >
+<div class="w-full my-8 bg-newspaper" x-data="{deleteNote: deleteNote(), deleted: false}" x-show="!deleted" >
     <div class="flex justify-between ">
         <h2 class="text-sm font-semibold w-1/2 break-all">{{$note->title}}</h2>
         <p class="text-xs self-end ">{{date("D, d F Y",strtotime($note->created_at))}}</p>

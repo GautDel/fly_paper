@@ -29,12 +29,12 @@
                          border-r-2 p-3 grow border-neutral-700
                        ">MARKET</li>
         </a>
-        <a href="/account" class="w-full">
-            <li class="{{str_contains(Request::path(), 'account') ?
+        <a href="/journal" class="w-full">
+            <li class="{{str_contains(Request::path(), 'journal') ?
                         'bg-neutral-700 text-newspaper hover-bg' :
                         'hover-text'}}
                        grow p-3
-                       ">ACCOUNT</li>
+                       ">JOURNAL</li>
 
         </a>
     </ul>

@@ -1,4 +1,4 @@
-<div x-show="open" class="w-full border-b border-dashed border-neutral-700 pb-10">
+<div x-show="open" class="w-full border-b border-dashed border-neutral-700 pb-10 bg-newspaper">
     <form @submit.prevent="postLog.submit()">
         <div class="flex flex-col mb-4 ">
 

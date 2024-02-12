@@ -1,4 +1,4 @@
-<div class="w-full my-8" x-data="{deleteLog: deleteLog(), deleted: false, del: false}" x-show="!deleted" >
+<div class="w-full my-8 bg-newspaper" x-data="{deleteLog: deleteLog(), deleted: false, del: false}" x-show="!deleted" >
 
     <div class="flex justify-between ">
         <h2 class="font-semibold w-1/2 break-all text-blue-900">{{Str::upper($log->fish)}}</h2>
@@ -7,7 +7,7 @@
 
     <div class="flex">
 
-<a class="w-full" href="/journal/{{$log->id}}">
+<a class="w-full " href="/journal/{{$log->id}}">
     <div class="border border-dashed border-neutral-700 text-sm p-2 break-all
             w-full hover-border-solid">
         <div class="flex mb-2">

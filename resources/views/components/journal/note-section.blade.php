@@ -20,7 +20,7 @@
         <x-journal.create-note />
 
     </div>
-    <template x-if="postNote.notes.length > 0 ">
+    <template x-if="postNote.notes.length > 0">
 
         <template  x-for="note in postNote.notes" :key="note.id">
             <div class="w-full my-8" x-data="{deleteNote: deleteNote(), deleted: false}" x-show="!deleted">
@@ -36,7 +36,7 @@
                                 day: 'numeric'
                         })"></p>
                 </div>
-                <div class="flex" x-data="{del: false}">
+                <div class="flex bg-newspaper" x-data="{del: false}">
 
                     <p class="border border-dashed border-neutral-700 text-sm p-2 break-all
                             w-full" x-text="note.body"></p>
@@ -57,6 +57,7 @@
                 </div>
             </div>
         </template>
+            <p class="text-center font-normal text-sm my-10">Fishing in progress...</p>
     </template>
 
 
@@ -66,7 +67,6 @@
         </template>
     @empty
         <template x-if="postNote.notes.length === 0 ">
-            <p class="text-center font-normal text-sm my-10">Nothing here...Press the button in the top right to add a note!</p>
         </template>
     @endforelse
 
