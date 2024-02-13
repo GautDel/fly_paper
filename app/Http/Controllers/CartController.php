@@ -6,7 +6,7 @@ use App\Models\CartItem;
 use App\Models\ProductEntry;
 use App\Models\VariationOption;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Str;
 class CartController extends Controller
 {
     public static function render() {
@@ -78,14 +78,13 @@ class CartController extends Controller
     public static function cart(Request $request) {
         $sku = self::generateSKU($request->all());
         $skuProduct = ProductEntry::where('sku', $sku)->first();
+        $cartItem = CartItem::where('product_entry_id', $skuProduct->id)->first();
 
-        $oldItem = CartItem::where('product_entry_id', $skuProduct->id)->first();
-
-        if($oldItem) {
-            $oldItem->qty = $oldItem->qty + $request->quantity;
-            $oldItem->save();
+        if($cartItem) {
+            $cartItem->qty = $cartItem->qty + $request->quantity;
+            $cartItem->save();
         } else {
-            CartItem::create([
+            $cartItem = CartItem::create([
                 'product_entry_id' => $skuProduct->id,
                 'product_id' => $request->product_id,
                 'shopping_cart_id' => 1,
@@ -93,6 +92,6 @@ class CartController extends Controller
             ]);
         }
 
-        return redirect('/market');
+        return redirect('/market')->with('message', Str::upper($cartItem->product->name).' added to cart');
     }
 }

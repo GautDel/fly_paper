@@ -20,8 +20,9 @@ class Layout extends Component
         $this->date = $this->time();
     }
 
-    private function time(): string {
-        $date = date('l').', '.date('d').' '.date('F').' '.date('Y');
+    private function time(): string
+    {
+        $date = date('l') . ', ' . date('d') . ' ' . date('F') . ' ' . date('Y');
         return $date;
     }
 
@@ -33,10 +34,13 @@ class Layout extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.layout',
-            ['date' => $this->date,
-             'brand' => $this->brand,
-             'slogan' => $this->slogan
-            ]);
+        return view(
+            'components.layout',
+            [
+                'date' => $this->date,
+                'brand' => $this->brand,
+                'slogan' => $this->slogan
+            ]
+        );
     }
 }

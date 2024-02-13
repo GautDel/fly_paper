@@ -22,6 +22,12 @@ Use Auth::user()->id instead of passing in via form
 Check for unused code in journal controller
 Tidy Code in side nav
 -> Dont need options or variations anymore
+----------------------------------
+NEW TASKS 2/12/2024
+    - Add Shipping details
+    - Find payment solution
+    - Add ASCII art in places
+    - Add flash message on cart addition
 
 ----------------------------------
 PRODUCT RELATIONS
