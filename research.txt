@@ -26,8 +26,6 @@ Tidy Code in side nav
 NEW TASKS 2/12/2024
     - Add Shipping details
     - Find payment solution
-    - Add ASCII art in places
-    - Add flash message on cart addition
 
 ----------------------------------
 PRODUCT RELATIONS

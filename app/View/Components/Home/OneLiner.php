@@ -17,7 +17,7 @@ class OneLiner extends Component
 
     public function __construct()
     {
-        $this->oneLiner = OneLinerModel::one(3);
+        $this->oneLiner = OneLinerModel::one(1);
     }
 
     private function getOneLiner() {
