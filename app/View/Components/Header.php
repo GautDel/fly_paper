@@ -3,6 +3,7 @@
 namespace App\View\Components;
 
 use App\Models\CartItem;
+use App\Models\ShoppingCart;
 use App\Models\User;
 use Closure;
 use Illuminate\Contracts\View\View;
@@ -17,7 +18,12 @@ class Header extends Component
     public function render(): View|Closure|string
     {
         if (Auth::check()) {
-            $cartItems = CartItem::where('shopping_cart_id', 1)->count();
+            $cart = ShoppingCart::where('user_id', Auth::user()->id)->first();
+            if($cart) {
+                $cartItems = CartItem::where('shopping_cart_id', $cart->id)->count();
+            } else {
+                $cartItems = 0;
+            }
             $user = Auth::user();
             return view('components.header',[
                 'username' => $user->name,

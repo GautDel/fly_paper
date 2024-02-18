@@ -66,9 +66,14 @@ Route::get('/market/product/{id}', [MarketController::class, 'getProduct']);
 Route::post('/market/cart', [CartController::class, 'cart']);
 
 // CART ROUTES
-Route::get('/cart', [CartController::class, 'render']);
-Route::put('/cart/update', [CartController::class, 'updateCart']);
-Route::delete('/cart/delete', [CartController::class, 'destroyItem']);
+Route::get('/cart', [CartController::class, 'render'])->middleware('auth');
+Route::get('/cart/shipping', [CartController::class, 'shippingView'])->middleware('auth');
+Route::get('/cart/checkout', [CartController::class, 'checkoutView'])->middleware('auth');
+Route::post('/cart/checkout', [CartController::class, 'checkoutView'])->middleware('auth');
+Route::put('/cart/update', [CartController::class, 'updateCart'])->middleware('auth');
+Route::post('/cart/address', [CartController::class, 'createAddress'])->middleware('auth');
+Route::delete('/cart/delete', [CartController::class, 'destroyItem'])->middleware('auth');
+
 
 // ACCOUNT ROUTES
 Route::get('/account', [AccountController::class, 'render'])->middleware('auth');
@@ -94,3 +99,9 @@ Route::get('/journal/{id}', [JournalController::class, 'getLog']);
 // TEST ROUTE
 Route::get('/test', [TestController::class, 'render']);
 Route::get('/test2', [TestController::class, 'render2']);
+
+// STRIPE
+Route::post('/checkout', [CartController::class, 'checkout']);
+Route::get('/checkout', [CartController::class, 'checkoutView']);
+Route::get('/checkout/success', [CartController::class, 'success']);
+Route::get('/checkout/cancel', [CartController::class, 'cancel']);

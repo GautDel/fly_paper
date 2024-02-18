@@ -2,14 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CartItem;
 use App\Models\Product;
 use App\Models\ProductCategory;
-use App\Models\ProductEntry;
 use App\Models\ProductVariation;
-use App\Models\ProductVariationOption;
-use App\Models\VariantOption;
-use App\Models\VariationOption;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 

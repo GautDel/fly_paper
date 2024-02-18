@@ -1,9 +1,17 @@
 <x-layout>
-    <div class="mt-24 m-auto relative flex flex-col justify-center items-center
+    <div class="mt-8 m-auto relative flex flex-col justify-center items-center
                 mx-4
-                2xl:w-9/12
-                3xl:w-9/12">
+                md:w-7/12 md:mx-auto">
+
+        <div class="w-full text-sm flex mb-9">
+
+            <a href="/market">
+                <p class="hover-text"> Market </p>
+            </a>
+        </div>
+
         <p class="font-bold text-3xl text-blue-900">SHOPPING CART</p>
+        @if(count($items) !== 0)
         @foreach($items as $item)
             <div class="flex border border-dashed border-neutral-700 px-2 py-2 w-full my-2 justify-center items-center relative">
                 <form method="POST"
@@ -62,7 +70,7 @@
 
 
                 </div>
-                    <p x-data class="font-bold self-end" x-text="parseFloat('{{$item->product->price * $item->qty}}').toFixed(2)"></p>
+                    <p x-data class="font-bold self-end whitespace-nowrap" x-text="`€${parseFloat('{{$item->product->price * $item->qty}}').toFixed(2)}`"></p>
                 </div>
         @endforeach
             <div class="flex border border-dashed border-neutral-700 px-2
@@ -71,8 +79,48 @@
                 <p class="mr-2">SUBTOTAL:</p>
                 <p class="text-blue-900">€{{$total}}</p>
             </div>
-            <form class="w-full">
-                <button class="w-full bg-neutral-700 py-2 my-2 font-semibold text-xl text-newspaper hover-bg">PROCEED TO CHECKOUT</button>
-            </form>
+            <a href="/cart/shipping" class="w-full">
+                <button class="w-full bg-neutral-700 py-2 my-2 font-semibold text-xl text-newspaper hover-bg">PROCEED TO SHIPPING</button>
+            </a>
+
+        @else
+            <div class="text-lg text-center relative flex flex-col">
+                <pre class="absolute top-3/4 left-1/2 -translate-x-1/2 text-xs
+                            font-bold text-neutral-400 md:text-base">
+
+
+                                    _H_
+                                   /___\
+                                   \888/
+~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~^~U~^~^~^~^~^~^~^
+                      ~              |
+      ~                        o     |        ~
+                ___        o         |
+       _,.--,.'`   `~'-.._    O      |
+      /_  .-"      _   /_\'.         |   ~
+     .-';'       (( `  \0/  `\       #
+    /__;          ((_  ,_     |  ,   #
+    .-;                  \_   /  #  _#,
+   /  ;    .-' /  _.--""-.\`~`   `#(('\\        ~
+   ;-';   /   / .'                  )) \\
+       ; /.--'.'                   ((   ))
+        \     |        ~            \\ ((
+         \    |                      )) `
+   ~      \   |                      `
+           \  |
+      jgs  .` `""-.
+         .'        \         ~               ~
+         |    |\    |
+         \   /  '-._|
+          \.'
+                </pre>
+                <p class="py-2">There are no items in your cart</p>
+                <a href="/market"
+                   class="z-50 block w-full h-full border border-dashed
+                          border-neutral-700 font-normal px-2 py-1 hover-text">
+                    Why not check out or market?
+                </a>
+            </div>
+        @endif
     </div>
 </x-layout>

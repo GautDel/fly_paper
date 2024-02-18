@@ -13,19 +13,62 @@ the joke to look it up by date. that would be another way
 -----------------------------------
 
 TO DO
-------- Finish website by 21 January
-3 Fix bug with update form error handling... sending back a 404...
-4 AJAX FOR WIKI SECTION
-5 Work on Journal section
 
-Use Auth::user()->id instead of passing in via form
-Check for unused code in journal controller
+4 AJAX FOR WIKI SECTION
+
 Tidy Code in side nav
--> Dont need options or variations anymore
 ----------------------------------
 NEW TASKS 2/12/2024
-    - Add Shipping details
-    - Find payment solution
+    - Add 500 error page
+
+----------------------------------
+BUG FIXES
+    - Add padding to side menu tab on journal section
+    - Use Auth::user()->id instead of passing in via form
+    - Fix bug with update form (update post) error handling...
+      sending back a 404... Prob to do with validation
+    - Make item inside cart a link to product
+    - Add orders section to account page
+    - Fix search bar in wiki
+    - Fix error when accessing /cart/shipping while logged in
+    - Fix error when accessing /cart/shipping while logged in
+    - Fix Fly of the day
+    - Add Article for 'River talk'
+    - Add fish species in wiki
+    - Add fly tying materials in wiki
+    - Add more flies in wiki
+    - Add more products and ratings to market section
+    - Add 'on sale', 'new', etc to fly card in market section and product section
+    - Add more product variants
+    - Add in stock to product page and make it so quantity added matches
+    - Fix issue with slider on market page
+    - Add 'no reviews yet' if no angler reviews present
+    - Add images for everything
+    - Add table to link images to products
+    - Make recommended products dynamic
+    - Fix float issue with prices. Not showing final 0.
+    - Remove cursor-pointer on checkout success
+    - Add variants to order (useful for customer and for company)
+    - Add ASCII art to account page
+    - Add 'Add a log' next to button in fishing logs/same for notes
+    - fix typo 'or' into 'our' when cart is empty in cart page
+    - Add functionality to upvote that allows user to remove their vote if
+      upvoted/downvoted
+    - Change 'journal' to 'View logs' and make logs page (add pagination)
+    - Add feature that allows log to be private
+    - DEPLOYYYYYYY
+----------------------------------
+ Addresses
+    - id
+    - first_name
+    - last_name
+    - address_1
+    - address_2
+    - city
+    - state_province
+    - zip
+    - country
+    - user_id
 
 ----------------------------------
 PRODUCT RELATIONS

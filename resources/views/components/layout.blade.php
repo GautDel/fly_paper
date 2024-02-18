@@ -8,6 +8,10 @@
 
     <title>The Daily Flyer</title>
 
+    @if(str_contains(Request::path(), 'checkout'))
+    <!-- STRIPE -->
+        <script src="https://js.stripe.com/v3/"></script>
+    @endif
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=fira-code:300,500,600,700" rel="stylesheet" />
