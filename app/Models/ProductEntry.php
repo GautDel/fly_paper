@@ -15,4 +15,18 @@ class ProductEntry extends Model
         return $this->hasMany(Product::class);
     }
 
+    public function getVariants($sku)
+    {
+        $sku = explode('-', $sku);
+
+        $variants = collect();
+
+        foreach ($sku as $key => $value) {
+            if ($key < 1) continue;
+            $variants->push(VariationOption::where('value', $value)->with('variation')->first());
+        }
+
+        return $variants;
+    }
+
 }

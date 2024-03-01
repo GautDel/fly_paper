@@ -16,7 +16,7 @@ class ProductsSeeder extends Seeder
             [
                 'name' => 'Black Ant',
                 'description' => 'The Best trout reel',
-                'img' => '/black_ant.png',
+                'image' => '/black_ant.png',
                 'price' => '1.25',
                 'in_stock' => true,
                 'new' => false,
@@ -28,7 +28,7 @@ class ProductsSeeder extends Seeder
             [
                 'name' => 'Hydros Reel',
                 'description' => 'The Best fly for trout',
-                'img' => '/black_ant.png',
+                'image' => '/black_ant.png',
                 'price' => '40.50',
                 'in_stock' => true,
                 'new' => true,
@@ -40,7 +40,7 @@ class ProductsSeeder extends Seeder
             [
                 'name' => 'Black Ant',
                 'description' => 'The Best fly for trout',
-                'img' => '/black_ant.png',
+                'image' => '/black_ant.png',
                 'price' => '1.99',
                 'in_stock' => false,
                 'new' => true,
@@ -53,7 +53,7 @@ class ProductsSeeder extends Seeder
             [
                 'name' => 'Emerger',
                 'description' => 'The Second best fly for trout',
-                'img' => '/black_ant.png',
+                'image' => '/black_ant.png',
                 'price' => '1.50',
                 'in_stock' => false,
                 'new' => false,
@@ -66,7 +66,7 @@ class ProductsSeeder extends Seeder
             [
                 'name' => 'Golden Spinner',
                 'description' => 'Illis spinner, the best spinner around!',
-                'img' => 'www.meatspin.com',
+                'image' => 'www.meatspin.com',
                 'price' => '2.30',
                 'in_stock' => true,
                 'new' => true,

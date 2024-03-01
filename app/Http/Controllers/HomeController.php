@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\FishLog;
 use App\Models\ForumPost;
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -12,7 +11,9 @@ class HomeController extends Controller
     public static function render() {
 
         $posts = ForumPost::findNewest(6);
-        $log = FishLog::latest()->first();
+        $log = FishLog::latest()
+                        ->where('visibility', 0)
+                        ->first();
 
         return view('home', [
             'posts' => $posts,

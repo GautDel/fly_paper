@@ -13,7 +13,7 @@ the joke to look it up by date. that would be another way
 -----------------------------------
 
 TO DO
-
+brigitte email: brigitte.delalleau@laposte.net
 4 AJAX FOR WIKI SECTION
 
 Tidy Code in side nav
@@ -23,39 +23,19 @@ NEW TASKS 2/12/2024
 
 ----------------------------------
 BUG FIXES
-    - Add padding to side menu tab on journal section
-    - Use Auth::user()->id instead of passing in via form
-    - Fix bug with update form (update post) error handling...
-      sending back a 404... Prob to do with validation
-    - Make item inside cart a link to product
-    - Add orders section to account page
-    - Fix search bar in wiki
-    - Fix error when accessing /cart/shipping while logged in
-    - Fix error when accessing /cart/shipping while logged in
-    - Fix Fly of the day
+    ====> CONTENT
     - Add Article for 'River talk'
     - Add fish species in wiki
     - Add fly tying materials in wiki
     - Add more flies in wiki
     - Add more products and ratings to market section
-    - Add 'on sale', 'new', etc to fly card in market section and product section
     - Add more product variants
-    - Add in stock to product page and make it so quantity added matches
-    - Fix issue with slider on market page
-    - Add 'no reviews yet' if no angler reviews present
+    ====> CONTENT
+    - GET VARIANTS BASED OFF SKU -> variant::with(options like so and so...)?
+    - Create Admin page where you can add product,
     - Add images for everything
+    - Show image on right of log card
     - Add table to link images to products
-    - Make recommended products dynamic
-    - Fix float issue with prices. Not showing final 0.
-    - Remove cursor-pointer on checkout success
-    - Add variants to order (useful for customer and for company)
-    - Add ASCII art to account page
-    - Add 'Add a log' next to button in fishing logs/same for notes
-    - fix typo 'or' into 'our' when cart is empty in cart page
-    - Add functionality to upvote that allows user to remove their vote if
-      upvoted/downvoted
-    - Change 'journal' to 'View logs' and make logs page (add pagination)
-    - Add feature that allows log to be private
     - DEPLOYYYYYYY
 ----------------------------------
  Addresses

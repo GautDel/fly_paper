@@ -14,7 +14,7 @@
         </div>
 
         <div class="w-full border border-dashed border-neutral-700
-                    cursor-pointer mt-2 mb-4 px-4 pt-4">
+                    mt-2 mb-4 px-4 pt-4">
 
 
             <p class="font-bold text-2xl text-center">ORDER DETAILS</p>
@@ -39,6 +39,7 @@
                 <p class="w-full text-right font-semibold text-xl">SUBTOTAL: €{{$order->total_price}}</p>
             </div>
         </div>
+        <p class="font-normal text-sm mb-2">For more information on your order, check your account page under 'orders'</p>
         <p class="font-normal text-sm">Have a question? Contact us @ contact@flypaper.com</p>
     </div>
 </x-layout>

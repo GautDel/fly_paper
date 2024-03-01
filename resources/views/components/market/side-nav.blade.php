@@ -31,5 +31,5 @@
     <p x-show="open"
        @click="open = false"
        class="bg-neutral-700 text-newspaper font-semibold px-3 py-2
-              hover-bg text-2xl h-fit cursor-pointer"> < </p>
+              hover-bg text-2xl h-fit cursor-pointer"> &#x3c; </p>
 </div>

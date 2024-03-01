@@ -4,7 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\ProductEntry;
+use App\Models\ProductVariantOption;
 use App\Models\ProductVariation;
+use App\Models\ProductVariationOption;
+use App\Models\VariationOption;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -57,33 +62,98 @@ class MarketController extends Controller
 
     public static function getProduct(Request $request)
     {
-        $product = Product::where('id', $request->id)->with('ratings')->first();
+
+        $product = Product::where('id', $request->id)->with('ratings')->with('options')->first();
+
         $variations = ProductVariation::where('product_category_id', $product->product_category_id)
-                                        ->with('options')->get();
+            ->with('options')->get();
+
+        $suggestedProducts = Product::suggested(5, $product->product_category_id);
 
         return view('product', [
             'product' => $product,
             'variations' => $variations,
+            'suggestedProducts' => $suggestedProducts
         ]);
     }
 
-    public static function getRatings($products) {
+    private static function generateSKU($data): string
+    {
+        $sku = "";
+
+        foreach ($data as $key => $value) {
+
+            if ($key === '_token') {
+                continue;
+            }
+
+            if ($key === 'quantity') {
+                continue;
+            }
+
+            $sku = $sku . $value . '-';
+        }
+
+        $sku = rtrim($sku, '-');
+        return $sku;
+    }
+
+    public static function checkAvailability(Request $request)
+    {
+        $sku = self::generateSKU($request->all());
+
+        $productEntry = ProductEntry::where('sku', $sku)->first();
+
+        // Check if product exists
+        if (!$productEntry) {
+            return redirect("/market/product/$request->product_id")->with('error', 'Product does not exist');
+        }
+
+        // Check if in stock
+        if ($productEntry->qty <= 0) {
+            return redirect("/market/product/$request->product_id")->with('error', 'Product is out of stock');
+        }
+
+        // Flash chosen product variations to session
+        foreach ($request->all() as $key => $value) {
+
+            if ($key === '_token') {
+                continue;
+            }
+
+            if ($key === 'quantity') {
+                continue;
+            }
+
+            $request->session()->flash($key, $value);
+        }
+
+
+        $request->session()->flash('qty', $productEntry->qty);
+
+
+        return redirect("/market/product/$request->product_id");
+    }
+
+    public static function getRatings($products)
+    {
         $ratings = [];
-        foreach($products as $product) {
-            foreach($product->ratings as $rating) {
+        foreach ($products as $product) {
+            foreach ($product->ratings as $rating) {
                 array_push($ratings, $rating);
             }
         }
     }
 
-    public static function getProductData($productData) {
+    public static function getProductData($productData)
+    {
         $products = [];
 
-        foreach($productData as $product) {
-                array_push($products, [
-                        'product' => $product,
-                        'avgRating' => $product->avgRating($product->id)
-                ]);
+        foreach ($productData as $product) {
+            array_push($products, [
+                'product' => $product,
+                'avgRating' => $product->avgRating($product->id)
+            ]);
         };
 
         return $products;
@@ -93,8 +163,8 @@ class MarketController extends Controller
     {
 
         $productData = Product::where('product_category_id', $request->id)
-                                ->with('ratings')
-                                ->get();
+            ->with('ratings')
+            ->get();
 
         $totals = self::countProducts($request);
 
@@ -142,14 +212,14 @@ class MarketController extends Controller
                 'sale' => $productData->where('sale', true)->count()
             ];
 
-            if($request->minRating !== null) {
+            if ($request->minRating !== null) {
 
                 $filtered = collect([]);
 
-                foreach($productData as $product) {
+                foreach ($productData as $product) {
                     $avg = $product->ratings->avg('rating');
 
-                    if($avg > $request->minRating && $avg < $request->maxRating) {
+                    if ($avg > $request->minRating && $avg < $request->maxRating) {
                         $filtered->push($product);
                     }
                 }
@@ -204,24 +274,24 @@ class MarketController extends Controller
                 'sale' => $productData->where('sale', true)->count()
             ];
 
-            if($request->minRating !== null) {
+            if ($request->minRating !== null) {
 
 
                 $filtered = collect([]);
 
-                foreach($productData as $product) {
+                foreach ($productData as $product) {
                     $avg = $product->ratings->avg('rating');
 
-                    if($avg > $request->minRating && $avg < $request->maxRating) {
+                    if ($avg > $request->minRating && $avg < $request->maxRating) {
                         $filtered->push($product);
                     }
                 }
 
-            $filteredTotals = [
-                'in_stock' => $filtered->where('in_stock', true)->count(),
-                'new' => $filtered->where('new', true)->count(),
-                'sale' => $filtered->where('sale', true)->count()
-            ];
+                $filteredTotals = [
+                    'in_stock' => $filtered->where('in_stock', true)->count(),
+                    'new' => $filtered->where('new', true)->count(),
+                    'sale' => $filtered->where('sale', true)->count()
+                ];
 
 
                 return response()->json([
@@ -266,14 +336,14 @@ class MarketController extends Controller
             'sale' => $productData->where('sale', true)->count()
         ];
 
-        if($request->minRating !== null) {
+        if ($request->minRating !== null) {
 
             $filtered = collect([]);
 
-            foreach($productData as $product) {
+            foreach ($productData as $product) {
                 $avg = $product->ratings->avg('rating');
 
-                if($avg > $request->minRating && $avg < $request->maxRating) {
+                if ($avg > $request->minRating && $avg < $request->maxRating) {
                     $filtered->push($product);
                 }
             }

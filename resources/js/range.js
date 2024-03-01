@@ -23,13 +23,13 @@ export function range() {
         },
 
         mintrigger() {
-            this.minprice = Math.min(this.minprice, this.maxprice - 20);
+            this.minprice = Math.min(this.minprice, this.maxprice - 12);
             this.minthumb = ((this.minprice - this.min) / (this.max - this.min)) * 100;
         },
 
         maxtrigger() {
-            this.maxprice = Math.max(this.maxprice, this.minprice + 20);
-            this.maxthumb = 100 - (((this.maxprice - this.min) / (this.max - this.min)) * 100);
+            this.maxprice = Math.max(this.maxprice , this.minprice + 12);
+            this.maxthumb = 100 - ((this.maxprice - this.min) / (this.max - this.min)) * 100;
         },
     }
 }

@@ -1,8 +1,22 @@
 <x-layout>
     <div>
-        <form class="flex border-b-2 border-neutral-700 outline-black">
-            <input class="w-full bg-newspaper px-2 text-blue-900 !outline-none
-                          text-sm" placeholder="Search for a fly/fish/material" />
+        <form action="/wiki/search"
+              method="POST"
+              class="flex border-b-2 border-neutral-700 outline-black">
+            @csrf
+            <select name="category"
+                    class="bg-neutral-700 font-semibold text-sm px-2
+                           text-newspaper cursor-pointer text-center">
+                <option>FISH SPECIES</option>
+                <option>MATERIALS</option>
+                <option>FLIES</option>
+            </select>
+
+            <input name="search"
+                   class="w-full bg-newspaper px-2 text-blue-900 !outline-none
+                          text-sm font-semibold"
+                   placeholder="Search for a fly/fish/material" />
+
             <button class="bg-neutral-700 text-newspaper font-normal
                            px-2 py-2 hover-bg">SEARCH</button>
         </form>

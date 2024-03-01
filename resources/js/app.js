@@ -10,7 +10,9 @@ import {
     getProductsByCategory
 } from './product'
 
+
 import {reset, range} from './range'
+import { findProduct, generateSku } from './findProduct'
 
 // POSTVOTE
 window.postVote = postVote
@@ -35,5 +37,9 @@ window.cart = cart
 // RANGE
 window.reset = reset
 window.range = range
+
+// POSTVOTE
+window.findProduct = findProduct
+window.generateSku = generateSku
 
 Alpine.start();

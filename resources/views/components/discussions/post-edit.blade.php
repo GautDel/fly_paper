@@ -1,9 +1,8 @@
 @auth
     @if(Auth::user()->id === $post->user_id)
         <div  class="flex justify-end">
-            <form method="POST" action="/discussions/update">
+            <form method="GET" action="/discussion/update/{{$post->id}}">
                 @csrf
-                <input type="hidden" name="id" value="{{$post->id}}" />
                 <button class="text-xs font-semibold p-1 mr-2
                             border-dashed border hover-text
                             border-neutral-700">EDIT</button>

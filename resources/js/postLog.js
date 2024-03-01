@@ -1,8 +1,10 @@
 const token = document.head.querySelector('meta[name="csrf-token"]').content;
 
 export function postLog() {
+    const imageInput = document.querySelector('#imageInput');
+
     return {
-        formData: {
+        inputData: {
             fish: '',
             weight: '',
             mass_unit: 'kg',
@@ -27,21 +29,29 @@ export function postLog() {
             precise_time: '',
             water_clarity: '',
             water_movement: '',
+            visibility: 'false',
             note: '',
         },
 
         errors: '',
 
         async submit() {
+            // Necessary for multipart data with PHP. Breaks if removed
+            const formData = new FormData();
+
+            for (const name in this.inputData) {
+                formData.append(name, this.inputData[name]);
+            }
+
+            formData.append('image', imageInput.files[0])
 
             const res = await fetch('/journal/logs', {
                 method: 'POST',
                 headers: {
-                    "Content-Type": "application/json",
                     "X-CSRF-TOKEN": token
                 },
 
-                body: JSON.stringify(this.formData)
+                body: formData
             })
 
             const resData = await res.json()
@@ -51,7 +61,7 @@ export function postLog() {
                 JSON.parse(JSON.stringify(this.errors))
             }
 
-            if(res.status === 200) {
+            if (res.status === 200) {
                 window.location.href = '/journal/' + resData.redirect;
             }
         },

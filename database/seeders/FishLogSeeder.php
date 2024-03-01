@@ -16,6 +16,7 @@ class FishLogSeeder extends Seeder
         $data = [
             [
                 'fish' => 'Rainbow Trout',
+                'image' => 'test.png',
                 'weight' => 3.7,
                 'mass_unit' => 'kg',
                 'fish_length' => 2.2,

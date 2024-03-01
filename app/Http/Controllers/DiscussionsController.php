@@ -9,6 +9,7 @@ use App\Models\ForumPostCommentVote;
 use App\Models\ForumPostVote;
 use App\Models\ForumSection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DiscussionsController extends Controller
 {
@@ -110,15 +111,14 @@ class DiscussionsController extends Controller
     }
 
     public static function updatePost(Request $request) {
+
         $validator = Validator::make($request->all(), [
             'title' => 'required|min:5|max:255',
             'body' => 'required|min:5|max:1000',
-            'user_id' => 'required',
             'forum_section_id' => 'required'
         ]);
-
         if ($validator->fails()) {
-            return redirect("/discussions/update")
+            return redirect("/discussion/update/$request->id")
                         ->withErrors($validator)
                         ->withInput();
         }
@@ -129,7 +129,7 @@ class DiscussionsController extends Controller
             'title' => $request->title,
             'body' => $request->body,
             'slug' => Slug::create($request->title),
-            'user_id' => $request->user_id,
+            'user_id' => Auth::user()->id,
             'forum_section_id' => $request->forum_section_id,
         ]);
 
@@ -139,14 +139,10 @@ class DiscussionsController extends Controller
         return redirect("/discussions/$category->slug/$slug");
     }
 
-
-
-
     public function storeComment(Request $request) {
         $validator = Validator::make($request->all(), [
             'comment' => 'required|min:5|max:250',
             'forum_post_id' => 'required',
-            'user_id' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -159,7 +155,7 @@ class DiscussionsController extends Controller
         ForumPostComment::create([
             'comment' => $request->comment,
             'forum_post_id' => $request->forum_post_id,
-            'user_id' => $request->user_id
+            'user_id' => Auth::user()->id
         ]);
 
         return redirect("/discussions/$request->category/$request->slug#text");
@@ -214,12 +210,12 @@ class DiscussionsController extends Controller
 
         $vote = ForumPostCommentVote::updateOrInsert([
             'forum_post_comment_id' => $request->forum_post_comment_id,
-            'user_id' => $request->user_id
+            'user_id' => Auth::user()->id
         ],
         [
             'upvote' => filter_var($request->upvote, FILTER_VALIDATE_BOOLEAN),
             'forum_post_comment_id' => $request->forum_post_comment_id,
-            'user_id' => $request->user_id
+            'user_id' => Auth::user()->id
         ]);
 
         $comment = ForumPostComment::find($vote->first()->forum_post_comment_id);

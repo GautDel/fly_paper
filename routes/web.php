@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\DiscussionsController;
 use App\Http\Controllers\FlyController;
@@ -30,8 +31,8 @@ Route::get('/discussions', [DiscussionsController::class, 'render']);
 // DISCUSSION POST ROUTES
 Route::get('/discussions/create', [DiscussionsController::class, 'getCreatePostView'])->middleware('auth');
 Route::post('/discussions/create', [DiscussionsController::class, 'storePost'])->middleware('auth');
-Route::post('/discussions/update', [DiscussionsController::class, 'getUpdatePostView'])->middleware('auth');
-Route::put('/discussions/update', [DiscussionsController::class, 'updatePost'])->middleware('auth');
+Route::put('/discussion/update/{id}', [DiscussionsController::class, 'updatePost'])->middleware('auth');
+Route::get('/discussion/update/{id}', [DiscussionsController::class, 'getUpdatePostView'])->middleware('auth');
 Route::delete('/discussions/delete', [DiscussionsController::class, 'destroyPost'])->middleware('auth');
 
 Route::put('/discussions/upvote', [DiscussionsController::class, 'upvotePost'])->middleware('auth');
@@ -50,6 +51,7 @@ Route::put('/discussions/postcomment/upvote', [DiscussionsController::class, 'up
 Route::get('/wiki', [WikiController::class, 'render']);
 Route::get('/wiki/flies', [WikiController::class, 'render']);
 Route::get('/wiki/flies/{category}', [WikiController::class, 'getByCat']);
+Route::post('/wiki/search', [WikiController::class, 'search']);
 Route::get('/wiki/fly/{id}', [FlyController::class, 'render']);
 
 // FLY COMMENT ROUTES
@@ -63,7 +65,8 @@ Route::post('/market', [MarketController::class, 'getProducts']);
 Route::post('/market/category', [MarketController::class, 'getProductsByCategory']);
 Route::post('/market/filter', [MarketController::class, 'getProductsByFilter']);
 Route::get('/market/product/{id}', [MarketController::class, 'getProduct']);
-Route::post('/market/cart', [CartController::class, 'cart']);
+Route::post('/market/availability', [MarketController::class, 'checkAvailability'])->middleware('auth');
+Route::post('/market/cart', [CartController::class, 'cart'])->middleware('auth');
 
 // CART ROUTES
 Route::get('/cart', [CartController::class, 'render'])->middleware('auth');
@@ -73,7 +76,6 @@ Route::post('/cart/checkout', [CartController::class, 'checkoutView'])->middlewa
 Route::put('/cart/update', [CartController::class, 'updateCart'])->middleware('auth');
 Route::post('/cart/address', [CartController::class, 'createAddress'])->middleware('auth');
 Route::delete('/cart/delete', [CartController::class, 'destroyItem'])->middleware('auth');
-
 
 // ACCOUNT ROUTES
 Route::get('/account', [AccountController::class, 'render'])->middleware('auth');
@@ -90,18 +92,24 @@ Route::post('/journal/notes', [JournalController::class, 'storeNote'])->middlewa
 Route::delete('/journal/notes', [JournalController::class, 'destroyNote'])->middleware('auth');
 
 // LOG ROUTES
+Route::get('/logs', [JournalController::class, 'getAllLogs']);
 Route::post('/journal/logs', [JournalController::class, 'storeLog'])->middleware('auth');
 Route::delete('/journal/logs', [JournalController::class, 'destroyLog'])->middleware('auth');
 Route::get('/journal/logs/update', [JournalController::class, 'getUpdateLogView'])->middleware('auth');
 Route::put('/journal/logs', [JournalController::class, 'updateLog'])->middleware('auth');
 Route::get('/journal/{id}', [JournalController::class, 'getLog']);
 
-// TEST ROUTE
-Route::get('/test', [TestController::class, 'render']);
-Route::get('/test2', [TestController::class, 'render2']);
-
 // STRIPE
-Route::post('/checkout', [CartController::class, 'checkout']);
-Route::get('/checkout', [CartController::class, 'checkoutView']);
-Route::get('/checkout/success', [CartController::class, 'success']);
-Route::get('/checkout/cancel', [CartController::class, 'cancel']);
+Route::post('/checkout', [CartController::class, 'checkout'])->middleware('auth');
+Route::get('/checkout', [CartController::class, 'checkoutView'])->middleware('auth');
+Route::get('/checkout/success', [CartController::class, 'success'])->middleware('auth');
+Route::get('/checkout/cancel', [CartController::class, 'cancel'])->middleware('auth');
+
+// ADMIN
+Route::get('/admin', [AdminController::class, 'render'])->middleware('auth');
+Route::post('/admin/add_product', [AdminController::class, 'addProduct'])->middleware('auth');
+Route::post('/admin/add_category', [AdminController::class, 'addCategory'])->middleware('auth');
+Route::post('/admin/add_variation', [AdminController::class, 'addVariation'])->middleware('auth');
+Route::post('/admin/add_option', [AdminController::class, 'addOption'])->middleware('auth');
+Route::post('/admin/select_product', [AdminController::class, 'selectProduct'])->middleware('auth');
+Route::post('/admin/add_product_options', [AdminController::class, 'addProductOptions'])->middleware('auth');

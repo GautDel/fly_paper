@@ -1,5 +1,5 @@
 <article class="pt-12 border-b-2 border-neutral-700
-            md:border-b-0 md:border-r-2 md:w-1/2 grow">
+            md:border-b-0 md:border-r-2 md:w-1/2 grow relative">
 
     <div class="max-w-lg mx-auto">
         <h2 class="font-bold text-2xl pb-4 mx-4
@@ -12,7 +12,7 @@
 
                 <span class="font-semibold">TYPE:</span>
 
-                <span class="capitalize">{{Str::upper($fly->type)}}</span>
+                <span class="capitalize">{{Str::upper($fly->category->name)}}</span>
             </p>
 
             <p class="line-clamp-2">
@@ -42,7 +42,7 @@
                            md:py-4">READ MORE</button>
             </a>
 
-            <a href="/market/fly/{{$fly->id}}" class="w-full">
+            <a href="/market/product/{{$fly->id}}" class="w-full">
 
                 <button class="border w-full bg-neutral-700 text-newspaper
                                py-3 hover-bg
@@ -53,5 +53,5 @@
         </div>
 
         <p class="w-full bg-neutral-700 text-newspaper font-bold text-4xl
-              text-center pt-3 pb-2">{{Str::upper($fly->name)}}</p>
+              text-center pt-3 pb-2 md:absolute md:left-0 md:bottom-0 ">{{Str::upper($fly->name)}}</p>
 </article>

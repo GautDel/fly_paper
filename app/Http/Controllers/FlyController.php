@@ -7,6 +7,7 @@ use App\Models\Fly;
 use App\Models\FlyComment;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 
 class FlyController extends Controller {
 
@@ -27,7 +28,6 @@ class FlyController extends Controller {
         $validator = Validator::make($request->all(), [
             'comment' => 'required|min:5|max:250',
             'fly_id' => 'required',
-            'user_id' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -39,7 +39,7 @@ class FlyController extends Controller {
         FlyComment::create([
             'comment' => $request->comment,
             'fly_id' => $request->fly_id,
-            'user_id' => $request->user_id
+            'user_id' => Auth::user()->id
         ]);
 
         return redirect("wiki/fly/$request->fly_id#text");

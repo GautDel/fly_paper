@@ -156,12 +156,14 @@
                                bg-neutral-700 outline-none grow w-full
                                focus:border-solid" name="country">
                     <option selected value="france">France</option>
-                    <option value="germany">Germany</option>
+                    <option value="ireland">Ireland</option>
+                    <option value="sweden">Sweden</option>
                     <option value="austria">Austria</option>
                     <option value="italy">Italy</option>
-                    <option value="switzerland">Switzerland</option>
-                    <option value="spanish">Spanish</option>
+                    <option value="spain">Spain</option>
+                    <option value="belgium">Belgium</option>
                     <option value="poland">Poland</option>
+                    <option value="portugal">Portugal</option>
                 </select>
             </div>
             @error('country')

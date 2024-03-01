@@ -40,13 +40,13 @@
 @guest
 <div class="flex justify-start items-center">
     <a href="/login">
-        <button type="submit" class="rotate-90 font-bold text-sm hover-text"> < </button>
+        <button type="submit" class="rotate-90 font-bold text-sm hover-text"> &#x3c; </button>
     </a>
 
     <p class="font-semibold text-xs text-blue-900 mx-2">{{$comment->countVotes($comment->id)}}</p>
 
     <a href="/login">
-        <button type="submit" class="rotate-90 font-bold text-sm hover-text"> > </button>
+        <button type="submit" class="rotate-90 font-bold text-sm hover-text"> &#x3e; </button>
     </a>
 </div>
 @endguest

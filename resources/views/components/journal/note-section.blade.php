@@ -6,7 +6,8 @@
     <div x-data="{open: false}"
         class="mt-10 mb-8 w-full flex flex-col items-end">
 
-        <div class="flex justify-between w-full">
+        <div class="flex justify-between w-full items-center">
+            <p x-show="!open" class="font-semibold text-xl w-full text-right mr-4">ADD A NOTE</p>
             <p x-show="open" class="font-semibold text-xl">ADD A NOTE</p>
             <div x-show="!open"></div>
             <button @click="open = !open"
@@ -67,6 +68,7 @@
         </template>
     @empty
         <template x-if="postNote.notes.length === 0 ">
+            <p class="text-center font-normal px-4">You don't have any notes yet... why not add one?</p>
         </template>
     @endforelse
 

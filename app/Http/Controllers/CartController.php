@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\LineItem;
+use App\Models\Product;
 use App\Models\ShopOrder;
 use App\Models\ShoppingCart;
 use Throwable;
 use Validator;
 use App\Models\CartItem;
 use App\Models\ProductEntry;
+use App\Models\ProductVariation;
 use App\Models\ShippingAddress;
 use App\Models\VariationOption;
 use Illuminate\Http\Request;
@@ -20,8 +22,8 @@ class CartController extends Controller
     public static function render()
     {
         $cart = ShoppingCart::where('user_id', Auth::user()->id)->first();
-
         if ($cart) {
+
             $skuItems = CartItem::where('shopping_cart_id', $cart->id)
                 ->with('product')
                 ->with('productEntry')
@@ -47,10 +49,16 @@ class CartController extends Controller
     {
 
         $cart = ShoppingCart::where('user_id', Auth::user()->id)->first();
+
+        if(!$cart) {
+            return redirect('/cart');
+        }
+
         $cartItems = CartItem::where('shopping_cart_id', $cart->id)->count();
 
         $shippingAddresses = ShippingAddress::where('user_id', Auth::user()->id)
             ->get();
+
         if ($shippingAddresses === null) {
 
             return view('shipping');
@@ -202,6 +210,7 @@ class CartController extends Controller
             $order->update(['status' => 'paid']);
             $cartItems = CartItem::where('shopping_cart_id', $order->shopping_cart_id)->get();
             $lineItems = [];
+
             foreach($cartItems as $item) {
                 $lineItems[] = [
                     'shop_order_id' => $order->id,
@@ -209,6 +218,9 @@ class CartController extends Controller
                     'product_id' => $item->product_id,
                     'qty' => $item->qty,
                 ];
+
+                $item->productEntry->qty = $item->productEntry->qty - $item->qty;
+                $item->productEntry->save();
             };
 
             LineItem::insert($lineItems);
@@ -293,7 +305,26 @@ class CartController extends Controller
         );
 
         $sku = self::generateSKU($request->all());
+
         $skuProduct = ProductEntry::where('sku', $sku)->first();
+
+        // Check if product exists
+        if(!$skuProduct)  {
+            return redirect("/market/product/$request->product_id")->with('error', 'Product does not exist');
+        }
+
+        // Check if in stock
+        if($skuProduct->qty <= 0) {
+
+            return redirect("/market/product/$request->product_id")->with('error', 'Product is out of stock');
+        }
+
+        $product = Product::where('id', $request->product_id)->with('ratings')->first();
+
+        $variations = ProductVariation::where('product_category_id', $product->product_category_id)
+            ->with('options')->get();
+
+
         $cartItem = CartItem::where('product_entry_id', $skuProduct->id)->first();
 
         if ($cartItem) {

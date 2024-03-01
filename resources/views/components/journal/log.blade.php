@@ -45,11 +45,20 @@
             <p class="mr-1 font-normal"> #{{$log->hook_size}}</p>
         </div>
 
-        <div class="flex">
+        <div class="flex mb-2">
             <p class="font-semibold mr-2">LOCATION:</p>
             <p class="mr-2 text-blue-900 font-semibold">{{$log->location}}</p>
             @if($log->location === null)
                 <p class="mr-2 text-neutral-500 font-semibold">Secret spot</p>
+            @endif
+        </div>
+
+        <div class="flex">
+            <p class="font-semibold mr-2">VISIBILITY:</p>
+            @if($log->visibility === 1)
+                <p class="mr-2 text-blue-900 font-semibold">PRIVATE</p>
+            @else
+                <p class="mr-2 text-blue-900 font-semibold">PUBLIC</p>
             @endif
         </div>
     </div>

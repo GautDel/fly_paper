@@ -10,6 +10,7 @@ class FishLog extends Model
 {
     protected $fillable = [
         'fish',
+        'image',
         'weight',
         'mass_unit',
         'fish_length',
@@ -33,6 +34,7 @@ class FishLog extends Model
         'precise_time',
         'water_clarity',
         'water_movement',
+        'visibility',
         'note',
         'user_id'
     ];

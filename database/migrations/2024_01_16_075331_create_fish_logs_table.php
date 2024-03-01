@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('fish_logs', function (Blueprint $table) {
             $table->id();
             $table->string('fish', 100);
+            $table->string('image', 1000);
             $table->float('weight', 6, 2);
             $table->string('mass_unit', 10);
             $table->float('fish_length', 6, 2);

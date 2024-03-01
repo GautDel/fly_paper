@@ -38,8 +38,13 @@
         <p x-data="{ show: true }"
            x-show="show"
            x-init="setTimeout(() => show = false, 3000)"
-           class="absolute top-0 left-1/2 -translate-x-1/2 z-[99] bg-green-900
+           class="fixed top-0 left-1/2 -translate-x-1/2 z-[99] bg-green-900
                   w-1/2 text-center text-newspaper px-4 py-3 font-normal">{{Session::get('message')}}</p>
+        @endif
+
+        @if(Session::has('error'))
+        <p class="fixed top-0 left-1/2 -translate-x-1/2 z-[99] bg-red-900
+                  w-1/2 text-center text-newspaper px-4 py-3 font-normal">{{Session::get('error')}}</p>
         @endif
 
         <div class="sticky top-0 left-0 bg-newspaper z-50">

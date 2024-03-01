@@ -2,12 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class ForumPost extends Model
 {
@@ -22,10 +20,11 @@ class ForumPost extends Model
 
     public static function findBySlug(string $slug) {
 
-        $post = ForumPost::where('slug', $slug)->first();
+        $post = self::where('slug', $slug)->first();
 
         return $post;
     }
+
     public static function findNewest(int $amount) {
 
         $posts = ForumPost::latest()->take($amount)->get();
@@ -35,7 +34,7 @@ class ForumPost extends Model
 
     public static function findNewestBySection(int $amount, int $sectionId) {
 
-        $posts = ForumPost::where('forum_section_id', $sectionId)->take($amount)->get();
+        $posts = self::where('forum_section_id', $sectionId)->take($amount)->get();
 
         return $posts;
     }
@@ -65,7 +64,7 @@ class ForumPost extends Model
     }
 
     public function countVotes(int $id) {
-        $post = ForumPost::find($id);
+        $post = self::find($id);
         $upvotes = $post->forumPostVotes()->where('upvote', '=', true)->count();
         $downvotes = $post->forumPostVotes()->where('upvote', '=', false)->count();
         $votes = $upvotes - $downvotes;

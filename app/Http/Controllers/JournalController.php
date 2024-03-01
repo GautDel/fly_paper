@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 
 class JournalController extends Controller
 {
-    public static function render(Request $request) {
+    public static function render() {
 
         $notes = Note::where('user_id', Auth::user()->id)
                        ->orderBy('created_at', 'desc')
@@ -33,6 +33,12 @@ class JournalController extends Controller
                 'options' => $options,
                 'flyCategories' => $fly_categories
             ]);
+    }
+
+    public static function getAllLogs() {
+        $logs = FishLog::where('visibility', 0)->get();
+
+        return view('logs', ['logs' => $logs]);
     }
 
     public static function getUpdateLogView(Request $request) {
@@ -62,13 +68,12 @@ class JournalController extends Controller
             return response()->json(['errors'=>$validator->errors()], 422);
         }
 
-        $note = Note::create([
+        Note::create([
             'title' => $request->title,
             'body' => $request->body,
             'user_id' => Auth::user()->id
         ]);
 
-        $notes = Note::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->take(8)->get();
 
         return response()->json(200);
     }
@@ -81,7 +86,10 @@ class JournalController extends Controller
 
     public static function getNotes(Request $request) {
 
-        $notes = Note::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->take(8)->get();
+        $notes = Note::where('user_id', Auth::user()->id)
+                       ->orderBy('created_at', 'desc')
+                       ->take(8)
+                       ->get();
 
         return response()->json(["notes" => $notes], 200);
     }
@@ -92,8 +100,15 @@ class JournalController extends Controller
 
         $fly_categories = DB::table('fly_categories')->pluck('name');
 
+        $visibility = 0;
+        if($request->visibility === 'true') {
+            $visibility = 1;
+        } else if($request->visibility === 'false') {
+            $visibility = 0;
+        }
         $validator = Validator::make($request->all(), [
             'fish' => 'required|min:5|max:100',
+            'image' => 'required|image',
             'weight' => 'required|numeric',
             'mass_unit' => ['required', Rule::in($options['mass_units'])],
             'fish_length' => 'required|numeric',
@@ -116,15 +131,17 @@ class JournalController extends Controller
             'day_time' => ['required', Rule::in($options['day_times'])],
             'water_clarity' => 'required|min:2|max:50',
             'water_movement' => 'required|min:2|max:50',
-            'note' => 'required|min:5|max:500',
         ]);
 
         if ($validator->fails()) {
             return response()->json(['errors'=>$validator->errors()], 422);
         }
 
+        $path = $request->file('image')->store('public');
+
         $log = FishLog::create([
             'fish' => $request->fish,
+            'image' => $path,
             'weight' => $request->weight,
             'mass_unit' => $request->mass_unit,
             'fish_length' => $request->fish_length,
@@ -148,6 +165,7 @@ class JournalController extends Controller
             'precise_time' => $request->precise_time,
             'water_clarity' => $request->water_clarity,
             'water_movement' => $request->water_movement,
+            'visibility' => $visibility,
             'note' => $request->note,
             'user_id' => Auth::user()->id
         ]);

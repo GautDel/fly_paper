@@ -47,28 +47,33 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function flyComments(): HasMany {
+    public function flyComments(): HasMany
+    {
         return $this->hasMany(FlyComment::class);
     }
 
-    public function forumPosts(): HasMany {
+    public function forumPosts(): HasMany
+    {
         return $this->hasMany(ForumPost::class);
     }
 
-    public function forumPostComments(): HasMany {
+    public function forumPostComments(): HasMany
+    {
         return $this->hasMany(ForumPostComment::class);
     }
 
-    public function notes(): HasMany {
+    public function notes(): HasMany
+    {
         return $this->hasMany(Note::class);
     }
 
-    public function fishLogs(): HasMany {
+    public function fishLogs(): HasMany
+    {
         return $this->hasMany(FishLog::class);
     }
 
-    public function productRatings(): HasMany {
+    public function productRatings(): HasMany
+    {
         return $this->hasMany(ProductRating::class);
     }
-
 }

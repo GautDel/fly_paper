@@ -88,8 +88,6 @@
 
                 <input type="hidden" value="{{$fly->id}}" name="fly_id"/>
 
-                <input type="hidden" value="{{Auth::id()}}" name="user_id"/>
-
                 <div x-data="{ count: 0 }"
                     x-init="count = $refs.countme.value.length"
                     class="flex flex-col py-2">
