@@ -100,6 +100,7 @@ class MarketController extends Controller
 
     public static function checkAvailability(Request $request)
     {
+
         $sku = self::generateSKU($request->all());
 
         $productEntry = ProductEntry::where('sku', $sku)->first();
@@ -378,5 +379,9 @@ class MarketController extends Controller
             'products' => self::getProductData($productData),
             'totals' => $totals
         ]);
+    }
+
+    public static function rating(Request $request) {
+        return view('rating');
     }
 }

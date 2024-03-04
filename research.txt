@@ -31,10 +31,7 @@ BUG FIXES
     - Add more products and ratings to market section
     - Add more product variants
     ====> CONTENT
-    - GET VARIANTS BASED OFF SKU -> variant::with(options like so and so...)?
-    - Create Admin page where you can add product,
     - Add images for everything
-    - Show image on right of log card
     - Add table to link images to products
     - DEPLOYYYYYYY
 ----------------------------------

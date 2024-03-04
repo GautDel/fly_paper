@@ -310,7 +310,7 @@
                 <div class="flex">
                     <p class="font-semibold mr-1">Selected Product:</p>
                     <input type="text" name="product_id" value="{{session('product.id')}}" class="w-10 bg-newspaper font-semibold text-blue-900" disabled />
-                    <input type="hidden" name="product_id" value="{{session('product.id')}}" class="w-10 bg-newspaper font-semibold text-blue-900"/>
+                    <input type="hidden" name="product_id" value="{{session('product.id')}}" class="w-10 bg-newspaper font-semibold text-blue-900" />
                 </div>
                 <p class="font-semibold">Product Options</p>
                 <div class="flex flex-wrap">
@@ -342,55 +342,64 @@
                     border-2 border-neutral-700 p-3">
 
 
-            <p class="font-semibold">Product Stock</p>
+            <p class="font-semibold">PRODUCT STOCK</p>
 
             <p class="font-semibold">Products</p>
             <div class="flex flex-wrap">
-                get product
+                <!--                get product
                 then check all available entries
                 to add entry:
                     use radio button to select one from each variant
                     sku is auto generated
-                    qty is number input
+                    qty is number input -->
+
                 @foreach($products as $product)
-                <form method="POST" action="/admin/">
+                <form method="POST" action="/admin/select_product_entry">
                     @csrf
                     <input type="hidden" name="product_id" value="{{$product->id}}" />
-                    <button type="submit" class="bg-neutral-700 text-newspaper px-2 mx-1 my-1 font-normal">{{$product->name}}</button>
+                    <button type="submit" class="bg-neutral-700 text-newspaper px-2 mr-1 mb-1 font-normal">{{$product->name}}</button>
                 </form>
                 @endforeach
             </div>
 
-            @if(session('product'))
-            <form method="POST" action="/admin/add_product_options" class="mt-2">
-
+            @if(session('product_entry'))
+            <form method="POST" action="/admin/add_product_entries" class="mt-2">
                 @csrf
                 <div class="flex">
                     <p class="font-semibold mr-1">Selected Product:</p>
-                    <input type="text" name="product_id" value="{{session('product.id')}}" class="w-10 bg-newspaper font-semibold text-blue-900" disabled />
-                    <input type="hidden" name="product_id" value="{{session('product.id')}}" class="w-10 bg-newspaper font-semibold text-blue-900"/>
+                    <p class="bg-newspaper font-semibold text-blue-900"> {{session('product_entry.name')}}</p>
+
+                    <input type="hidden" name="product_id" value="{{session('product_entry.id')}}" />
                 </div>
-                <p class="font-semibold">Product Options</p>
+
+                <p class="font-semibold">Product Entries</p>
                 <div class="flex flex-wrap">
-                    <div class="flex flex-col">
+                    <div class="flex flex-wrap">
+                        @foreach(session('product_entries') as $entry)
+                        <div class="flex flex-col bg-neutral-700 text-newspaper mr-1 mb-1 p-2">
+                            <p class="font-semibold text-base">SKU:{{$entry->sku}}</p>
+                            <p class="text-sm font-normal">Qty: {{$entry->qty}}</p>
 
-                        @foreach($variations as $variation)
-                        @if(session('product.product_category_id') === $variation->product_category_id)
-                        <p class="font-semibold">{{Str::upper($variation->name)}}</p>
-                        <div class="flex flex-wrap ">
-                            @foreach($variation->options as $key => $option)
-                            <div class="flex items-center mx-1">
-                                <label class="font-semibold mr-1">{{$option->value}}</label>
-                                <input type="checkbox" name="option_{{$option->id}}" value="{{$option->id}}" />
-                            </div>
-                            @endforeach
                         </div>
-                        @endif
                         @endforeach
-
                     </div>
                 </div>
 
+                <label class="flex flex-col font-semibold"> Add Entry</label>
+                @foreach($variations as $variation)
+                @if(session('product_entry.product_category_id') === $variation->product_category_id)
+                <p class="font-semibold">{{Str::upper($variation->name)}}</p>
+                <div class="flex flex-wrap">
+                    @foreach($variation->options as $key => $option)
+                    <div class="flex items-center mx-1">
+                        <label class="font-semibold mr-1">{{$option->value}}</label>
+                        <input type="radio" name="option_{{$variation->name}}" value="{{$option->value}}">
+                    </div>
+                    @endforeach
+                </div>
+                @endif
+                @endforeach
+                <input type="number" placeholder="Quantity in stock" name="quantity"/>
                 <button type="submit" class="bg-neutral-700 text-newspaper font-semibold px-4 py-1 mt-2">ADD</button>
             </form>
             @endif

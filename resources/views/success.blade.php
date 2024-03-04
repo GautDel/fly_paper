@@ -1,5 +1,6 @@
 <x-layout>
-    <div class="mt-8 m-auto relative flex flex-col justify-center items-center
+    <div x-data="{moneyFormat: new Intl.NumberFormat('en-EU', {style:'currency', currency: 'EUR'})}"
+         class="mt-8 m-auto relative flex flex-col justify-center items-center
                 mx-4
                 md:w-7/12 md:mx-auto">
 
@@ -27,16 +28,16 @@
                 <div class="flex flex-col mx-auto pl-2 mb-3">
                     <div class="flex justify-between mb-2">
                         <p class="font-semibold">{{Str::upper($item->product->name)}}</p>
-                        <p class="font-normal">€{{$item->product->price * $item->qty}}</p>
+                        <p class="font-normal" x-text="`${moneyFormat.format('{{$item->product->price * $item->qty}}')} each`"></p>
                     </div>
                     <div class="flex justify-between mb-2">
                         <p class="text-sm">Qty: {{$item->qty}}</p>
-                        <p class="text-sm">€{{$item->product->price}} each</p>
+                        <p class="text-sm" x-text="`${moneyFormat.format('{{$item->product->price}}')} each`"></p>
                     </div>
 
                 </div>
                 @endforeach
-                <p class="w-full text-right font-semibold text-xl">SUBTOTAL: €{{$order->total_price}}</p>
+                <p class="w-full text-right font-semibold text-xl" x-text="` SUBTOTAL: ${moneyFormat.format('{{$order->total_price}}')}`"></p>
             </div>
         </div>
         <p class="font-normal text-sm mb-2">For more information on your order, check your account page under 'orders'</p>

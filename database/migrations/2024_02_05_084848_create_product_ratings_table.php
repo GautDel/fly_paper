@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('product_ratings', function (Blueprint $table) {
             $table->id();
             $table->string('comment', 255);
-            $table->boolean('recommend')->default(false);
+            $table->boolean('recommend')->default(0)->nullable();
             $table->tinyInteger('rating');
             $table->tinyInteger('quality');
             $table->tinyInteger('shipping');

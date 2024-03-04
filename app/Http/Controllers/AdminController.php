@@ -8,6 +8,7 @@ use App\Models\ProductVariation;
 use App\Models\VariationOption;
 use Validator;
 use App\Models\ProductCategory;
+use App\Models\ProductEntry;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -67,9 +68,13 @@ class AdminController extends Controller
                 ->withInput();
         }
 
+        $value = $request->value;
+        if(str_contains($request->value, ' ')) {
+            $value = str_replace(' ', '_', $value);
+        }
 
         VariationOption::create([
-            'value' => $request->value,
+            'value' => $value,
             'product_variation_id' => $request->product_variation_id,
         ]);
 
@@ -144,6 +149,19 @@ class AdminController extends Controller
         return redirect("/admin")->with($data);
     }
 
+    public static function selectProductEntry(Request $request)
+    {
+        $product = Product::where('id', $request->product_id)->with('category')->first();
+        $productEntries = ProductEntry::where('product_id', $product->id)->get();
+        $data = [
+            'message' => "Product $product->id selected",
+            'product_entry' => $product,
+            'product_entries' => $productEntries
+        ];
+
+        return redirect("/admin")->with($data);
+    }
+
     public static function addProductOptions(Request $request)
     {
 
@@ -165,5 +183,29 @@ class AdminController extends Controller
             ['product_id', 'variation_option_id', 'prod_opt_id']
         );
         return redirect("/admin")->with('message', 'Individual Product Options added successfully');
+    }
+
+
+    public static function addProductEntry(Request $request) {
+        $sku = "$request->product_id";
+        $qty = $request->quantity;
+
+        if($request->quantity === null) {
+            $qty = 0;
+        }
+
+        foreach($request->all() as $key => $option) {
+            if(str_contains($key, 'option') === true) {
+                $sku = $sku.'-'.$option;
+            }
+        }
+
+        ProductEntry::create([
+            'product_id' => $request->product_id,
+            'sku' => $sku,
+            'qty' => $qty
+        ]);
+
+        return redirect("/admin")->with('message', 'Product Entry created');
     }
 }

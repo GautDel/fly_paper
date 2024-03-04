@@ -32,24 +32,6 @@
 
                     <img @click="lg = true" class="max-w-full max-h-64 lg:max-h-full cursor-pointer " :src="chosenImg"></img>
                 </div>
-
-                <div class="border border-dashed border-neutral-700 px-2
-                            py-2 flex overflow-hidden lg:flex-col lg:mr-2
-                            items-center lg:w-24">
-
-                    <img @click="chosenImg = $el.src" class="w-28 grayscale hover-color cursor-pointer mx-2
-                                lg:mx-auto lg:my-1 aspect-square" src="https://images.pexels.com/photos/294674/pexels-photo-294674.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"></img>
-
-                    <img @click="chosenImg = $el.src" class="w-28 grayscale hover-color cursor-pointer mx-2
-                                lg:mx-auto lg:my-1 aspect-square" src="https://images.pexels.com/photos/1569002/pexels-photo-1569002.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"></img>
-
-                    <img @click="chosenImg = $el.src" class="w-28 grayscale hover-color cursor-pointer mx-2
-                                lg:mx-auto lg:my-1 aspect-square" src="https://images.pexels.com/photos/3099227/pexels-photo-3099227.jpeg"></img>
-
-                    <img @click="chosenImg = $el.src" class="w-28 grayscale hover-color cursor-pointer mx-2
-                                lg:mx-auto lg:my-1 aspect-square" src="https://images.pexels.com/photos/848737/pexels-photo-848737.jpeg"></img>
-
-                </div>
             </div>
         </div>
 
@@ -123,9 +105,9 @@
                         @if($option->variant->product_variation_id === $variation->id)
                         @if($key === count($variations) - 1)
 
-                        <button @click="[option = $event.target.getAttribute('id'), formStep = parseInt($refs.stepContainer.id) + 1]" id="{{$option->variant->value}}" :class="option === $el.id && '!bg-blue-900'" class="@if(session($variation->name) === $option->variant->value) bg-neutral-900 @else bg-neutral-700 @endif text-newspaper px-2 py-1 font-semibold hover-bg mr-2" type="submit">{{Str::upper($option->variant->value)}}</button>
+                        <button @click="[option = $event.target.getAttribute('id'), formStep = parseInt($refs.stepContainer.id) + 1]" id="{{$option->variant->value}}" :class="option === $el.id && '!bg-blue-900'" class="@if(session($variation->name) === $option->variant->value) bg-neutral-900 @else bg-neutral-700 @endif text-newspaper px-2 py-1 font-semibold hover-bg mr-2" type="submit">{{str_replace('_', ' ', Str::upper($option->variant->value))}}</button>
                         @else
-                        <button @click="[option = $event.target.getAttribute('id'), formStep = parseInt($refs.stepContainer.id) + 1]" id="{{$option->variant->value}}" :class="option === $el.id && '!bg-blue-900'" class="@if(session($variation->name) === $option->variant->value) bg-neutral-900 @else bg-neutral-700 @endif  text-newspaper px-2 py-1 font-semibold hover-bg mr-2" type="button">{{Str::upper($option->variant->value)}}</button>
+                        <button @click="[option = $event.target.getAttribute('id'), formStep = parseInt($refs.stepContainer.id) + 1]" id="{{$option->variant->value}}" :class="option === $el.id && '!bg-blue-900'" class="@if(session($variation->name) === $option->variant->value) bg-neutral-900 @else bg-neutral-700 @endif  text-newspaper px-2 py-1 font-semibold hover-bg mr-2" type="button">{{str_replace('_', ' ', Str::upper($option->variant->value))}}</button>
 
                         @endif
                         @endif
@@ -227,28 +209,31 @@
             <div class="flex w-full overflow-auto">
                 <div class="flex">
                     @foreach($suggestedProducts as $product)
-                    <div class="border border-neutral-700 w-40 my-2 mx-2">
-                        <img class="w-32 grayscale hover-color cursor-pointer
+
+                    <a href="/market/product/{{ $product->id }}">
+                        <div class="border border-neutral-700 w-40 my-2 mx-2">
+                            <img class="w-32 grayscale hover-color cursor-pointer
                                     mx-auto my-2 lg:mx-auto lg:my-1" src="https://images.pexels.com/photos/6478131/pexels-photo-6478131.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"></img>
 
-                        <div class="bg-neutral-700 text-newspaper font-semibold
+                            <div class="bg-neutral-700 text-newspaper font-semibold
                                     px-3 py-2">
 
-                            <p class="text-center">{{$product->name}}</p>
+                                <p class="text-center">{{$product->name}}</p>
 
-                            <div class="flex mt-1 items-center">
-                                <div class="mr-1 rounded-full w-2 h-2 bg-newspaper"></div>
-                                <div class="mr-1 rounded-full w-2 h-2 bg-newspaper"></div>
-                                <div class="mr-1 rounded-full w-2 h-2 bg-newspaper"></div>
-                                <div class="mr-1 rounded-full w-2 h-2 bg-neutral-700 border-2 text-newspaper"></div>
-                                <p class="text-xs text-neutral-400">{{$product->ratings->count()}}</p>
+                                <div class="flex mt-1 items-center">
+                                    <div class="mr-1 rounded-full w-2 h-2 bg-newspaper"></div>
+                                    <div class="mr-1 rounded-full w-2 h-2 bg-newspaper"></div>
+                                    <div class="mr-1 rounded-full w-2 h-2 bg-newspaper"></div>
+                                    <div class="mr-1 rounded-full w-2 h-2 bg-neutral-700 border-2 text-newspaper"></div>
+                                    <p class="text-xs text-neutral-400">{{$product->ratings->count()}}</p>
+                                </div>
+
+                                <p class="text-newspaper text-sm" x-text="moneyFormat.format('{{$product->price}}')"></p>
+
+                                <p class="text-neutral-400 text-xs">{{$product->brand}}</p>
                             </div>
-
-                            <p class="text-newspaper text-sm" x-text="moneyFormat.format('{{$product->price}}')"></p>
-
-                            <p class="text-neutral-400 text-xs">{{$product->brand}}</p>
                         </div>
-                    </div>
+                    </a>
                     @endforeach
                 </div>
             </div>

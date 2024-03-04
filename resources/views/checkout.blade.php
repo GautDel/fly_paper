@@ -1,5 +1,6 @@
 <x-layout>
-    <div class="mt-8 m-auto relative flex flex-col justify-center items-center
+    <div x-data="{moneyFormat: new Intl.NumberFormat('en-EU', {style:'currency', currency: 'EUR'})}"
+         class="mt-8 m-auto relative flex flex-col justify-center items-center
                 mx-4
                 md:w-6/12 md:mx-auto">
 
@@ -34,16 +35,16 @@
                         <div class="flex flex-col mx-auto pl-2 mb-3">
                             <div class="flex justify-between mb-2">
                                 <p class="font-semibold">{{Str::upper($cartItem->product->name)}}</p>
-                                <p class="font-normal">€{{$cartItem->product->price * $cartItem->qty}}</p>
+                                <p class="font-normal" x-text="moneyFormat.format('{{$cartItem->product->price * $cartItem->qty}}')"></p>
                             </div>
                             <div class="flex justify-between mb-2">
-                                <p class="text-sm">Qty: {{$cartItem->qty}}</p>
-                                <p class="text-sm">€{{$cartItem->product->price}} each</p>
+                                <p class="text-sm" >Qty: {{$cartItem->qty}}</p>
+                                <p class="text-sm" x-text="`${moneyFormat.format('{{$cartItem->product->price}}')} each`"></p>
                             </div>
 
                         </div>
                     @endforeach
-                <p class="w-full text-right font-semibold text-xl">SUBTOTAL: €{{$total}}</p>
+                <p class="w-full text-right font-semibold text-xl" x-text="`SUBTOTAL: ${moneyFormat.format('{{$total}}')}`"></p>
             </div>
 
             <div class="border border-dashed border-neutral-700 p-4 mb-2">

@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ProductEntry extends Model
 {
+
+    protected $fillable = [
+        'product_id',
+        'sku',
+        'qty',
+    ];
     public function cartItem():HasMany {
         return $this->hasMany(CartItem::class);
     }

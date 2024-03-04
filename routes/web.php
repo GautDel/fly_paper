@@ -67,6 +67,8 @@ Route::post('/market/filter', [MarketController::class, 'getProductsByFilter']);
 Route::get('/market/product/{id}', [MarketController::class, 'getProduct']);
 Route::post('/market/availability', [MarketController::class, 'checkAvailability'])->middleware('auth');
 Route::post('/market/cart', [CartController::class, 'cart'])->middleware('auth');
+Route::get('/market/rating/{id}', [CartController::class, 'rating'])->middleware('auth');
+Route::post('/market/rating/{id}', [CartController::class, 'addRating'])->middleware('auth');
 
 // CART ROUTES
 Route::get('/cart', [CartController::class, 'render'])->middleware('auth');
@@ -113,3 +115,5 @@ Route::post('/admin/add_variation', [AdminController::class, 'addVariation'])->m
 Route::post('/admin/add_option', [AdminController::class, 'addOption'])->middleware('auth');
 Route::post('/admin/select_product', [AdminController::class, 'selectProduct'])->middleware('auth');
 Route::post('/admin/add_product_options', [AdminController::class, 'addProductOptions'])->middleware('auth');
+Route::post('/admin/select_product_entry', [AdminController::class, 'selectProductEntry'])->middleware('auth');
+Route::post('/admin/add_product_entries', [AdminController::class, 'addProductEntry'])->middleware('auth');

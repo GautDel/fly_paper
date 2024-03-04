@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\LineItem;
 use App\Models\Product;
+use App\Models\ProductRating;
 use App\Models\ShopOrder;
 use App\Models\ShoppingCart;
 use Throwable;
@@ -50,7 +51,7 @@ class CartController extends Controller
 
         $cart = ShoppingCart::where('user_id', Auth::user()->id)->first();
 
-        if(!$cart) {
+        if (!$cart) {
             return redirect('/cart');
         }
 
@@ -211,7 +212,7 @@ class CartController extends Controller
             $cartItems = CartItem::where('shopping_cart_id', $order->shopping_cart_id)->get();
             $lineItems = [];
 
-            foreach($cartItems as $item) {
+            foreach ($cartItems as $item) {
                 $lineItems[] = [
                     'shop_order_id' => $order->id,
                     'product_entry_id' => $item->product_entry_id,
@@ -304,17 +305,18 @@ class CartController extends Controller
             ]
         );
 
+
         $sku = self::generateSKU($request->all());
 
         $skuProduct = ProductEntry::where('sku', $sku)->first();
 
         // Check if product exists
-        if(!$skuProduct)  {
+        if (!$skuProduct) {
             return redirect("/market/product/$request->product_id")->with('error', 'Product does not exist');
         }
 
         // Check if in stock
-        if($skuProduct->qty <= 0) {
+        if ($skuProduct->qty <= 0) {
 
             return redirect("/market/product/$request->product_id")->with('error', 'Product is out of stock');
         }
@@ -324,13 +326,13 @@ class CartController extends Controller
         $variations = ProductVariation::where('product_category_id', $product->product_category_id)
             ->with('options')->get();
 
-
         $cartItem = CartItem::where('product_entry_id', $skuProduct->id)->first();
 
         if ($cartItem) {
             $cartItem->qty = $cartItem->qty + $request->quantity;
             $cartItem->save();
         } else {
+
             $cartItem = CartItem::create([
                 'product_entry_id' => $skuProduct->id,
                 'product_id' => $request->product_id,
@@ -340,5 +342,60 @@ class CartController extends Controller
         }
 
         return redirect('/market')->with('message', Str::upper($cartItem->product->name) . ' added to cart');
+    }
+
+    public static function rating(Request $request)
+    {
+        $rating = ProductRating::where('user_id', Auth::user()->id)
+            ->where('product_id', $request->id)
+            ->exists();
+
+        $lineItem = LineItem::where('product_id', $request->id)->with(['shopOrder' => function ($query) {
+            $query->where('user_id', Auth::user()->id);
+        }])->first();
+
+        if (!$lineItem->shopOrder) {
+            return redirect('/account')->with('error', 'You have not purchased this item');
+        }
+
+        if ($rating === true) {
+            return redirect('/account')->with('error', 'You have already rated this product');
+        }
+
+        return view('rating', ['productId' => $request->id]);
+    }
+
+    public static function addRating(Request $request)
+    {
+
+
+        $validator = Validator::make($request->all(), [
+            'productId' => 'required',
+            'rating' => 'required',
+            'quality' => 'required',
+            'shipping' => 'required',
+            'service' => 'required',
+            'comment' => 'required|min:5|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect("/market/rating/$request->productId")
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+
+        ProductRating::create([
+            'comment' => $request->comment,
+            'recommend' => $request->recommend,
+            'rating' => $request->rating,
+            'quality' => $request->quality,
+            'shipping' => $request->shipping,
+            'service' => $request->service,
+            'user_id' => Auth::user()->id,
+            'product_id' => $request->productId,
+        ]);
+
+        return redirect('/account')->with('message', 'Product rating added successfully');
     }
 }
