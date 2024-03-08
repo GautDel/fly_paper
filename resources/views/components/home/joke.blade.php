@@ -18,7 +18,7 @@
         {{$joke->text_2}}
     </p>
     <p class="border border-dashed border-neutral-700 w-1/2 p-2 font-normal
-              md:w-full md:text-sm md:mb-10
+              md:w-full md:text-sm md:mb-10 text-blue-900
               lg:w-3/4">
 
         {{$joke->text_3}}

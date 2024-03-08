@@ -40,7 +40,7 @@
 
         <div class="flex w-full justify-end">
 
-            <button class="bg-neutral-700 text-newspaper font-semibold
+            <button class="bg-neutral-700 text-newspaper font-semibold hover-bg
                 px-6 py-1">SAVE</button>
         </div>
     </form>

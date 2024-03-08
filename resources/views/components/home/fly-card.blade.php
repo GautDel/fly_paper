@@ -12,7 +12,7 @@
 
                 <span class="font-semibold">TYPE:</span>
 
-                <span class="capitalize">{{Str::upper($fly->category->name)}}</span>
+                <span class="capitalize font-normal text-blue-900">{{Str::upper($fly->category->name)}}</span>
             </p>
 
             <p class="line-clamp-2">
@@ -25,11 +25,10 @@
         </div>
 
         <div class="max-w-md grayscale hover-color hover-border border border-dashed p-2
-                    border-neutral-700 mb-12 mx-4
+                    border-neutral-700 mb-8 mx-4 items-center justify-center flex
                     md:mx-10">
 
-            <img class="max-w-full"
-            src="https://images.pexels.com/photos/6478131/pexels-photo-6478131.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"></img>
+            <img class="max-w-full" src="{{$fly->getImage()}}"></img>
         </div>
 
         <div class="flex flex-row justify-evenly font-semibold mx-4 mb-10
@@ -38,7 +37,7 @@
             <a href="/wiki/fly/{{$fly->id}}" class="w-full mr-4">
 
                 <button class="border border-dashed border-neutral-700 w-full
-                           py-3 hover-border-solid
+                           py-3 hover-border-solid hover-text
                            md:py-4">READ MORE</button>
             </a>
 
@@ -50,8 +49,8 @@
             </a>
         </div>
 
-        </div>
+    </div>
 
-        <p class="w-full bg-neutral-700 text-newspaper font-bold text-4xl
+    <p class="w-full bg-neutral-700 text-newspaper font-bold text-4xl
               text-center pt-3 pb-2 md:absolute md:left-0 md:bottom-0 ">{{Str::upper($fly->name)}}</p>
 </article>

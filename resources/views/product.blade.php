@@ -24,13 +24,26 @@
             <x-market.product-recommended :product="$product" :suggestedProducts="$suggestedProducts" />
 
             <div class="flex flex-col lg:flex-row-reverse lg:h-96 justify-center
-                        max-w-lg lg:max-w-full">
+                        max-w-lg lg:max-w-full ">
 
                 <div class="grayscale hover-color hover-color justify-center
                             hover-border border border-dashed p-2 items-center
                             border-neutral-700 mb-2 lg:mb-0 h-full flex grow">
 
                     <img @click="lg = true" class="max-w-full max-h-64 lg:max-h-full cursor-pointer " :src="chosenImg"></img>
+                </div>
+
+                <div class="border border-dashed border-neutral-700 px-2
+                            py-2 flex lg:flex-col lg:mr-2
+                            items-center lg:w-24">
+
+                    <div class="w-full overflow-y-scroll flex lg:flex-col">
+                        @foreach($product->productImages as $image)
+                        <img @click="chosenImg = $el.src" class="w-28 grayscale hover-color cursor-pointer mx-2
+                                lg:mx-auto lg:my-1 aspect-square" src="{{$image->getImage()}}"></img>
+                        @endforeach
+
+                    </div>
                 </div>
             </div>
         </div>

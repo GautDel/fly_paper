@@ -2,18 +2,23 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class Fly extends Model
 {
-    public static function findAll() {
 
-        return  DB::table('flies')->get();
-    }
+    protected $fillable = [
+        'name',
+        'description',
+        'fish_species',
+        'tying',
+        'tactics',
+        'image',
+        'fly_category_id'
+    ];
 
     public static function findOne(int $id) {
 
@@ -21,8 +26,8 @@ class Fly extends Model
         return $fly;
     }
 
-    public function categories(): BelongsToMany {
-        return $this->belongsToMany(FlyCategories::class, 'fly_fly_category', 'fly_id', 'fly_category_id');
+    public function category(): BelongsTo {
+        return $this->belongsTo(FlyCategories::class, 'fly_category_id', 'id');
     }
 
     public function comments(): HasMany {
@@ -34,5 +39,9 @@ class Fly extends Model
         $fly = Fly::find($id);
         $comments = $fly->comments;
         return $comments;
+    }
+
+    public function getImage() {
+        return Storage::url($this->image);
     }
 }

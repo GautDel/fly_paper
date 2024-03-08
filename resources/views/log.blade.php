@@ -11,8 +11,23 @@
 
             <div class="max-w-lg grayscale hover-color hover-border border border-dashed p-2
                     border-neutral-700 mb-12 mx-auto">
+                @if($log->image === 'test.png')
+                <pre class="flex justify-center items-center md:text-sm lg:text-base">
+  o   o
+                  /^^^^^7
+    '  '     ,oO))))))))Oo,
+           ,'))))))))))))))), /{
+      '  ,'o  ))))))))))))))))={
+         >    ))))))))))))))))={
+         `,   ))))))\ \)))))))={
+           ',))))))))\/)))))' \{
+             '*O))))))))O*'
+     David Riley
+            </pre>
 
+                @else
                 <img class="max-w-full mx-auto" src="{{Storage::url($log->image)}}"></img>
+                @endif
             </div>
         </div>
         <div class="flex flex-wrap flex-col lg:flex-row justify-center lg:px-4 px-2">
@@ -102,7 +117,7 @@
                     <p class="font-semibold text-sm mr-2 whitespace-nowrap"><span class="font-bold">-></span> LOCATION:</p>
                     <span class="text-sm font-semibold text-blue-900 pr-2">{{$log->location}}</span>
                     @if($log->location === null)
-                        <span class="text-sm font-semibold text-neutral-500">Secret Spot</span>
+                    <span class="text-sm font-semibold text-neutral-500">Secret Spot</span>
                     @endif
                 </div>
 
@@ -110,7 +125,7 @@
                     <p class="font-semibold text-sm mr-2 whitespace-nowrap"><span class="font-bold">-></span> TIME OF DAY:</p>
                     <span class="text-sm font-normal pr-1">{{$log->day_time}}</span>
                     @if($log->precise_time !== null)
-                        <span class="text-sm font-normal">{{$log->precise_time}}</span>
+                    <span class="text-sm font-normal">{{$log->precise_time}}</span>
                     @endif
                 </div>
 
@@ -131,7 +146,7 @@
                     <p class="font-semibold text-sm mr-2 whitespace-nowrap"><span class="font-bold">-></span> WATER MOVEMENT:</p>
                     <span class="text-sm font-semibold text-blue-900 pr-2">{{$log->water_movement}}</span>
                     @if($log->water_movement === null)
-                        <span class="text-sm font-semibold text-neutral-500">Unknown</span>
+                    <span class="text-sm font-semibold text-neutral-500">Unknown</span>
                     @endif
                 </div>
             </fieldset>
@@ -144,7 +159,7 @@
                     <p class="font-semibold text-sm mr-2 whitespace-nowrap"><span class="font-bold">-></span> NOTE:</p>
                     <span class="text-sm font-semibold text-blue-900 pr-2">{{$log->note}}</span>
                     @if($log->note === null)
-                        <span class="text-sm font-semibold text-neutral-500">The Angler didn't leave a note...</span>
+                    <span class="text-sm font-semibold text-neutral-500">The Angler didn't leave a note...</span>
                     @endif
                 </div>
             </fieldset>

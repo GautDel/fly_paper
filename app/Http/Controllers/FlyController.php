@@ -14,7 +14,7 @@ class FlyController extends Controller {
 
     public function render(string $id) {
 
-        $fly = Fly::findOne($id);
+        $fly = Fly::where('id', $id)->with('category')->first();
         $comments = Fly::findComments($id);
 
         return view('fly', [

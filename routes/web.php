@@ -49,10 +49,17 @@ Route::put('/discussions/postcomment/upvote', [DiscussionsController::class, 'up
 
 // WIKI ROUTES
 Route::get('/wiki', [WikiController::class, 'render']);
-Route::get('/wiki/flies', [WikiController::class, 'render']);
-Route::get('/wiki/flies/{category}', [WikiController::class, 'getByCat']);
+Route::get('/wiki/flies', [WikiController::class, 'getAll']);
+Route::get('/wiki/flies/{category}', [WikiController::class, 'getFliesByCat']);
 Route::post('/wiki/search', [WikiController::class, 'search']);
 Route::get('/wiki/fly/{id}', [FlyController::class, 'render']);
+Route::get('/wiki/materials', [WikiController::class, 'getAllMaterials']);
+Route::get('/wiki/materials/{category}', [WikiController::class, 'getMaterialsByCat']);
+Route::get('/wiki/material/{id}', [WikiController::class, 'getMaterial']);
+Route::get('/wiki/fish_species', [WikiController::class, 'getAllFishSpecies']);
+Route::get('/wiki/fish_species/{category}', [WikiController::class, 'getFishSpeciesByCat']);
+Route::get('/wiki/species/{id}', [WikiController::class, 'getFishSpecies']);
+
 
 // FLY COMMENT ROUTES
 Route::post('/flycomment/create', [FlyController::class, 'store'])->middleware('auth');;
@@ -117,3 +124,9 @@ Route::post('/admin/select_product', [AdminController::class, 'selectProduct'])-
 Route::post('/admin/add_product_options', [AdminController::class, 'addProductOptions'])->middleware('auth');
 Route::post('/admin/select_product_entry', [AdminController::class, 'selectProductEntry'])->middleware('auth');
 Route::post('/admin/add_product_entries', [AdminController::class, 'addProductEntry'])->middleware('auth');
+Route::post('/admin/add_fly', [AdminController::class, 'addFly']);
+Route::post('/admin/add_fly_category', [AdminController::class, 'addFlyCategory']);
+Route::post('/admin/add_material_category', [AdminController::class, 'addMaterialCategory']);
+Route::post('/admin/add_material', [AdminController::class, 'addMaterial']);
+Route::post('/admin/add_fish_species_category', [AdminController::class, 'addFishSpeciesCategory']);
+Route::post('/admin/add_fish_species', [AdminController::class, 'addFishSpecies']);

@@ -7,9 +7,26 @@
 
 
         <div class="max-w-md grayscale hover-color hover-border border border-dashed p-2
-                    border-neutral-700
+                    border-neutral-700 flex justify-center items-center
                     ">
+            @if($log->image === 'test.png')
+            <pre class="flex justify-center items-center md:text-sm lg:text-base">
+  o   o
+                  /^^^^^7
+    '  '     ,oO))))))))Oo,
+           ,'))))))))))))))), /{
+      '  ,'o  ))))))))))))))))={
+         >    ))))))))))))))))={
+         `,   ))))))\ \)))))))={
+           ',))))))))\/)))))' \{
+             '*O))))))))O*'
+     David Riley
+            </pre>
+
+            @else
+
             <img class="max-w-full" src="{{Storage::url($log->image)}}"></img>
+            @endif
         </div>
 
         <div class="my-6 max-w-lg">
@@ -49,7 +66,7 @@
         <div class="flex flex-row justify-evenly font-semibold mb-4">
             <a class="w-full mr-4" href="/journal/{{$log->id}}">
                 <button class="border border-dashed border-neutral-700 w-full
-                            py-3 hover-border-solid
+                            py-3 hover-border-solid hover-text
                             md:py-4">VIEW LOG</button>
             </a>
 

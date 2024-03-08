@@ -5,29 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Support\Facades\DB;
 
 class FlyCategories extends Model
 {
-    use HasFactory;
-
-    public static function findOne(int $id) {
-
-        $category = FlyCategories::find($id);
-        return $category;
-    }
+    protected $fillable = [
+        'name'
+    ];
 
     public static function findAll() {
 
         $categories = FlyCategories::get();
         return $categories;
-    }
-
-    public static function findByCat(int $id) {
-
-        $category = FlyCategories::find($id);
-        $flies = $category->flies;
-        return $flies;
     }
 
     public function flies():BelongsToMany {

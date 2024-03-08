@@ -73,10 +73,24 @@
                         </div>
                         <div class="mb-2 grayscale hover-color mx-auto md:mb-0">
 
+                            @if($log->image === 'test.png')
+                            <pre class="flex justify-center items-center text-sm mr-2">
+  o   o
+                  /^^^^^7
+    '  '     ,oO))))))))Oo,
+           ,'))))))))))))))), /{
+      '  ,'o  ))))))))))))))))={
+         >    ))))))))))))))))={
+         `,   ))))))\ \)))))))={
+           ',))))))))\/)))))' \{
+             '*O))))))))O*'
+     David Riley
+            </pre>
+
+                            @else
                             <img class="max-w-full mx-auto" src="{{Storage::url($log->image)}}"></img>
+                            @endif
                         </div>
-
-
                     </div>
                 </a>
             </div>

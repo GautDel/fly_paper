@@ -63,8 +63,7 @@ class MarketController extends Controller
     public static function getProduct(Request $request)
     {
 
-        $product = Product::where('id', $request->id)->with('ratings')->with('options')->first();
-
+        $product = Product::where('id', $request->id)->with('ratings')->with('options')->with('productImages')->first();
         $variations = ProductVariation::where('product_category_id', $product->product_category_id)
             ->with('options')->get();
 

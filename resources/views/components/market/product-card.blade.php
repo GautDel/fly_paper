@@ -10,7 +10,7 @@
         </div>
         <div class="w-fit grayscale hover-color hover-border border border-dashed p-2
             border-neutral-700 mb-2 mr-2 ml-2 mt-2">
-            <img class="w-full " src="{{$product->getImage()}}">
+            <img class="w-full aspect-square" src="{{$product->getImage()}}">
         </div>
 
         <div class="bg-neutral-700 text-newspaper font-semibold px-3 py-2">

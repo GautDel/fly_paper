@@ -546,40 +546,6 @@ html {
   --tw-backdrop-sepia:  ;
 }
 
-.container {
-  width: 100%;
-}
-
-@media (min-width: 640px) {
-  .container {
-    max-width: 640px;
-  }
-}
-
-@media (min-width: 768px) {
-  .container {
-    max-width: 768px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .container {
-    max-width: 1024px;
-  }
-}
-
-@media (min-width: 1280px) {
-  .container {
-    max-width: 1280px;
-  }
-}
-
-@media (min-width: 1536px) {
-  .container {
-    max-width: 1536px;
-  }
-}
-
 .fixed {
   position: fixed;
 }
@@ -864,6 +830,10 @@ html {
   display: none;
 }
 
+.aspect-square {
+  aspect-ratio: 1 / 1;
+}
+
 .h-1 {
   height: 0.25rem;
 }
@@ -943,6 +913,10 @@ html {
 
 .w-2\/5 {
   width: 40%;
+}
+
+.w-28 {
+  width: 7rem;
 }
 
 .w-3 {
@@ -1330,6 +1304,11 @@ html {
 .py-1 {
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
+}
+
+.py-10 {
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
 }
 
 .py-2 {
@@ -2220,6 +2199,18 @@ input[type='radio']:checked:before {
     width: 33.333333%;
   }
 
+  .lg\:w-1\/4 {
+    width: 25%;
+  }
+
+  .lg\:w-1\/5 {
+    width: 20%;
+  }
+
+  .lg\:w-24 {
+    width: 6rem;
+  }
+
   .lg\:w-3\/4 {
     width: 75%;
   }
@@ -2253,16 +2244,16 @@ input[type='radio']:checked:before {
     flex-direction: row-reverse;
   }
 
+  .lg\:flex-col {
+    flex-direction: column;
+  }
+
   .lg\:items-start {
     align-items: flex-start;
   }
 
   .lg\:border-2 {
     border-width: 2px;
-  }
-
-  .lg\:border-b-2 {
-    border-bottom-width: 2px;
   }
 
   .lg\:border-neutral-700 {

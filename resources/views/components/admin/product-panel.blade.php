@@ -1,5 +1,5 @@
-<div x-data="{ open: true }" class="flex flex-col w-full px-6 py-2
-            lg:border-b-2 border-neutral-700">
+<div x-data="{ open: false }" class="flex flex-col w-full px-6 py-2
+            border-b-2 border-neutral-700">
 
     <div @click="open = ! open, refs.plus.remove()" class="flex justify-between items-center cursor-pointer">
 
@@ -10,9 +10,9 @@
         <p x-show="open" class="font-bold text-2xl">-</p>
     </div>
 
-    <div class="flex flex-col lg:flex-row">
+    <div class="flex flex-col lg:flex-row flex-wrap">
 
-        <div x-show="open" class="mx-auto lg:m-4 w-full mb-10
+        <div x-show="open" class="mx-auto lg:m-4 w-full lg:w-1/3 mb-10
                     border-2 border-neutral-700 p-3">
 
 
@@ -56,7 +56,7 @@
             </form>
         </div>
 
-        <div x-show="open" class="mx-auto lg:m-4 w-full mb-10
+        <div x-show="open" class="mx-auto lg:m-4 w-full lg:w-1/4 mb-10
                     border-2 border-neutral-700 p-3">
 
 
@@ -89,8 +89,8 @@
             </form>
         </div>
 
-        <div x-show="open" class="mx-auto lg:m-4 w-full mb-10
-                    border-2 border-neutral-700 p-3">
+        <div x-show="open" class="mx-auto lg:m-4 w-full lg:w-1/4 mb-10
+                    border-2 border-neutral-700 p-3 grow">
 
 
             <p class="font-semibold">VARIATION OPTIONS</p>
@@ -123,8 +123,8 @@
                 <button class="bg-neutral-700 text-newspaper font-semibold px-4 py-1 mt-2">ADD</button>
             </form>
         </div>
-        <div x-show="open" class="mx-auto lg:m-4 w-full mb-10
-                    border-2 border-neutral-700 p-3">
+        <div x-show="open" class="mx-auto lg:m-4 w-full lg:w-1/2 mb-10
+                    border-2 border-neutral-700 p-3 grow">
 
 
 
@@ -138,7 +138,7 @@
             </div>
 
 
-            <form class="px-4 mt-10 mx-auto md:w-6/12" action="/admin/add_product" method="POST" enctype="multipart/form-data">
+            <form class="px-4 mt-10 mx-auto md:w-full" action="/admin/add_product" method="POST" enctype="multipart/form-data">
                 @csrf
                 <p class="text-center font-semibold text-blue-900 text-2xl">ADD A PRODUCT</p>
                 <div class="flex flex-col mb-4 ">
@@ -174,7 +174,7 @@
                 </div>
 
                 <div class="flex flex-col w-full mb-4">
-                    <label class=" font-semibold text-sm mb-1">IMAGE</label>
+                    <label class=" font-semibold text-sm mb-1">PRIMARY IMAGE</label>
                     <div class="flex w-full">
                         <input type="file" name="image" accept="image/png, image/jpeg" />
                     </div>
@@ -183,6 +183,17 @@
                     <span class="text-red-800 font-normal mt-1 text-sm">{{$message}}</span>
                     @enderror
                 </div>
+                <div class="flex flex-col w-full mb-4">
+                    <label class=" font-semibold text-sm mb-1">OTHER IMAGES</label>
+                    <div class="flex w-full">
+                        <input type="file" name="images[]" accept="image/png, image/jpeg" multiple />
+                    </div>
+
+                    @error('images[]')
+                    <span class="text-red-800 font-normal mt-1 text-sm">{{$message}}</span>
+                    @enderror
+                </div>
+
 
                 <div class="flex flex-col mb-4 ">
 
@@ -260,7 +271,7 @@
 
                     <div class="flex w-full">
                         <select class="text-newspaper bg-neutral-700 font-semibold
-                                text-center text-xs md:text-sm px-2" name="product_category">
+                                text-center text-xs md:text-sm px-2 py-1" name="product_category">
                             @foreach($categories as $key => $category)
                             @if($category->parent_category_id)
                             <option value="{{$category->id}}">{{$category->name}}</option>
@@ -278,7 +289,7 @@
 
                 <div class="flex w-full justify-end items-center">
                     <button class="bg-neutral-700 text-newspaper font-semibold
-                px-6 py-1">ADD</button>
+                px-6 py-2 w-full">ADD</button>
                 </div>
             </form>
 
@@ -286,7 +297,7 @@
 
         </div>
 
-        <div x-show="open" class="mx-auto lg:m-4 w-full mb-10
+        <div x-show="open" class="mx-auto lg:m-4 w-full lg:w-1/5 mb-10
                     border-2 border-neutral-700 p-3">
 
 
@@ -338,7 +349,7 @@
             @endif
         </div>
 
-        <div x-show="open" class="mx-auto lg:m-4 w-full mb-10
+        <div x-show="open" class="mx-auto lg:m-4 w-full lg:w-1/5 mb-10
                     border-2 border-neutral-700 p-3">
 
 
@@ -346,12 +357,6 @@
 
             <p class="font-semibold">Products</p>
             <div class="flex flex-wrap">
-                <!--                get product
-                then check all available entries
-                to add entry:
-                    use radio button to select one from each variant
-                    sku is auto generated
-                    qty is number input -->
 
                 @foreach($products as $product)
                 <form method="POST" action="/admin/select_product_entry">
@@ -404,8 +409,5 @@
             </form>
             @endif
         </div>
-
-        <!-- end of container -->
-
     </div>
 </div>

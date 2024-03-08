@@ -11,8 +11,8 @@
 
             <span> > </span>
 
-            <a href="/wiki/flies/{{$fly->categories[0]->id}}">
-                <span class="cursor-pointer hover-text">{{$fly->categories[0]->name}}</span>
+            <a href="/wiki/flies/{{$fly->category->id}}">
+                <span class="cursor-pointer hover-text">{{$fly->category->name}}</span>
             </a>
         </p>
 
@@ -31,10 +31,10 @@
         </h1>
 
          <div class="max-w-md grayscale hover-color hover-border border border-dashed p-2
-                    border-neutral-700 mb-12 mx-auto">
+                    border-neutral-700 mb-12 mx-auto flex justify-center items-center">
 
             <img class="max-w-full"
-            src="https://images.pexels.com/photos/6478131/pexels-photo-6478131.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"></img>
+            src="{{$fly->getImage()}}"></img>
         </div>
 
         <div class=" flex w-full px-4 mb-8 md:mt-10 ">
@@ -77,7 +77,7 @@
                 <x-fly.comment :comment="$comment" :fly="$fly"/>
 
             @empty
-                <p>Looks like no one has commented on this fly yet... why don't you?</p>
+                <p class="font-normal text-sm text-center pb-4">Looks like no one has commented on this fly yet... why don't you?</p>
             @endforelse
 
             @auth

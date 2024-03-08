@@ -11,7 +11,7 @@
 
     <div x-show="open" @click.outside="open = false" class="w-full md:w-6/12 mx-auto">
 
-        @foreach($orders as $order)
+        @forelse($orders as $order)
 
         <div class="w-full border border-dashed border-neutral-700 mt-2 mb-4
                     px-4 pt-4">
@@ -50,6 +50,18 @@
             </div>
         </div>
 
-        @endforeach
+        @empty
+
+        <div class="flex flex-col w-full justify-center items-center border-2 border-neutral-700 py-10 mb-8">
+            <p class="text-center font-normal text-sm mb-2">You haven't made any purchases yet...</p>
+            <a href="/market" class="z-50 block w-fit h-full border border-dashed
+                          border-neutral-700 font-normal px-2 py-1 hover-text hover-border-solid">
+                Why not check out our market?
+            </a>
+
+        </div>
+
+        @endforelse
+
     </div>
 </div>
