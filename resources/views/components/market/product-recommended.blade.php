@@ -9,7 +9,7 @@
             <a href="/market/product/{{ $product->id }}">
                 <div class="border border-neutral-700 w-40 my-2 mx-2">
                     <img class="w-32 grayscale hover-color cursor-pointer
-                                    mx-auto my-2 lg:mx-auto lg:my-1" src="https://images.pexels.com/photos/6478131/pexels-photo-6478131.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"></img>
+                                    mx-auto my-2 lg:mx-auto lg:my-1" src="{{$product->getImage()}}"></img>
 
                     <div class="bg-neutral-700 text-newspaper font-semibold
                                     px-3 py-2">

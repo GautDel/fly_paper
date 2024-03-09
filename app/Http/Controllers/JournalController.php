@@ -253,7 +253,6 @@ class JournalController extends Controller
         return response()->json(["message" => 'Successfully deleted log'], 200);
     }
 
-
     public static function getLog(Request $request) {
 
         $log = FishLog::where('id', $request->id)->first();

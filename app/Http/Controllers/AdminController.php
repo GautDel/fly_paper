@@ -24,8 +24,8 @@ class AdminController extends Controller
     public static function render()
     {
 
-        if (Auth::user()->type === 'admin') {
 
+        if (Auth::user()->type === 'admin') {
             $categories = ProductCategory::get();
             $variations = ProductVariation::with('category')->with('options')->get();
             $products = Product::get();
@@ -55,6 +55,9 @@ class AdminController extends Controller
 
     public static function addCategory(Request $request)
     {
+        if (Auth::user()->type !== 'admin') {
+            abort(401);
+        }
 
         $validator = Validator::make($request->all(), [
             'name' => 'required',
@@ -77,6 +80,10 @@ class AdminController extends Controller
 
     public static function addOption(Request $request)
     {
+        if (Auth::user()->type !== 'admin') {
+            abort(401);
+        }
+
         $validator = Validator::make($request->all(), [
             'value' => 'required',
         ]);
@@ -88,7 +95,7 @@ class AdminController extends Controller
         }
 
         $value = $request->value;
-        if(str_contains($request->value, ' ')) {
+        if (str_contains($request->value, ' ')) {
             $value = str_replace(' ', '_', $value);
         }
 
@@ -103,6 +110,10 @@ class AdminController extends Controller
 
     public static function addVariation(Request $request)
     {
+
+        if (Auth::user()->type !== 'admin') {
+            abort(401);
+        }
 
         $validator = Validator::make($request->all(), [
             'name' => 'required',
@@ -125,6 +136,10 @@ class AdminController extends Controller
 
     public static function addProduct(Request $request)
     {
+        if (Auth::user()->type !== 'admin') {
+            abort(401);
+        }
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|min:5|max:255',
             'description' => 'required|min:5|max:1000',
@@ -157,7 +172,7 @@ class AdminController extends Controller
 
         $imagesPath = [];
 
-        foreach($request->file('images') as $image) {
+        foreach ($request->file('images') as $image) {
             $imagesPath[] = [
                 'product_id' => $product->id,
                 'image' => $image->store('public')
@@ -171,6 +186,10 @@ class AdminController extends Controller
 
     public static function selectProduct(Request $request)
     {
+        if (Auth::user()->type !== 'admin') {
+            abort(401);
+        }
+
         $product = Product::where('id', $request->product_id)->with('category')->first();
         $data = [
             'message' => "Product $product->id selected",
@@ -182,6 +201,10 @@ class AdminController extends Controller
 
     public static function selectProductEntry(Request $request)
     {
+        if (Auth::user()->type !== 'admin') {
+            abort(401);
+        }
+
         $product = Product::where('id', $request->product_id)->with('category')->first();
         $productEntries = ProductEntry::where('product_id', $product->id)->get();
         $data = [
@@ -195,6 +218,10 @@ class AdminController extends Controller
 
     public static function addProductOptions(Request $request)
     {
+
+        if (Auth::user()->type !== 'admin') {
+            abort(401);
+        }
 
         $data = [];
         foreach ($request->all() as $key => $option) {
@@ -217,17 +244,23 @@ class AdminController extends Controller
     }
 
 
-    public static function addProductEntry(Request $request) {
+    public static function addProductEntry(Request $request)
+    {
+        if (Auth::user()->type !== 'admin') {
+            abort(401);
+        }
+
         $sku = "$request->product_id";
+
         $qty = $request->quantity;
 
-        if($request->quantity === null) {
+        if ($request->quantity === null) {
             $qty = 0;
         }
 
-        foreach($request->all() as $key => $option) {
-            if(str_contains($key, 'option') === true) {
-                $sku = $sku.'-'.$option;
+        foreach ($request->all() as $key => $option) {
+            if (str_contains($key, 'option') === true) {
+                $sku = $sku . '-' . $option;
             }
         }
 
@@ -240,13 +273,18 @@ class AdminController extends Controller
         return redirect("/admin")->with('message', 'Product Entry created');
     }
 
-    public static function addFly(Request $request) {
+    public static function addFly(Request $request)
+    {
+        if (Auth::user()->type !== 'admin') {
+            abort(401);
+        }
+
         $validator = Validator::make($request->all(), [
-            'name' => 'required|min:5|max:100',
-            'description' => 'required|min:5|max:1000',
+            'fly_name' => 'required|min:5|max:100',
+            'fly_description' => 'required|min:5|max:1000',
             'fish_species' => 'required|min:5|max:1000',
-            'tying' => 'required|min:5|max:1000',
-            'tactics' => 'required|min:5|max:1000',
+            'fly_tying' => 'required|min:5|max:1000',
+            'fly_tactics' => 'required|min:5|max:1000',
             'image' => 'image',
             'fly_category' => 'required',
         ]);
@@ -260,11 +298,11 @@ class AdminController extends Controller
         $imagePath = $request->file('image')->store('public');
 
         Fly::create([
-            'name' => $request->name,
+            'name' => $request->fly_name,
             'description' => $request->fly_description,
             'fish_species' => $request->fish_species,
-            'tying' => $request->tying,
-            'tactics' => $request->tactics,
+            'tying' => $request->fly_tying,
+            'tactics' => $request->fly_tactics,
             'image' => $imagePath,
             'fly_category_id' => $request->fly_category
         ]);
@@ -273,7 +311,12 @@ class AdminController extends Controller
         return redirect("/admin")->with('message', 'Wiki Entry [FLY] created');
     }
 
-    public static function addFlyCategory(Request $request) {
+    public static function addFlyCategory(Request $request)
+    {
+
+        if (Auth::user()->type !== 'admin') {
+            abort(401);
+        }
 
         $validator = Validator::make($request->all(), [
             'fly_category_name' => 'required|min:5|max:100',
@@ -293,7 +336,12 @@ class AdminController extends Controller
         return redirect("/admin")->with('message', 'Fly Category created');
     }
 
-    public static function addMaterialCategory(Request $request) {
+    public static function addMaterialCategory(Request $request)
+    {
+        if (Auth::user()->type !== 'admin') {
+            abort(401);
+        }
+
         $validator = Validator::make($request->all(), [
             'material_category_name' => 'required|min:5|max:100',
         ]);
@@ -312,7 +360,11 @@ class AdminController extends Controller
         return redirect("/admin")->with('message', 'Material Category created');
     }
 
-    public static function addMaterial(Request $request) {
+    public static function addMaterial(Request $request)
+    {
+        if (Auth::user()->type !== 'admin') {
+            abort(401);
+        }
 
         $validator = Validator::make($request->all(), [
             'material_name' => 'required|min:5|max:100',
@@ -339,7 +391,12 @@ class AdminController extends Controller
         return redirect("/admin")->with('message', 'Material Category created');
     }
 
-    public static function addFishSpeciesCategory(Request $request) {
+    public static function addFishSpeciesCategory(Request $request)
+    {
+        if (Auth::user()->type !== 'admin') {
+            abort(401);
+        }
+
         $validator = Validator::make($request->all(), [
             'fish_species_category_name' => 'required|min:5|max:100',
         ]);
@@ -358,7 +415,11 @@ class AdminController extends Controller
         return redirect("/admin")->with('message', 'Fish Species Category created');
     }
 
-    public static function addFishSpecies(Request $request) {
+    public static function addFishSpecies(Request $request)
+    {
+        if (Auth::user()->type !== 'admin') {
+            abort(401);
+        }
 
         $validator = Validator::make($request->all(), [
             'fish_species_name' => 'required|min:5|max:100',

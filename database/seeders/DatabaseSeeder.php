@@ -18,24 +18,8 @@ class DatabaseSeeder extends Seeder
             OneLinerSeeder::class,
             JokeSeeder::class,
             FlyCategorySeeder::class,
-            FlySeeder::class,
-            FlyFlyCategorySeeder::class,
-            FlyCommentsSeeder::class,
-            ForumSectionSeeder::class,
-            ForumPostSeeder::class,
-            ForumPostCommentSeeder::class,
-            ForumPostVoteSeeder::class,
-            ForumCommentVoteSeeder::class,
-            NotesSeeder::class,
             FishLogSeeder::class,
             ProductCategoriesSeeder::class,
-            ProductsSeeder::class,
-            ProductVariationsSeeder::class,
-            ProductRatingsSeeder::class,
-            ProductEntriesSeeder::class,
-            VariationOptionsSeeder::class,
-            ShoppingCartsSeeder::class,
-            ProductVariantOptionSeeder::class
         ]);
     }
 }

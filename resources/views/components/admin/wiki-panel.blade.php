@@ -31,9 +31,9 @@
                     <input type="text" class="bg-newspaper border border-dashed p-1
                         font-semibold text-sm
                         border-neutral-700 outline-none text-blue-900
-                        focus:border-solid" placeholder="Adam's Fly" name="name" value="{{ old('name')}}" />
+                        focus:border-solid" placeholder="Adam's Fly" name="fly_name" value="{{ old('name')}}" />
 
-                    @error('name')
+                    @error('fly_name')
                     <span class="text-red-800 font-normal mt-1 text-sm">{{$message}}</span>
                     @enderror
                 </div>
@@ -88,10 +88,10 @@
                             <textarea type="text" class="bg-newspaper border border-dashed p-1
                             font-semibold w-full text-sm
                             border-neutral-700 outline-none text-blue-900
-                            focus:border-solid" name="tying" placeholder="Tying information">{{old('tying')}}</textarea>
+                            focus:border-solid" name="fly_tying" placeholder="Tying information">{{old('tying')}}</textarea>
                         </div>
 
-                        @error('tying')
+                        @error('fly_tying')
                         <span class="text-red-800 font-normal mt-1 text-sm">{{$message}}</span>
                         @enderror
                     </div>
@@ -108,10 +108,10 @@
                             <textarea type="text" class="bg-newspaper border border-dashed p-1
                             font-semibold w-full text-sm
                             border-neutral-700 outline-none text-blue-900
-                            focus:border-solid" name="tactics" placeholder="Fishing tactics">{{old('tactics')}}</textarea>
+                            focus:border-solid" name="fly_tactics" placeholder="Fishing tactics">{{old('tactics')}}</textarea>
                         </div>
 
-                        @error('tactics')
+                        @error('fly_tactics')
                         <span class="text-red-800 font-normal mt-1 text-sm">{{$message}}</span>
                         @enderror
                     </div>
