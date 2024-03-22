@@ -108,7 +108,7 @@
           \.'
                 </pre>
             <p class="py-2">There are no items in your cart</p>
-            <a href="/market" class="z-50 block w-full h-full border border-dashed
+            <a href="/market" class="z-40 block w-full h-full border border-dashed
                           border-neutral-700 font-normal px-2 py-1 hover-text">
                 Why not check out our market?
             </a>
