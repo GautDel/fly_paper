@@ -21,13 +21,15 @@
                 <p x-show="!show" @click="show = true" class="font-normal text-newspaper rotate-45 px-2">+</p>
                 <button x-show="show" type="submit" class="font-normal text-newspaper rotate-45 px-2">+</button>
             </form>
-            <a href="/market/product/{{$item->product->id}}" class="w-full flex items-center cursor-pointer">
+
                 <img class="w-32 h-full grayscale hover-color" src="https://images.pexels.com/photos/6478131/pexels-photo-6478131.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"></img>
 
-                <div class="w-full ml-2">
+                <div class="flex flex-col w-full ml-2">
 
-                    <div class="flex justify-between mb-2">
-                        <p class="font-bold text-md">{{Str::upper($item->product->name)}}</p>
+                    <div class="flex flex-col md:flex-row mb-2 relative md:items-center">
+			<p class="font-bold text-md mr-2">{{Str::upper($item->product->name)}}</p>
+			
+			<a href="/market/product/{{$item->product->id}}" class="w-fit text-newspaper bg-neutral-700 px-2 py-1 hover-bg text-xs font-normal">Go to product</a>
                     </div>
 
                     @foreach($item->variants as $key => $variant)
@@ -63,7 +65,6 @@
                 </div>
                 <p x-data class="font-bold self-end whitespace-nowrap" x-text="moneyFormat.format('{{$total}}')"></p>
 
-            </a>
         </div>
         @endforeach
         <div class="flex border border-dashed border-neutral-700 px-2
