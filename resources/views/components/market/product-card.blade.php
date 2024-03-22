@@ -1,6 +1,6 @@
 <a href="/market/product/{{ $product->id }}">
     <div class="max-w-xs border-2 border-neutral-700 m-4 h-fit cursor-pointer relative">
-        <div class="absolute top-0 right-0 z-50 flex">
+        <div class="absolute top-0 right-0 z-40 flex">
             @if($product->new)
             <p class="bg-neutral-700 px-4 py-1 font-semibold text-newspaper">NEW</p>
             @endif

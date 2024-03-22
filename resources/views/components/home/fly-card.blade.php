@@ -1,12 +1,10 @@
 <article class="pt-12 border-b-2 border-neutral-700
             md:border-b-0 md:border-r-2 md:w-1/2 grow relative">
 
-    <div class="max-w-lg mx-auto">
-        <h2 class="font-bold text-2xl pb-4 mx-4
-                   md:mx-10">FLY OF THE DAY</h2>
+    <div class="max-w-lg mx-auto px-4">
+        <h2 class="font-bold text-2xl pb-4">FLY OF THE DAY</h2>
 
-        <div class="mb-6 mx-4
-                    md:mx-10">
+        <div class="mb-6">
 
             <p class="pb-2">
 
@@ -24,15 +22,14 @@
 
         </div>
 
-        <div class="max-w-md grayscale hover-color hover-border border border-dashed p-2
-                    border-neutral-700 mb-8 mx-4 items-center justify-center flex
-                    md:mx-10">
+        <div class=" grayscale hover-color hover-border border border-dashed p-2
+                    border-neutral-700 mb-8 items-center justify-center flex
+                    md:mx-auto">
 
-            <img class="max-w-full" src="{{$fly->getImage()}}"></img>
+            <img class="max-w-xs" src="{{$fly->getImage()}}"></img>
         </div>
 
-        <div class="flex flex-row justify-evenly font-semibold mx-4 mb-10
-                    md:mx-10">
+        <div class="flex flex-row justify-evenly font-semibold mb-24">
 
             <a href="/wiki/fly/{{$fly->id}}" class="w-full mr-4">
 

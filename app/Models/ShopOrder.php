@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ShopOrder extends Model
 {
@@ -26,5 +27,9 @@ class ShopOrder extends Model
 
     public function lineItems(): HasMany {
         return $this->hasMany(LineItem::class);
+    }
+
+        public function user(): BelongsTo {
+        return $this->belongsTo(User::class);
     }
 }

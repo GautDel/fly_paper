@@ -622,6 +622,10 @@ html {
   z-index: 99;
 }
 
+.z-40 {
+  z-index: 40;
+}
+
 .m-4 {
   margin: 1rem;
 }
@@ -717,6 +721,10 @@ html {
 
 .mb-2 {
   margin-bottom: 0.5rem;
+}
+
+.mb-24 {
+  margin-bottom: 6rem;
 }
 
 .mb-3 {
@@ -1721,17 +1729,16 @@ input[type="range"]::-moz-range-thumb {
 }
 
 input[type="range"]::-webkit-slider-thumb {
-  position: absolute;
-  top: 0;
-  height: 20px;
-  width: 20px;
+  -webkit-appearance: none;
+  height: 22px;
+  width: 22px;
   z-index: 99;
   border-radius: 100%;
   border: 2px solid #404040;
   background-color: #F5F1F0;
   pointer-events: auto;
-  -webkit-appearance: none;
-          appearance: none;
+  -webkit-appearance: block;
+          appearance: block;
   cursor: pointer;
 }
 
@@ -1818,6 +1825,19 @@ input[type='radio']:before {
 
 input[type='radio']:checked:before {
   background: #404040;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  background: #F5F1F0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #404040;
+}
+
+::-webkit-scrollbar-corner {
+  background: #000;
 }
 
 .hover\:border-solid:hover {
@@ -1919,11 +1939,6 @@ input[type='radio']:checked:before {
 
   .md\:float-right {
     float: right;
-  }
-
-  .md\:mx-10 {
-    margin-left: 2.5rem;
-    margin-right: 2.5rem;
   }
 
   .md\:mx-auto {
@@ -2322,5 +2337,3 @@ input[type='radio']:checked:before {
     width: 75%;
   }
 }
-
-

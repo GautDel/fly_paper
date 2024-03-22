@@ -88,7 +88,7 @@
             </pre>
 
                             @else
-                            <img class="max-w-full mx-auto" src="{{Storage::url($log->image)}}"></img>
+                            <img class="max-w-sm mx-auto" src="{{Storage::url($log->image)}}"></img>
                             @endif
                         </div>
                     </div>

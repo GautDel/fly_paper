@@ -130,8 +130,8 @@ class CartController extends Controller
 
     public static function checkout(Request $request)
     {
-        $stripe = new \Stripe\StripeClient(env('STRIPE_KEY'));
         $cart = ShoppingCart::where('user_id', Auth::user()->id)->first();
+        $stripe = new \Stripe\StripeClient(env('STRIPE_KEY'));
         $cartItems = CartItem::where('shopping_cart_id', $cart->id)->get();
         $lineItems = [];
         $totalPrice = 0;
@@ -155,8 +155,8 @@ class CartController extends Controller
         $checkoutSession = $stripe->checkout->sessions->create([
             'line_items' => [$lineItems],
             'mode' => 'payment',
-            'success_url' => 'http://192.168.1.15/checkout/success?session_id={CHECKOUT_SESSION_ID}',
-            'cancel_url' => 'http://192.168.1.15/cart/checkout',
+            'success_url' => 'http://www.flypapershop.eu/checkout/success?session_id={CHECKOUT_SESSION_ID}',
+            'cancel_url' => 'http://www.flypapershop.eu/cart/checkout',
         ]);
 
         $cart = ShoppingCart::where('user_id', Auth::user()->id)->first();
@@ -350,9 +350,9 @@ class CartController extends Controller
             ->where('product_id', $request->id)
             ->exists();
 
-        $lineItem = LineItem::where('product_id', $request->id)->with(['shopOrder' => function ($query) {
-            $query->where('user_id', Auth::user()->id);
-        }])->first();
+	$lineItem = LineItem::whereHas('shopOrder', function ($query) {
+    		$query->where('user_id', Auth::user()->id);
+	})->first();
 
         if (!$lineItem->shopOrder) {
             return redirect('/account')->with('error', 'You have not purchased this item');

@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             JokeSeeder::class,
             FlyCategorySeeder::class,
             FishLogSeeder::class,
+	    ForumSectionSeeder::class,
             ProductCategoriesSeeder::class,
         ]);
     }

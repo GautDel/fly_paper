@@ -100,7 +100,7 @@
                 },
                 body: JSON.stringify({'addressId': addressId})
             });
-
+	
             const {clientSecret} = await response.json();
 
             window.location.href = clientSecret
